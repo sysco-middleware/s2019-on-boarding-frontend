@@ -3,7 +3,6 @@ import merge from 'lodash/merge'
 import { combineReducers } from 'redux'
 import { reducer as reduxFormReducer } from 'redux-form'
 
-// Updates an entity cache in response to any action with response.entities.
 const entities = (state = {}, action) => {
   const { type } = action
   if (type === ActionTypes.TASK_SUBMITTED_SUCCESS || type === ActionTypes.TASK_SUBMITTED_FAILURE) {

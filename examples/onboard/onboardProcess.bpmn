@@ -12,26 +12,26 @@
         <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1M</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0lxktgs" sourceRef="Task_105k8zh" targetRef="Task_1yfht2m" />
+    <bpmn:sequenceFlow id="SequenceFlow_0lxktgs" sourceRef="Task_105k8zh" targetRef="hrOnboard" />
     <bpmn:sequenceFlow id="SequenceFlow_1xyi9jj" sourceRef="BoundaryEvent_18xmrba" targetRef="Task_040rl0f" />
     <bpmn:serviceTask id="Task_040rl0f" name="Email reminder" camunda:type="external" camunda:topic="EmailReminder">
       <bpmn:incoming>SequenceFlow_1xyi9jj</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0ulv8ow</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:boundaryEvent id="BoundaryEvent_18xmrba" name="Every 24h" cancelActivity="false" attachedToRef="Task_1yfht2m">
+    <bpmn:boundaryEvent id="BoundaryEvent_18xmrba" name="Every 24h" cancelActivity="false" attachedToRef="hrOnboard">
       <bpmn:outgoing>SequenceFlow_1xyi9jj</bpmn:outgoing>
       <bpmn:timerEventDefinition>
         <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1M</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0a89nxs" sourceRef="Task_1yfht2m" targetRef="Task_1hve6mx" />
-    <bpmn:userTask id="Task_1hve6mx" name="Check access">
+    <bpmn:sequenceFlow id="SequenceFlow_0a89nxs" sourceRef="hrOnboard" targetRef="checkFormOnboard" />
+    <bpmn:userTask id="checkFormOnboard" name="Check access">
       <bpmn:incoming>SequenceFlow_0a89nxs</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_18rskeo</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="SequenceFlow_06yj7yn" sourceRef="BoundaryEvent_0ttn6fw" targetRef="Task_1egt3k2" />
-    <bpmn:sequenceFlow id="SequenceFlow_18rskeo" sourceRef="Task_1hve6mx" targetRef="Task_1e92z9r" />
-    <bpmn:boundaryEvent id="BoundaryEvent_0ttn6fw" name="Every 24h" cancelActivity="false" attachedToRef="Task_1hve6mx">
+    <bpmn:sequenceFlow id="SequenceFlow_18rskeo" sourceRef="checkFormOnboard" targetRef="Task_1e92z9r" />
+    <bpmn:boundaryEvent id="BoundaryEvent_0ttn6fw" name="Every 24h" cancelActivity="false" attachedToRef="checkFormOnboard">
       <bpmn:outgoing>SequenceFlow_06yj7yn</bpmn:outgoing>
       <bpmn:timerEventDefinition>
         <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1M</bpmn:timeCycle>
@@ -65,11 +65,11 @@
       <bpmn:incoming>SequenceFlow_18rskeo</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_18tzq2x</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Task_105k8zh" name="Servicedesk done">
+    <bpmn:userTask id="Task_105k8zh" name="Servicedesk done" camunda:formKey="sdOnboard">
       <bpmn:incoming>SequenceFlow_0z3mqhg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0lxktgs</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Task_1yfht2m" name="HR done">
+    <bpmn:userTask id="hrOnboard" name="HR done">
       <bpmn:incoming>SequenceFlow_0lxktgs</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0a89nxs</bpmn:outgoing>
     </bpmn:userTask>
@@ -119,7 +119,7 @@
         <di:waypoint x="727" y="121" />
         <di:waypoint x="883" y="121" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_187rzty_di" bpmnElement="Task_1hve6mx">
+      <bpmndi:BPMNShape id="UserTask_187rzty_di" bpmnElement="checkFormOnboard">
         <dc:Bounds x="883" y="81" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_06yj7yn_di" bpmnElement="SequenceFlow_06yj7yn">
@@ -180,7 +180,7 @@
       <bpmndi:BPMNShape id="UserTask_02uuq8q_di" bpmnElement="Task_105k8zh">
         <dc:Bounds x="371" y="81" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="UserTask_17ek7up_di" bpmnElement="Task_1yfht2m">
+      <bpmndi:BPMNShape id="UserTask_17ek7up_di" bpmnElement="hrOnboard">
         <dc:Bounds x="627" y="81" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>

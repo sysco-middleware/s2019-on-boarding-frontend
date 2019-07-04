@@ -24,14 +24,6 @@ const callApi = (endpoint, schema, settings = {}) => {
     )
 }
 
-// We use this Normalizr schemas to transform API responses from a nested form
-// to a flat form where repos and users are placed in `entities`, and nested
-// JSON objects are replaced with their IDs. This is very convenient for
-// consumption by reducers, because we can easily build a normalized tree
-// and keep it updated as we fetch more data.
-
-// Read more about Normalizr: https://github.com/paularmstrong/normalizr
-
 const processDefinitionSchema = new schema.Entity('processDefinition', {}, {
   id: processDefinition => processDefinition.id,
   name: processDefinition => processDefinition.name
@@ -75,7 +67,6 @@ const taskVariableArraySchema = new schema.Entity('taskVariables', {}, {
 
 const processDeploymentSchema = new schema.Entity('processDeployment', {}, {})
 
-// Schemas for Github API responses.
 export const Schemas = {
   PROCESS_DEFINITION: processDefinitionSchema,
   PROCESS_DEFINITION_ARRAY: [processDefinitionSchema],

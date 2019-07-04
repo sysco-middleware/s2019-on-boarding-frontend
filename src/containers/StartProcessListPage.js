@@ -24,7 +24,7 @@ class StartProcessListPage extends Component {
 
     if (!processDefinition) {
       return (
-        <div><p>Loading process definitions...</p></div>
+        <div><p>Laster prosess definisjoner ... </p></div>
       )
     } else {
       Object.keys(processDefinition).forEach((id) => {
@@ -35,10 +35,10 @@ class StartProcessListPage extends Component {
 
       return (
         <Container text>
-          <Header as='h2'>Choose process to start</Header>
+          <Header as='h2'>Hvilken prosess vil du starte?</Header>
           <List renderItem={this.renderProcess}
             items={processDefinition}
-            loadingLabel={`Loading process definitions...`}
+            loadingLabel={`Laster prosess definisjoner ... `}
             />
         </Container>
       )
