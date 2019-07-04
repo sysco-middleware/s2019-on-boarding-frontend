@@ -2,8 +2,17 @@ import React, { Component } from 'react'
 import { deployProcess } from '../actions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Form, Button } from 'semantic-ui-react'
 import FileReaderInput from 'react-file-reader-input'
+
+//  Material UI
+import { withStyles } from "@material-ui/core/styles";
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+});
 
 class DeployProcess extends Component {
   handleChange = (e, results) => {
@@ -18,13 +27,14 @@ class DeployProcess extends Component {
   }
 
   render() {
+    const {classes} = this.props;
     if (!this.props.processDeployment) {
       return (
-        <Form>
+        <React.Fragment>
           <FileReaderInput as="binary" id="my-file-input" onChange={this.handleChange}>
-            <Button primary>Select a BPMN file that you want to deploy to the Engine!</Button>
+            <Button variant="contained" className={classes.button}>Velg en BPMN fil du vil deploye til camunda</Button>
           </FileReaderInput>
-        </Form>
+      </React.Fragment>  
       )
     } else {
       return (
@@ -42,6 +52,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, {
+export default withStyles(styles)(withRouter(connect(mapStateToProps, {
   deployProcess
-})(DeployProcess))
+})(DeployProcess)))

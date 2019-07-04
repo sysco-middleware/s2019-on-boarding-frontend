@@ -1,7 +1,20 @@
+//  React
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import { List, Grid } from 'semantic-ui-react'
+
+//  Material UI
+import { Grid } from 'semantic-ui-react'
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/Inbox';
+import Container from '@material-ui/core/Container';
+
+
+//  Components
 import { loadTasks } from '../actions'
 import Taskform from '../components/Taskform'
 import sortBy from 'lodash/sortBy'
@@ -11,16 +24,21 @@ class TasklistPage extends Component {
     this.props.loadTasks();
   }
 
+// <Link to={`/tasklist/${task.processDefinitionId}/${task.id}`}>
+
+
+
   renderItem(task) {
-    return (<List.Item key={task.id}>
-      <List.Icon name='browser' size='large' verticalAlign='middle' />
-      <List.Content>
-        <Link to={`/tasklist/${task.processDefinitionId}/${task.id}`}>
-          <List.Header>{task.name}</List.Header>
-          <List.Description>{task.created}</List.Description>
-        </Link>
-      </List.Content>
-    </List.Item>)
+    return (
+      <Link to={`/tasklist/${task.processDefinitionId}/${task.id}`}>
+        <ListItem button key={task.id}>
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary={task.name} secondary={task.created} />
+        </ListItem>
+      </Link>
+    )
   }
 
   render() {
@@ -29,14 +47,19 @@ class TasklistPage extends Component {
     if (this.props.processDefinitionId) {
       taskForm = <Taskform/>
     } else {
-      taskForm = <div>Please choose task.</div>
+      taskForm = <Typography variant="h5" gutterBottom>
+      Vennligst velg en oppgave.
+    </Typography>
     }
 
     if (!task) {
-      return (<div>Loading tasks</div>)
+      return (<Typography variant="h5" gutterBottom>
+      Laster Oppgaver ... 
+    </Typography>)
     } else {
       task = sortBy(task, 'created').reverse()
       return (
+      <Container fixed>
         <Grid divided>
           <Grid.Row>
             <Grid.Column width={4}>
@@ -49,6 +72,7 @@ class TasklistPage extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+      </Container>
       )
     }
   }

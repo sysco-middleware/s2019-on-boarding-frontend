@@ -11,7 +11,6 @@ class TaskForm extends Component {
   }
 
   render() {
-
     const { taskId, processDefinitionId, formKey, processDefinition, redirect, simpleForm } = this.props
     if (redirect) {
       return (
@@ -21,6 +20,9 @@ class TaskForm extends Component {
     if (formKey && processDefinition && processDefinition[processDefinitionId] != null) {
       const process = processDefinition[processDefinitionId].key
       const key = formKey['undefined'].key
+
+      //console.log("processDefinitionKey" + process);
+      //console.log("Form key" + key);
       return (
         <div>
           <GenericForm form={simpleForm} taskId={taskId} formKey={key} processDefinitionKey={process} />

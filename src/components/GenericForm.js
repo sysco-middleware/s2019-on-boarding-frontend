@@ -11,7 +11,9 @@ class GenericForm extends Component {
   }
 
   render() {
-    const { formKey, processDefinitionKey, taskId } = this.props
+    const { formKey, processDefinitionKey, taskId } = this.props;
+    //console.log("Processdef key: " + processDefinitionKey);
+    //console.log("Form key: " + formKey);
     const Form = FormTypes[processDefinitionKey][formKey]
     if (taskId == null) {
       return (

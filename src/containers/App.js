@@ -1,16 +1,21 @@
+//  React
 import React from 'react'
 import { connect } from 'react-redux'
-import { Container, Header } from 'semantic-ui-react'
-import DeployProcess from '../components/DeployProcess'
+
+//  Material UI
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+
+//  Components
+import DeployProcess from '../components/DeployProcess';
+
 
 const App = ({actions, children}) => (
   <div>
-    <Container text>
-      <Header as='h2'>Demo Application</Header>
-      <p>If this is the first time you are running this application, you might want to upload an example BPMN process.
-      All you need to do is to upload the example BPMN file by clicking on the following button and choose the BPMN file in /examples/myprocess/myprocess.bpmn</p>
-      <p>After uploading the process you should probably go to "Start Process" and choose the "My Process" Process.</p>
-      <DeployProcess/>
+    <Container fixed>
+      <Typography variant="h4" gutterBottom>Sysco Onboard</Typography>
+      <Typography variant="h6" gutterBottom>Dette er camunda tasklist laget i react. For å starte en ny prosess i camunda kan du velge filen i filvelgeren under. </Typography>
+      <DeployProcess />
     </Container>
   </div>
 )

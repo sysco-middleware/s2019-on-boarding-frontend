@@ -7,7 +7,6 @@ import StartProcessPage from './StartProcessPage'
 import StartProcessListPage from './StartProcessListPage'
 import TasklistPage from './TasklistPage'
 import Header from '../components/Header'
-import Footer from '../components/Footer'
 
 const Root = ({ store }) => (
   <Provider store={store}>
@@ -18,7 +17,6 @@ const Root = ({ store }) => (
       <Route path="/startprocess/list" component={StartProcessListPage}/>
       <Route path="/tasklist" component={TasklistPage} exact/>
       <Route path="/tasklist/:processDefinitionId/:taskId" component={TasklistPage}/>
-      <Footer/>
     </div>
   </Provider>
 )
