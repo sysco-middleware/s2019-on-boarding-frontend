@@ -21,8 +21,6 @@ class TaskForm extends Component {
       const process = processDefinition[processDefinitionId].key
       const key = formKey['undefined'].key
 
-      //console.log("processDefinitionKey" + process);
-      //console.log("Form key" + key);
       return (
         <div>
           <GenericForm form={simpleForm} taskId={taskId} formKey={key} processDefinitionKey={process} />

@@ -15,7 +15,7 @@ export default class List extends Component {
 
   static defaultProps = {
     isFetching: true,
-    loadingLabel: 'Loading...'
+    loadingLabel: 'Laster ... '
   }
 
   renderLoadMore() {
@@ -24,7 +24,7 @@ export default class List extends Component {
       <button style={{ fontSize: '150%' }}
               onClick={onLoadMoreClick}
               disabled={isFetching}>
-        {isFetching ? 'Loading...' : 'Load More'}
+        {isFetching ? 'Laster ... ' : 'Last flere'}
       </button>
     )
   }
@@ -41,7 +41,7 @@ export default class List extends Component {
 
     const isLastPage = !nextPageUrl
     if (isEmpty && isLastPage) {
-      return <h1><i>Nothing here!</i></h1>
+      return <h1><i>Ingeting her.</i></h1>
     }
 
     return (

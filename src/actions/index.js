@@ -23,7 +23,6 @@ export const loadProcessDefinitionsWithXML = (processDefinitionId) => (dispatch,
     data.response.result.forEach((id) => {
       dispatch(ProcessDefinitionActions.fetchProcessDefinitionXML(id))
     });
-
   })
 }
 

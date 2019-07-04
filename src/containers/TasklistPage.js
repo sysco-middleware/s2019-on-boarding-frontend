@@ -24,14 +24,10 @@ class TasklistPage extends Component {
     this.props.loadTasks();
   }
 
-// <Link to={`/tasklist/${task.processDefinitionId}/${task.id}`}>
-
-
-
   renderItem(task) {
     return (
-      <Link to={`/tasklist/${task.processDefinitionId}/${task.id}`}>
-        <ListItem button key={task.id}>
+      <Link onClick={this.forceUpdate} to={`/tasklist/${task.processDefinitionId}/${task.id}`}>
+        <ListItem button key={task.id} >
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
