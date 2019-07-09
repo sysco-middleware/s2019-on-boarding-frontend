@@ -9,7 +9,7 @@ let SimpleForm = props => {
   const { handleSubmit } = props
   return (
     <Form onSubmit={handleSubmit}>
-    <legend>Admin/Finance</legend>
+    <legend>Admin/Finance Department</legend>
     <Field name='firstName' component={InputField} label='First Name' placeholder='First Name'
         disabled={true}
     validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>

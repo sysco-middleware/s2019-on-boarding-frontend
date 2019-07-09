@@ -9,24 +9,14 @@ let SimpleForm = props => {
   const { handleSubmit } = props
   return (
     <Form onSubmit={handleSubmit}>
-    <legend>Admin/Finance</legend>
-    <Field name='firstName' component={InputField} label='First Name' placeholder='First Name'
-        disabled={true}
-    validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
-    <Field name='lastName' component={InputField} label='Last Name' placeholder="Last Name"
-        disabled={true}
-    validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
-    <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail"
-      disabled={true}
-      validate={[ Validation.required, Validation.email]}/>
-      <Field name='workplace' component={InputField} label='Workplace and orgnisation structure' placeholder="Personal E-Mail"
-      disabled={true}
-      validate={[ Validation.required]}/>
-      <Field name='Equipment' component={InputField} label='Equipment' placeholder='Equipment' disabled ={true}
-        validate={[ Validation.required]}/>
+      <legend>HR department</legend>
+      <Field name='firstName' component={InputField} label='First Name' placeholder='First Name'disabled={true}/>
+      <Field name='lastName' component={InputField} label='Last Name' placeholder="Last Name" disabled={true}/>
+      <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail" disabled={true}/>
+      <Field name='workplace' component={InputField} label='Workplace and orgnisation structure' placeholder="Workplace and orgnisation structure" validate={[ Validation.required]}/>
+      <Field name='equipment' component={InputField} label='Equipment' placeholder='Equipment' disabled ={true}/>
       <Form.Group>
-        
-        <Field name='equipmnet' component={CheckboxField} label='Equipment is ordered' />
+          <Field name='equipmnet' component={CheckboxField} label='Equipment is ordered' />
       </Form.Group>
       <Form.Field control={Button} primary type='submit'>Complete</Form.Field>
     </Form>
