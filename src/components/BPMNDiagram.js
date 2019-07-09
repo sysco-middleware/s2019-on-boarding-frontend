@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Viewer from 'bpmn-js/lib/NavigatedViewer';
 
 export default class BPMNDiagram extends React.Component {

@@ -11,51 +11,56 @@ const client = new Client(config);
 
 client.subscribe("EmailReminder", async function({ task, taskService }) {
   
-  
   //  Nodemailer
-
   console.log("Email reminder");
   
   var processId = task.processInstanceId;
-  var data = null;
+  var secondLink;
 
-  fetch('http://localhost:8080/engine-rest/process-instance/' + processId + '/activity-instances')
-  .then(response => {
-      return response.json();
-  })
+
+  fetch('http://localhost:8080/engine-rest/task?processInstanceId=' + processId)
+  .then(response => response.json())
   .then(data => {
-      console.log(data);
+      var taskId = data[0].id;
+      var processDefinitionId = data[0].processDefinitionId;
+
+      var link = processDefinitionId + '/' + taskId;
+      secondLink = link;
+      logLink();
+  })
+  .catch(error => {
+      console.log(error);
+  })
+
+  function logLink() {
+    console.log(secondLink);
+
+    nodemailer.createTestAccount((err, account) => {
+        let transporter = nodemailer.createTransport({
+            host: 'smtp.googlemail.com', 
+            port: 465, 
+            secure: true,
+            auth: {
+                user: 'sysco.sommer@gmail.com', 
+                pass: 'Sommer2019' 
+            }
+        });
+    
+        let mailOptions = {
+            from: '"Camunda Web" <admin@sysco.no>',
+            to: 'magnus.ihle@gmail.com',
+            subject: 'Welcome Email',
+            html: '<h1>You have not finished your assigned task in Camunda.</h1><br><a href="http://localhost:3000/tasklist/"' + secondLink + '>Please click this link to finish your assigned task.</a>'
+        };
+    
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Epost sendt: %s', info.messageId);
+        }); 
   });
-  console.log(JSON.stringify(data));
-  
-
-
-    /** 
-  nodemailer.createTestAccount((err, account) => {
-    let transporter = nodemailer.createTransport({
-        host: 'smtp.googlemail.com', 
-        port: 465, 
-        secure: true,
-        auth: {
-            user: 'sysco.sommer@gmail.com', 
-            pass: 'Sommer2019' 
-        }
-    });
-  
-    let mailOptions = {
-        from: '"Camunda Web" <admin@sysco.no>',
-        to: 'magnus.ihle@gmail.com',
-        subject: 'Welcome Email',
-        html: '<h1>You have not finished your assigned task in Camunda.</h1><br><a href="#">Please click this link to finish your assigned task.</a>'
-    };
-  
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Epost sendt: %s', info.messageId);
-    }); 
-  }); */
+}
 
   
 

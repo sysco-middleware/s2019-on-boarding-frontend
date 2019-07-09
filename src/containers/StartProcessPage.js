@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import GenericForm from '../components/GenericForm'
 import { loadProcessDefinitions, loadFormKey } from '../actions'
 
@@ -18,7 +18,9 @@ class StartProcessPage extends Component {
       )
     } else if (processInstanceStarted) {
       return (
-        <div>Process instance has been started.</div>
+        <div>Process instance has been started.
+        <Redirect to={`/tasklist/`} />
+        </div>
       )
     } else {
       const key = formKey['undefined'].key
