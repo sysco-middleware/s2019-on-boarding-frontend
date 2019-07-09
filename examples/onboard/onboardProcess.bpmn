@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_16o6ld7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.1.2">
+  <bpmn:process id="onboard" name="Sysco Onboard" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="New employe form" camunda:formKey="startOnboard">
+      <bpmn:outgoing>SequenceFlow_0z3mqhg</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0z3mqhg" sourceRef="StartEvent_1" targetRef="Task_105k8zh" />
+    <bpmn:sequenceFlow id="SequenceFlow_13hd46r" sourceRef="BoundaryEvent_0sj44sj" targetRef="Task_0hm7oc3" />
+    <bpmn:boundaryEvent id="BoundaryEvent_0sj44sj" name="Every 24h" cancelActivity="false" attachedToRef="Task_105k8zh">
+      <bpmn:outgoing>SequenceFlow_13hd46r</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1M</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0lxktgs" sourceRef="Task_105k8zh" targetRef="hrOnboard" />
+    <bpmn:sequenceFlow id="SequenceFlow_1xyi9jj" sourceRef="BoundaryEvent_18xmrba" targetRef="Task_040rl0f" />
+    <bpmn:serviceTask id="Task_040rl0f" name="Email reminder" camunda:type="external" camunda:topic="EmailReminder">
+      <bpmn:incoming>SequenceFlow_1xyi9jj</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ulv8ow</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:boundaryEvent id="BoundaryEvent_18xmrba" name="Every 24h" cancelActivity="false" attachedToRef="hrOnboard">
+      <bpmn:outgoing>SequenceFlow_1xyi9jj</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0a89nxs" sourceRef="hrOnboard" targetRef="checkFormOnboard" />
+    <bpmn:userTask id="checkFormOnboard" name="Check access">
+      <bpmn:incoming>SequenceFlow_0a89nxs</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_18rskeo</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_06yj7yn" sourceRef="BoundaryEvent_0ttn6fw" targetRef="Task_1egt3k2" />
+    <bpmn:sequenceFlow id="SequenceFlow_18rskeo" sourceRef="checkFormOnboard" targetRef="Task_1e92z9r" />
+    <bpmn:boundaryEvent id="BoundaryEvent_0ttn6fw" name="Every 24h" cancelActivity="false" attachedToRef="checkFormOnboard">
+      <bpmn:outgoing>SequenceFlow_06yj7yn</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:endEvent id="EndEvent_1q15wpb" name="End of process">
+      <bpmn:incoming>SequenceFlow_18tzq2x</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_18tzq2x" sourceRef="Task_1e92z9r" targetRef="EndEvent_1q15wpb" />
+    <bpmn:endEvent id="EndEvent_0r0fkz5">
+      <bpmn:incoming>SequenceFlow_0p13d5f</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0p13d5f" sourceRef="Task_0hm7oc3" targetRef="EndEvent_0r0fkz5" />
+    <bpmn:endEvent id="EndEvent_0c6wd2b">
+      <bpmn:incoming>SequenceFlow_0ulv8ow</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0ulv8ow" sourceRef="Task_040rl0f" targetRef="EndEvent_0c6wd2b" />
+    <bpmn:endEvent id="EndEvent_180cmwe">
+      <bpmn:incoming>SequenceFlow_1klk78k</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1klk78k" sourceRef="Task_1egt3k2" targetRef="EndEvent_180cmwe" />
+    <bpmn:serviceTask id="Task_1egt3k2" name="Email reminder" camunda:type="external" camunda:topic="EmailReminder">
+      <bpmn:incoming>SequenceFlow_06yj7yn</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1klk78k</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_0hm7oc3" name="Email reminder" camunda:type="external" camunda:topic="EmailReminder">
+      <bpmn:incoming>SequenceFlow_13hd46r</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0p13d5f</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Task_1e92z9r" name="Schedule check up reminder">
+      <bpmn:incoming>SequenceFlow_18rskeo</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_18tzq2x</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_105k8zh" name="Servicedesk done" camunda:formKey="sdOnboard">
+      <bpmn:incoming>SequenceFlow_0z3mqhg</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0lxktgs</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="hrOnboard" name="HR done">
+      <bpmn:incoming>SequenceFlow_0lxktgs</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0a89nxs</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="onboard">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="103" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="164" y="146" width="67" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0z3mqhg_di" bpmnElement="SequenceFlow_0z3mqhg">
+        <di:waypoint x="215" y="121" />
+        <di:waypoint x="371" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_13hd46r_di" bpmnElement="SequenceFlow_13hd46r">
+        <di:waypoint x="371" y="161" />
+        <di:waypoint x="371" y="241" />
+        <di:waypoint x="439" y="241" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BoundaryEvent_1s7br5c_di" bpmnElement="BoundaryEvent_0sj44sj">
+        <dc:Bounds x="353" y="143" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="301" y="182" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0lxktgs_di" bpmnElement="SequenceFlow_0lxktgs">
+        <di:waypoint x="471" y="121" />
+        <di:waypoint x="627" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1xyi9jj_di" bpmnElement="SequenceFlow_1xyi9jj">
+        <di:waypoint x="627" y="179" />
+        <di:waypoint x="627" y="241" />
+        <di:waypoint x="695" y="241" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1tnuhcw_di" bpmnElement="Task_040rl0f">
+        <dc:Bounds x="695" y="201" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BoundaryEvent_1177hws_di" bpmnElement="BoundaryEvent_18xmrba">
+        <dc:Bounds x="609" y="143" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="558" y="179" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0a89nxs_di" bpmnElement="SequenceFlow_0a89nxs">
+        <di:waypoint x="727" y="121" />
+        <di:waypoint x="883" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_187rzty_di" bpmnElement="checkFormOnboard">
+        <dc:Bounds x="883" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_06yj7yn_di" bpmnElement="SequenceFlow_06yj7yn">
+        <di:waypoint x="883" y="179" />
+        <di:waypoint x="883" y="241" />
+        <di:waypoint x="951" y="241" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_18rskeo_di" bpmnElement="SequenceFlow_18rskeo">
+        <di:waypoint x="983" y="121" />
+        <di:waypoint x="1331" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BoundaryEvent_0asart8_di" bpmnElement="BoundaryEvent_0ttn6fw">
+        <dc:Bounds x="865" y="143" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="811" y="184" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1q15wpb_di" bpmnElement="EndEvent_1q15wpb">
+        <dc:Bounds x="1587" y="103" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1568" y="146" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_18tzq2x_di" bpmnElement="SequenceFlow_18tzq2x">
+        <di:waypoint x="1431" y="121" />
+        <di:waypoint x="1587" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0r0fkz5_di" bpmnElement="EndEvent_0r0fkz5">
+        <dc:Bounds x="564" y="223" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0p13d5f_di" bpmnElement="SequenceFlow_0p13d5f">
+        <di:waypoint x="539" y="241" />
+        <di:waypoint x="564" y="241" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0c6wd2b_di" bpmnElement="EndEvent_0c6wd2b">
+        <dc:Bounds x="825" y="223" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ulv8ow_di" bpmnElement="SequenceFlow_0ulv8ow">
+        <di:waypoint x="795" y="241" />
+        <di:waypoint x="825" y="241" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_180cmwe_di" bpmnElement="EndEvent_180cmwe">
+        <dc:Bounds x="1073" y="223" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1klk78k_di" bpmnElement="SequenceFlow_1klk78k">
+        <di:waypoint x="1051" y="241" />
+        <di:waypoint x="1073" y="241" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_03eeqe2_di" bpmnElement="Task_1egt3k2">
+        <dc:Bounds x="951" y="201" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0icbozv_di" bpmnElement="Task_0hm7oc3">
+        <dc:Bounds x="439" y="201" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0jntks4_di" bpmnElement="Task_1e92z9r">
+        <dc:Bounds x="1331" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_02uuq8q_di" bpmnElement="Task_105k8zh">
+        <dc:Bounds x="371" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_17ek7up_di" bpmnElement="hrOnboard">
+        <dc:Bounds x="627" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
