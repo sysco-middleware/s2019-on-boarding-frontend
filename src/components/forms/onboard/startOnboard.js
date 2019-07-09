@@ -2,7 +2,10 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Form, Button } from 'semantic-ui-react'
 import { InputField } from 'react-semantic-redux-form'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import * as Validation from '../../../constants/ValidationOptions'
+
 
 const SimpleForm = props => {
   const { handleSubmit } = props
@@ -14,6 +17,15 @@ const SimpleForm = props => {
         validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]} />
       <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder='Personal E-Mail'
         validate={[ Validation.required, Validation.minLength2, Validation.email ]}/>
+           <Field name='bankAcount' component={InputField} label='Bank Acount' placeholder="Bank Acount"
+        validate={[ Validation.required]}/>
+       <Field name='personaNumber' component={InputField} label='Personal Number' placeholder="Personal Number"
+        validate={[ Validation.required]}/> 
+        <Field name='phoneNumber' component={InputField} label='Phone Number' placeholder="Phone Number"
+        validate={[ Validation.required]}/>
+        <Field name='startDate' component={InputField}  label='Start Date' placeholder = "Start Date"
+        />
+        <legend>Department</legend>
       <Field name='Department' component='select' validate={[Validation.required]}>
         <option name='middleware'>Middleware</option>
         <option name='frontend'>Frontend</option>
@@ -21,8 +33,12 @@ const SimpleForm = props => {
         <option name='administration'>Administation</option>
         <option name='economics'>Economics</option>
       </Field>
-      <Field name="boss" component={InputField} label="Nearest Boss" placeholder="Nearest boss"
-      Validation={[Validation.required, Validation.minLength2, Validation.maxLength15]} />
+      <Field name='position' component={InputField} label='Position Description' placeholder='Position Description'
+        validate={[ Validation.required]}/>
+        <Field name='Equipment' component={InputField} label='Equipment' placeholder='Equipment'
+        validate={[ Validation.required]}/>
+      <Field name='boss' component={InputField} label='Nearest Boss' placeholder='Nearest boss'
+       validate={[Validation.required, Validation.minLength2, Validation.maxLength15]} />
       <Form.Field control={Button} primary type='submit'>Register</Form.Field>
     </Form>
   )

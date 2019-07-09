@@ -9,7 +9,7 @@ let SimpleForm = props => {
   const { handleSubmit } = props
   return (
     <Form onSubmit={handleSubmit}>
-    <legend>Accesses from Servicedesk</legend>
+    <legend>Admin/Finance</legend>
     <Field name='firstName' component={InputField} label='First Name' placeholder='First Name'
         disabled={true}
     validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
@@ -19,16 +19,16 @@ let SimpleForm = props => {
     <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail"
       disabled={true}
       validate={[ Validation.required, Validation.email]}/>
-      <Field name='Equipment' component={InputField} label='Equipment' placeholder='Equipment' disabled ={true}
-        />
+      <Field name='vismaSevera' component={InputField} label='Visma Severa' placeholder="Visma Severa"
+      validate={[ Validation.required, Validation.email]}/>
+       <Field name='vismaExpense' component={InputField} label='Visma Expense' placeholder="Visma Expense"
+      validate={[ Validation.required, Validation.email]}/>
+    <Field name='vismaSalary' component={InputField} label='Visma Salary' placeholder="Visma Salary"
+      validate={[ Validation.required, Validation.email]}/>
       <Form.Group>
-        <Field name='registredAD' component={CheckboxField} label='Registred in AD' />
+
+        <Field name='registred' component={CheckboxField} label='Registred in Severa systems'/>
       </Form.Group>
-      <Form.Group>
-        <Field name='registredOffice365' component={CheckboxField} label='Registred in Office365' />
-      </Form.Group>
-      <Field name='syscoEmail' component={InputField} label='Sysco E-Mail' placeholder="Sysco E-Mail"
-        validate={[ Validation.required, Validation.emailSysco]}/>
       <Form.Field control={Button} primary type='submit'>Complete</Form.Field>
     </Form>
   )

@@ -9,7 +9,7 @@ let SimpleForm = props => {
   const { handleSubmit } = props
   return (
     <Form onSubmit={handleSubmit}>
-    <legend>Accesses from Servicedesk</legend>
+    <legend>Admin/Finance</legend>
     <Field name='firstName' component={InputField} label='First Name' placeholder='First Name'
         disabled={true}
     validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
@@ -19,16 +19,15 @@ let SimpleForm = props => {
     <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail"
       disabled={true}
       validate={[ Validation.required, Validation.email]}/>
+      <Field name='workplace' component={InputField} label='Workplace and orgnisation structure' placeholder="Personal E-Mail"
+      disabled={true}
+      validate={[ Validation.required]}/>
       <Field name='Equipment' component={InputField} label='Equipment' placeholder='Equipment' disabled ={true}
-        />
+        validate={[ Validation.required]}/>
       <Form.Group>
-        <Field name='registredAD' component={CheckboxField} label='Registred in AD' />
+        
+        <Field name='equipmnet' component={CheckboxField} label='Equipment is ordered' />
       </Form.Group>
-      <Form.Group>
-        <Field name='registredOffice365' component={CheckboxField} label='Registred in Office365' />
-      </Form.Group>
-      <Field name='syscoEmail' component={InputField} label='Sysco E-Mail' placeholder="Sysco E-Mail"
-        validate={[ Validation.required, Validation.emailSysco]}/>
       <Form.Field control={Button} primary type='submit'>Complete</Form.Field>
     </Form>
   )
