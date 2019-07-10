@@ -11,14 +11,11 @@ let SimpleForm = props => {
     <Form onSubmit={handleSubmit}>
     <legend>Admin/Finance Department</legend>
     <Field name='firstName' component={InputField} label='First Name' placeholder='First Name'
-        disabled={true}
-    validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
+        disabled={true} validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
     <Field name='lastName' component={InputField} label='Last Name' placeholder="Last Name"
-        disabled={true}
-    validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
+        disabled={true} validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
     <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail"
-      disabled={true}
-      validate={[ Validation.required, Validation.email]}/>
+      disabled={true} validate={[ Validation.required, Validation.email]}/>
       <Field name='vismaSevera' component={InputField} label='Visma Severa' placeholder="Visma Severa"
       validate={[ Validation.required, Validation.email]}/>
        <Field name='vismaExpense' component={InputField} label='Visma Expense' placeholder="Visma Expense"
@@ -27,7 +24,7 @@ let SimpleForm = props => {
       validate={[ Validation.required, Validation.email]}/>
       <Form.Group>
 
-        <Field name='registred' component={CheckboxField} label='Registred in Severa systems'/>
+      <Field name='registred' component={CheckboxField} label='Registred in Severa systems'/>
       </Form.Group>
       <Form.Field control={Button} primary type='submit'>Complete</Form.Field>
     </Form>
