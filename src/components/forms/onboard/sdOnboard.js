@@ -15,20 +15,6 @@ let SimpleForm = props => {
   return (
   
     <Form onSubmit={handleSubmit}>
-<<<<<<< HEAD
-    <legend>Tilganger fra Service desk</legend>
-    <Field name='firstName' component={InputField} label='First Name' placeholder='First Name'
-    validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
-    <Field name='lastName' component={InputField} label='Last Name' placeholder="Last Name"
-    validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
-    <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail"
-        validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
-    <Field name='boss' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail"
-        validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
-      <Form.Group>
-        <Field name='approved' component={CheckboxField} label='Approve'/>
-      </Form.Group>
-=======
         <legend>Accesses from Servicedesk</legend>
         <Field name='firstName' component={InputField} label='First Name' placeholder='First Name' disabled={Validation.required}/>
         <Field name='lastName' component={InputField} label='Last Name' placeholder="Last Name" disabled={true}/>
@@ -44,7 +30,6 @@ let SimpleForm = props => {
             validate={[ Validation.required, Validation.emailSysco]}/>
           <Form.Field control={Button} primary type='submit'>Complete</Form.Field>
           <Form.Field control={Button} primary type='button' onClick={reset}>Reset Fields</Form.Field>
->>>>>>> deployment
 
     </Form>
   )
