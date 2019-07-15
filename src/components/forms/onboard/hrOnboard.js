@@ -6,7 +6,7 @@ import { InputField, CheckboxField, TextAreaField } from 'react-semantic-redux-f
 import * as Validation from '../../../constants/ValidationOptions'
 
 let SimpleForm = props => {
-  const { handleSubmit } = props
+  const { handleSubmit, reset } = props
   return (
     <Form onSubmit={handleSubmit}>
       <legend>HR department</legend>
@@ -16,9 +16,11 @@ let SimpleForm = props => {
       <Field name='workplace' component={InputField} label='Workplace and orgnisation structure' placeholder="Workplace and orgnisation structure" validate={[ Validation.required]}/>
       <Field name='equipment' component={InputField} label='Equipment' placeholder='Equipment' disabled ={true}/>
       <Form.Group>
-          <Field name='equipmnet' component={CheckboxField} label='Equipment is ordered' />
+          <Field name='equipmnetOrdered' component={CheckboxField} label='Equipment is ordered' />
       </Form.Group>
       <Form.Field control={Button} primary type='submit'>Complete</Form.Field>
+      <Form.Field control={Button} primary type='button' onClick={reset}>Reset Fields</Form.Field>
+
     </Form>
   )
 }

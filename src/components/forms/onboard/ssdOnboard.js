@@ -6,25 +6,20 @@ import { InputField, CheckboxField, TextAreaField } from 'react-semantic-redux-f
 import * as Validation from '../../../constants/ValidationOptions'
 
 let SimpleForm = props => {
-  const { handleSubmit } = props
+  const { handleSubmit, pristine, reset, submitting  } = props
   return (
     <Form onSubmit={handleSubmit}>
     <legend>Servicedesk</legend>
-    <Field name='firstName' component={InputField} label='First Name' placeholder='First Name'
-        disabled={true}
-    validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
-    <Field name='lastName' component={InputField} label='Last Name' placeholder="Last Name"
-        disabled={true}
-    validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
-    <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail"
-      disabled={true}
-      validate={[ Validation.required, Validation.email]}/>
-      <Form.Group>
-      <Field name='phonero' component={CheckboxField} label='Contact on mb.phonero.no is created' />
+        <Field name='firstName' component={InputField} label='First Name' placeholder='First Name' disabled={true}/>
+        <Field name='lastName' component={InputField} label='Last Name' placeholder="Last Name" disabled={true}/>
+        <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail" disabled={true}/>
+    <Form.Group>
+        <Field name='phonero' component={CheckboxField} label='Contact on mb.phonero.no is created' validate={Validation.required}/>
+        <Field name='equipmnet' component={CheckboxField} label='Equipment is ready' validate={Validation.required}/>
+    </Form.Group>
+    <Form.Field control={Button} primary type='submit'>Complete</Form.Field>
+    <Form.Field control={Button} primary type='button' onClick={reset}>Reset Fields</Form.Field>
 
-        <Field name='equipmnet' component={CheckboxField} label='Equipment is ready' />
-      </Form.Group>
-      <Form.Field control={Button} primary type='submit'>Complete</Form.Field>
     </Form>
   )
 }
