@@ -4,7 +4,7 @@
     <bpmn:startEvent id="StartEvent_1" name="New employe form" camunda:formKey="startOnboard">
       <bpmn:outgoing>SequenceFlow_0z3mqhg</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0z3mqhg" sourceRef="StartEvent_1" targetRef="IntermediateThrowEvent_149gzkp" />
+    <bpmn:sequenceFlow id="SequenceFlow_0z3mqhg" sourceRef="StartEvent_1" targetRef="checkDate" />
     <bpmn:sequenceFlow id="SequenceFlow_13hd46r" sourceRef="BoundaryEvent_1" targetRef="Task_0hm7oc3" />
     <bpmn:boundaryEvent id="BoundaryEvent_1" name="Every 24h" cancelActivity="false" attachedToRef="Task_105k8zh">
       <bpmn:outgoing>SequenceFlow_13hd46r</bpmn:outgoing>
@@ -144,8 +144,8 @@
       <bpmn:incoming>SequenceFlow_0g8znyd</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_10go8rn</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_1qw1r5p" sourceRef="IntermediateThrowEvent_149gzkp" targetRef="Task_105k8zh" />
-    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_149gzkp" name="Check date">
+    <bpmn:sequenceFlow id="SequenceFlow_1qw1r5p" sourceRef="checkDate" targetRef="Task_105k8zh" />
+    <bpmn:intermediateCatchEvent id="checkDate" name="Check date">
       <bpmn:incoming>SequenceFlow_0z3mqhg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1qw1r5p</bpmn:outgoing>
       <bpmn:timerEventDefinition>
@@ -352,7 +352,7 @@
         <di:waypoint x="381" y="404" />
         <di:waypoint x="547" y="404" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="IntermediateCatchEvent_1h1lew3_di" bpmnElement="IntermediateThrowEvent_149gzkp">
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_1h1lew3_di" bpmnElement="checkDate">
         <dc:Bounds x="345" y="386" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="335" y="429" width="56" height="14" />
