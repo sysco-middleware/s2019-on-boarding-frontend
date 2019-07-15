@@ -23,18 +23,18 @@ services:
         - MYSQL_PASSWORD=camunda
         - MYSQL_DATABASE=process-engine
 
-  react:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment:
-      - NODE_ENV=production
-      - WAIT_FOR=camunda-mysql
-    command: npm start
-    ports:
-      - 3000:3000
-    volumes:
-      - .:/app
+  #react:
+  #  build:
+  #    context: .
+  #    dockerfile: Dockerfile
+  #  environment:
+  #    - NODE_ENV=production
+  #    - WAIT_FOR=camunda-mysql
+  #  command: yarn
+  #  ports:
+  #    - 3000:3000
+  #  volumes:
+  #    - .:/app
 
   worker:
     container_name: worker 

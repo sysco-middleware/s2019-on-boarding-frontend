@@ -1,4 +1,5 @@
 export const required = value => (value ? undefined : 'Required')
+export const requiredUser = value => (value ? undefined : 'Username Required')
 export const maxLength = max => value =>
   value && value.length > max ? `Must be ${max} characters or less` : undefined
 export const maxLength15 = maxLength(15)
@@ -8,6 +9,6 @@ export const minLength2 = minLength(2)
 export const email = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
   'Invalid email address' : undefined
-  export const emailSysco = value =>
+export const emailSysco = value =>
   value && !/^[A-Z0-9._%+-]+@(sysco\.com)$/i.test(value) ?
   'Invalid email address' : undefined

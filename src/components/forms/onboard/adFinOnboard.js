@@ -17,11 +17,11 @@ let SimpleForm = props => {
     <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail"
       disabled={true} validate={[ Validation.required, Validation.email]}/>
       <Field name='vismaSevera' component={InputField} label='Visma Severa' placeholder="Visma Severa"
-      validate={[ Validation.required, Validation.email]}/>
+      validate={[ Validation.requiredUser]}/>
        <Field name='vismaExpense' component={InputField} label='Visma Expense' placeholder="Visma Expense"
-      validate={[ Validation.required, Validation.email]}/>
+      validate={[ Validation.requiredUser]}/>
     <Field name='vismaSalary' component={InputField} label='Visma Salary' placeholder="Visma Salary"
-      validate={[ Validation.required, Validation.email]}/>
+      validate={[ Validation.requiredUser]}/>
       <Form.Group>
 
       <Field name='registred' component={CheckboxField} label='Registred in Severa systems'/>

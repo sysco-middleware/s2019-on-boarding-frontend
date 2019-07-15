@@ -1,19 +1,12 @@
-//react - redux
 import React from 'react';
 import clsx from 'clsx';
 import { Form } from 'semantic-ui-react'
-import { Field, reduxForm } from 'redux-form'
-import { useState } from "react";
-import Image from 'react-image-resizer';
-
-import * as Validation from '../../../constants/ValidationOptions'
-import { InputField } from 'react-semantic-redux-form'
-import logo from '../../../constants/logo.png'
-
-// material ui
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import * as Validation from '../../../constants/ValidationOptions'
+import { Field, reduxForm } from 'redux-form'
+import { InputField } from 'react-semantic-redux-form'
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -24,14 +17,6 @@ import Popper from '@material-ui/core/Popper';
 import Grid from '@material-ui/core/Grid';
 import MenuList from '@material-ui/core/MenuList';
 import Input from '@material-ui/core/Input';
-
-
-/* not working: validation 
-                TextFields(not stored in Camunda but InputField stored)
-                props and how to pass data to components
-
-*/
-
 
 const SimpleForm = props => {
   const { handleSubmit } = props
@@ -44,15 +29,6 @@ const SimpleForm = props => {
       marginLeft: theme.spacing(3),
       marginRight: theme.spacing(0),
       width: 200,
-      height: 80,
-    },
-    
-    image: {
-      border: '1px solid #ccc',
-      background: '#fefefe',
-      mode:'fit',
-      marginLeft: theme.spacing(3),
-      marginRight: theme.spacing(0),
     },
     dense: {
       marginTop: 25,
@@ -64,19 +40,7 @@ const SimpleForm = props => {
       marginLeft: theme.spacing(3),
       marginRight: theme.spacing(0),
       width: 200,
-     
     },
-    button: {
-      background: 'linear-gradient(45deg, #6200EA 30%, #2196F3 70%)',
-      border: 0,
-      borderRadius: 3,
-      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-      color: 'white',
-      height: 40,
-      marginLeft: theme.spacing(3),
-      marginRight: theme.spacing(0),
-    },
-
     
   }));
   /*const options = [
@@ -112,14 +76,7 @@ const SimpleForm = props => {
       <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-        <div>
-        <Image
-          src={logo}
-          height={ 100 }
-          width={ 150}
-          className={classes.image}
-        />
-        </div>
+        
         <Field
             name='firstName'
             component={TextField}
@@ -130,7 +87,6 @@ const SimpleForm = props => {
               shrink: true,}}
         />
          <Field
-            name='lastName'
             component={TextField}
             id="standard-name"
             label="Last Name"
@@ -251,3 +207,28 @@ const SimpleForm = props => {
 export default reduxForm({
   form: 'simple' // a unique identifier for this form
 })(SimpleForm)
+
+
+/*
+<Field
+        id="outlined-select-options"
+        select
+        label="Select"
+        className={classes.textField}
+        value={values.options}
+        onChange={handleChange('options')}
+        SelectProps={{
+          MenuProps: {
+            className: classes.menu,
+          },
+        }}
+        helperText="Please Select Department"
+        margin="normal"
+        variant="outlined"
+      >
+        {options.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Field>*/

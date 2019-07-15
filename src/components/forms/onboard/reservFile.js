@@ -35,6 +35,7 @@ import Input from '@material-ui/core/Input';
 
 const SimpleForm = props => {
   const { handleSubmit } = props
+  
   const useStyles = makeStyles(theme => ({
     container: {
       display: 'flex',
@@ -79,7 +80,8 @@ const SimpleForm = props => {
 
     
   }));
-  /*const options = [
+  /*
+  const options = [
       {
         value: 'Full Stack',
         label: 'Full Stack',
@@ -102,9 +104,12 @@ const SimpleForm = props => {
     const [values, setValues] = React.useState({
       
     });
-    const handleChange = name => event => {
-      setValues({ ...values, [name]: event.target.value });
+    const handleChange = input => event => {
+      setValues({ ...values, [input]: event.target.value });
     };
+    const [selectedDate, handleDateChange] = useState(new Date());
+    
+  
 
   return (
      
@@ -123,6 +128,7 @@ const SimpleForm = props => {
         <Field
             name='firstName'
             component={TextField}
+            validate={Validation.required} 
             label='First Name'
             className={classes.textField}
             margin="normal"
@@ -130,7 +136,6 @@ const SimpleForm = props => {
               shrink: true,}}
         />
          <Field
-            name='lastName'
             component={TextField}
             id="standard-name"
             label="Last Name"
@@ -212,7 +217,7 @@ const SimpleForm = props => {
             defaultValue="2019-07-10" 
             className={classes.textField}
             InputLabelProps={{
-            shrink: true,}}
+              shrink: true,}}
         />
         <Field
             component={TextField}
@@ -224,7 +229,17 @@ const SimpleForm = props => {
             InputLabelProps={{
               shrink: true,}}
       />
- 
+       <Field
+            component={TextField}
+            id="standard-respPerson"
+            label="Person who filled in the form"
+            className={classes.textField}   
+            margin="normal"
+            validate={Validation.required}
+            InputLabelProps={{
+              shrink: true,}}
+      />
+      <legend>Select Deparment</legend>
         <Field name='Department' component='select' validate={[Validation.required]} >
             <option name='middleware'>Middleware</option>
             <option name='frontend'>Frontend</option>
@@ -232,16 +247,12 @@ const SimpleForm = props => {
             <option name='administration'>Administation</option>
             <option name='economics'>Economics</option>
         </Field>
-       
- 
-        </Grid>
-      
+      </Grid>
       </Grid>
     </div>
-         <Button variant="contained" color ='primary' type='submit' className={classes.button} >Register</Button>
-        
-               
+        <Button variant="contained" color ='primary' type='submit' className={classes.button} >Register</Button>
     </form>
+        
 
   )
 }
