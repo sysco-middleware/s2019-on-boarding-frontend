@@ -1,0 +1,53 @@
+version: '3'
+
+services: 
+  camunda-mysql:
+      image: camunda/camunda-bpm-platform:${DISTRO:-latest}
+      environment:
+          - DB_DRIVER=com.mysql.jdbc.Driver
+          - DB_URL=jdbc:mysql://mysql:3306/process-engine
+          - DB_USERNAME=camunda
+          - DB_PASSWORD=camunda
+          - WAIT_FOR=mysql:3306
+      links:
+          - mysql
+      ports:
+          - "8080:8080"
+      restart: unless-stopped
+  
+  mysql:
+    image: mysql:5.7
+    environment:
+        - MYSQL_ROOT_PASSWORD=camunda
+        - MYSQL_USER=camunda
+        - MYSQL_PASSWORD=camunda
+        - MYSQL_DATABASE=process-engine
+
+  #react:
+  #  build:
+  #    context: .
+  #    dockerfile: Dockerfile
+  #  environment:
+  #    - NODE_ENV=production
+  #    - WAIT_FOR=camunda-mysql
+  #  command: yarn
+  #  ports:
+  #    - 3000:3000
+  #  volumes:
+  #    - .:/app
+
+  worker:
+    container_name: worker 
+    image: node:10 
+    user: node 
+    working_dir: "/app" 
+    ports:
+    - 6000:6000 
+    volumes:
+    - ./:/app 
+    command: "node src/middleware/externalTestWorker.js" 
+
+
+
+
+  

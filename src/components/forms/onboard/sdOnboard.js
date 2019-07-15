@@ -4,11 +4,18 @@ import { Field, reduxForm } from 'redux-form'
 import { Form, Button } from 'semantic-ui-react'
 import { InputField, CheckboxField } from 'react-semantic-redux-form'
 import * as Validation from '../../../constants/ValidationOptions'
+import { makeStyles } from '@material-ui/core/styles';
+
+
+
 
 let SimpleForm = props => {
-  const { handleSubmit } = props
+  const { handleSubmit,pristine, reset, submitting  } = props
+  
   return (
+  
     <Form onSubmit={handleSubmit}>
+<<<<<<< HEAD
     <legend>Tilganger fra Service desk</legend>
     <Field name='firstName' component={InputField} label='First Name' placeholder='First Name'
     validate={[ Validation.required, Validation.maxLength15, Validation.minLength2 ]}/>
@@ -21,8 +28,24 @@ let SimpleForm = props => {
       <Form.Group>
         <Field name='approved' component={CheckboxField} label='Approve'/>
       </Form.Group>
+=======
+        <legend>Accesses from Servicedesk</legend>
+        <Field name='firstName' component={InputField} label='First Name' placeholder='First Name' disabled={Validation.required}/>
+        <Field name='lastName' component={InputField} label='Last Name' placeholder="Last Name" disabled={true}/>
+        <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail" disabled={true}/>
+        <Field name='equipment' component={InputField} label='Equipment' placeholder='Equipment' disabled ={true}/>
+    <Form.Group>
+        <Field name='registredAD' component={CheckboxField} label='Registred in AD'/>
+          </Form.Group>
+        <Form.Group>
+            <Field name='registredOffice365' component={CheckboxField} label='Registred in Office365' />
+        </Form.Group>
+          <Field name='syscoEmail' component={InputField} label='Sysco E-Mail' placeholder="Sysco E-Mail"
+            validate={[ Validation.required, Validation.emailSysco]}/>
+          <Form.Field control={Button} primary type='submit'>Complete</Form.Field>
+          <Form.Field control={Button} primary type='button' onClick={reset}>Reset Fields</Form.Field>
+>>>>>>> deployment
 
-      <Form.Field control={Button} primary type='submit'>Complete</Form.Field>
     </Form>
   )
 }
