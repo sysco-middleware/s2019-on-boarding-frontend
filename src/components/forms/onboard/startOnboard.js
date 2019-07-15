@@ -155,6 +155,8 @@ const SimpleForm = props => {
               <Form.Field control={Button} primary type="submit">
                 Register
               </Form.Field>
+              <Form.Field control={Button} primary type='button' onClick={reset}>Reset Fields</Form.Field>
+
         </Grid>
       </Form>
     </Container>
