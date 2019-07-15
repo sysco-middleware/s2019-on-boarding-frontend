@@ -29,7 +29,7 @@ class TaskForm extends Component {
     } else {
       return (
         <div>
-          Loading Task
+          Laster Oppgaver
         </div>
       )
     }
