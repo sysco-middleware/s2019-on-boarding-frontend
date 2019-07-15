@@ -135,6 +135,7 @@ This is a small overwiev of tasks, finished and tasks to-do.
 
 ###### To-do
 
+- [ ] When entering form from email only display single form and not everything else
 - [ ] Generating PDF from Redux Form values
 - [ ] Integrating with motivati through Rest API
 - [ ] Create a table from MySQL data for completed processes
