@@ -6,60 +6,64 @@ const config = { baseUrl: "http://localhost:8080/engine-rest", use: logger };
 
 const client = new Client(config);
 
-client.subscribe("EmailReminder", async function({ task, taskService }) {
-  
-  console.log("Email reminder");
-  
-  var processId = task.processInstanceId;
-  var secondLink;
+subscribe("SDReminder1", "magnus@ihle.no "); // ivlellina@gmail.com
+subscribe("AdminReminder", "magnus@ihle.no ");
+subscribe("HRReminder", "magnus@ihle.no ");
+subscribe("SDReminder2", "magnus@ihle.no ");
 
+function subscribe(taskName, reciever) {
+  client.subscribe(taskName, async function({ task, taskService }) {
+    console.log("Reminder sent from task: " + taskName);
 
-  fetch('http://localhost:8080/engine-rest/task?processInstanceId=' + processId)
-  .then(response => response.json())
-  .then(data => {
-      var taskId = data[0].id;
-      var processDefinitionId = data[0].processDefinitionId;
+    var processId = task.processInstanceId;
+    var secondLink;
 
-      var link = processDefinitionId + '/' + taskId;
-      secondLink = link;
-      logLink();
-  })
-  .catch(error => {
-      console.log(error);
-  })
+    fetch(
+      "http://localhost:8080/engine-rest/task?processInstanceId=" + processId
+    )
+      .then(response => response.json())
+      .then(data => {
+        var taskId = data[0].id;
+        var processDefinitionId = data[0].processDefinitionId;
 
-  var transporter = nodemailer.createTransport({
-    host: 'smtp.googlemail.com', 
-    port: 465, 
-    secure: true,
-    auth: {
-        user: 'sysco.sommer@gmail.com', 
-        pass: 'Sommer2019' 
-    }
+        var link = processDefinitionId + "/" + taskId;
+        secondLink = link;
+        logLink();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    var transporter = nodemailer.createTransport({
+      host: "smtp.googlemail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: "sysco.sommer@gmail.com",
+        pass: "Sommer2019"
+      }
     });
 
-  function logLink() {
+    function logLink() {
+      var tasklink = "http://localhost:3000/email/" + secondLink;
 
-        var tasklink = "http://localhost:3000/tasklist/" + secondLink;
-
-        let mailOptions = {
-            from: '"Camunda Web" <admin@sysco.no>',
-            to: 'ivlellina@gmail.com, magnus.ihle@sysco.no',
-            subject: 'Camunda Reminder',
-            html: `<h1>You have not finished your assigned task in Camunda.</h1><br><a href="${tasklink}">Please click this link to finish your assigned task.</a>`
-        };
-
-        try{
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    return console.log(error);
-                }
-                console.log('Epost sendt: %s', info.response);
-            }); 
-        } catch {
-            console.log(error);
-        }       
+      let mailOptions = {
+        from: '"Camunda Web" <admin@sysco.no>',
+        to: reciever,
+        subject: "Camunda Reminder",
+        html: `<h1>You have not finished your assigned task in Camunda.</h1><br><a href="${tasklink}">Please click this link to finish your assigned task.</a>`
+      };
+      try {
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            return console.log(error);
+          }
+          console.log("Epost sendt: %s", info.response);
+        });
+      } catch {
+        console.log(error);
+      }
+    }
+    await taskService.complete(task);
+  });
 }
-  await taskService.complete(task);
-  
-});
