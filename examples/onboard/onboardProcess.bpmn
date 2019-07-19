@@ -56,7 +56,7 @@
       <bpmn:incoming>SequenceFlow_0ispgvi</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0lpui8n</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="AdFin" name="AdminFinance" camunda:formKey="AdFinOnboard">
+    <bpmn:userTask id="AdFin" name="AdminFinance" camunda:formKey="adFinOnboard">
       <bpmn:incoming>SequenceFlow_1skm2b0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0bcntj3</bpmn:outgoing>
     </bpmn:userTask>

@@ -11,7 +11,7 @@ import * as Validation from "../../../constants/ValidationOptions";
 import Container from "@material-ui/core/Container";
 
 const SimpleForm = props => {
-  const { handleSubmit } = props;
+  const { handleSubmit, reset } = props;
 
   const depOpt = [
     { key: "middleware", value: "Middleware", text: "Middleware" },
