@@ -1,60 +1,103 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { Form, Button } from "semantic-ui-react";
-import {
-  InputField,
-  CheckboxField,
-  TextAreaField
-} from "react-semantic-redux-form";
+import { Form, Button, Grid } from "semantic-ui-react";
+import Typography from "@material-ui/core/Typography";
+
+import { InputField, CheckboxField } from "react-semantic-redux-form";
 import * as Validation from "../../../constants/ValidationOptions";
 
 let SimpleForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props;
+  const { handleSubmit, reset } = props;
   return (
     <Form onSubmit={handleSubmit}>
-      <legend>Servicedesk</legend>
-      <Field
-        name="firstName"
-        component={InputField}
-        label="First Name"
-        placeholder="First Name"
-        disabled={true}
-      />
-      <Field
-        name="lastName"
-        component={InputField}
-        label="Last Name"
-        placeholder="Last Name"
-        disabled={true}
-      />
-      <Field
-        name="personalEmail"
-        component={InputField}
-        label="Personal E-Mail"
-        placeholder="Personal E-Mail"
-        disabled={true}
-      />
-      <Form.Group>
-        <Field
-          name="phonero"
-          component={CheckboxField}
-          label="Contact on mb.phonero.no is created"
-          validate={Validation.required}
-        />
-        <Field
-          name="equipmnet"
-          component={CheckboxField}
-          label="Equipment is ready"
-          validate={Validation.required}
-        />
-      </Form.Group>
-      <Form.Field control={Button} primary type="submit">
-        Complete
-      </Form.Field>
-      <Form.Field control={Button} primary type="button" onClick={reset}>
-        Reset Fields
-      </Form.Field>
+      <Typography variant="h4" gutterBottom>
+        Grant access to Important systems:
+      </Typography>
+      <Grid>
+        <Grid.Row columns={2}>
+          <Grid.Column>
+            <Field
+              name="firstName"
+              component={InputField}
+              label="First Name"
+              placeholder="First Name"
+              disabled={true}
+            />
+          </Grid.Column>
+          <Grid.Column>
+            <Field
+              name="lastName"
+              component={InputField}
+              label="Last Name"
+              placeholder="Last Name"
+              disabled={true}
+            />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={2}>
+          <Grid.Column>
+            <Field
+              name="phoneNumber"
+              component={InputField}
+              label="Phone Number"
+              placeholder="Phone Number"
+              disabled={true}
+            />
+          </Grid.Column>
+          <Grid.Column>
+            <Field
+              name="personalEmail"
+              component={InputField}
+              label="Personal E-Mail"
+              placeholder="Personal E-Mail"
+              disabled={true}
+            />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={2}>
+          <Grid.Column>
+            <Form.Group>
+              <Field
+                name="phonero"
+                component={CheckboxField}
+                label="Contact on mb.phonero.no is created"
+                validate={Validation.required}
+                toggle
+              />
+            </Form.Group>
+          </Grid.Column>
+          <Grid.Column>
+            <Form.Group>
+              <Field
+                name="equipmnet"
+                component={CheckboxField}
+                label="Equipment is ready"
+                validate={Validation.required}
+                toggle
+              />
+            </Form.Group>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={2}>
+          <Grid.Column>
+            <Form.Field control={Button} primary fluid type="submit">
+              Complete Form
+            </Form.Field>
+          </Grid.Column>
+          <Grid.Column>
+            <Form.Field
+              control={Button}
+              negative
+              fluid
+              type="button"
+              onClick={reset}
+            >
+              Reset Form
+            </Form.Field>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </Form>
   );
 };

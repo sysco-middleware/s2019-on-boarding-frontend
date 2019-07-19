@@ -18,8 +18,6 @@ import {
   CheckboxField
 } from "react-semantic-redux-form";
 import "react-datepicker/dist/react-datepicker.css";
-//import console = require("console");
-
 
 const styles = StyleSheet.create({
   page: { backgroundColor: "" },
@@ -29,7 +27,6 @@ const styles = StyleSheet.create({
 let SimpleForm = props => {
 
   const { handleSubmit} = props;
-  //const selector = formValueSelector('SimpleForm');
   
 
   return (
@@ -171,6 +168,3 @@ SimpleForm = connect(state => ({
     : {}
 }))(SimpleForm);
 export default SimpleForm;
-
-
-
