@@ -10,7 +10,6 @@ The application runs on docker.
 
 ## Installation 
 
-Create a folder somewhere on your computer:
 ```bash
 mkdir Sysco Onboard
 
