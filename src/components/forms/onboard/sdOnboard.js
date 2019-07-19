@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { Form, Button } from 'semantic-ui-react'
-import { InputField, CheckboxField, TextAreaField } from 'react-semantic-redux-form'
+import { InputField, CheckboxField} from 'react-semantic-redux-form'
 import * as Validation from '../../../constants/ValidationOptions'
 
 import Typography from '@material-ui/core/Typography';
@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 
 let SimpleForm = props => {
-  const { handleSubmit,pristine, reset, submitting  } = props
+  const { handleSubmit,reset} = props
   
   return (
   
