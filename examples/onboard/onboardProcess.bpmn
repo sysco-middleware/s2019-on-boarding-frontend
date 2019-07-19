@@ -51,7 +51,7 @@
       <bpmn:incoming>SequenceFlow_0ispgvi</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0lpui8n</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="AdFin" name="AdminFinance" camunda:formKey="AdFinOnboard">
+    <bpmn:userTask id="AdFin" name="AdminFinance" camunda:formKey="adFinOnboard">
       <bpmn:incoming>SequenceFlow_1skm2b0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0bcntj3</bpmn:outgoing>
     </bpmn:userTask>
@@ -131,7 +131,7 @@
       <bpmn:incoming>SequenceFlow_0e2rf0p</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0e2rf0p" sourceRef="Task_1c1grsz" targetRef="EndEvent_1bn6lde" />
-    <bpmn:serviceTask id="Task_1vg33rk" name="Welcone e-mail" camunda:type="external" camunda:topic="WelcomeEmail">
+    <bpmn:serviceTask id="Task_1vg33rk" name="Welcome e-mail" camunda:type="external" camunda:topic="WelcomeEmail">
       <bpmn:incoming>SequenceFlow_1tzl3oz</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0g8znyd</bpmn:outgoing>
     </bpmn:serviceTask>
