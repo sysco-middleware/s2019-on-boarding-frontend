@@ -18,7 +18,7 @@ mkdir Sysco Onboard
 git clone git@github.com:sysco-middleware/s2019-on-boarding-frontend.git
 
    //Clone using https:
-https://github.com/sysco-middleware/s2019-on-boarding-frontend.git
+git clone https://github.com/sysco-middleware/s2019-on-boarding-frontend.git
 ```
 
 ###### Running docker
