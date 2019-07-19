@@ -10,6 +10,16 @@ The application runs on docker.
 
 ## Installation 
 
+```bash
+mkdir Sysco Onboard
+
+   // Clone using ssh:
+git clone git@github.com:sysco-middleware/s2019-on-boarding-frontend.git
+
+   //Clone using https:
+git clone https://github.com/sysco-middleware/s2019-on-boarding-frontend.git
+```
+
 ###### Running docker
 
 Since the application runs on docker, [Download Docker](https://www.docker.com/get-started). 
@@ -24,9 +34,9 @@ docker-compose up
 ```
 
 Docker compose runs: 
-    * Camunda BPM
-    * MySQL database for Camunda
-    * Node.js worker
+    - Camunda BPM
+    - MySQL database for Camunda
+    - Node.js worker
 
 ###### Running React.js
 
@@ -48,10 +58,10 @@ To deploy a new BPMN process to Camunda go to [http://localhost:3000](http://loc
 
 The onboard process file is under: 
 
-s2019-on-boarding-frontend/ The name you gave the folder:
-    - examples
-        - onboard
-            - onboardProcess.bpmn
+1. s2019-on-boarding-frontend/ The name you gave the folder:
+   - examples
+   - onboard
+   - onboardProcess.bpmn
 
 To access the default Camunda user interface visit [http://localhost:8080/camunda/](http://localhost:8080/camunda/app/) 
 go into "Cocpit" click on "Process Definitions" and then check if "Sysco Onboard" the process has succesfully been deployed. 
@@ -72,11 +82,11 @@ Save the BPMN process and deploy it the same way you deployed "onboardProcess.bp
 
 If the process has user tasks with forms create a new folder.
 
-root: 
-    - src
-        - components
-            - forms 
-                - `mkdir processName`
+1. root: 
+   - src
+   - components
+   - forms 
+   - `mkdir processName`
 
 Or using bash:
 
