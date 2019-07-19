@@ -35,7 +35,7 @@
       <bpmn:incoming>SequenceFlow_06yj7yn</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1klk78k</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_0hm7oc3" name="Email reminder" camunda:type="external" camunda:topic="EmailReminder">
+    <bpmn:serviceTask id="Task_0hm7oc3" name="Email reminder" camunda:type="external" camunda:topic="SDReminder1">
       <bpmn:incoming>SequenceFlow_13hd46r</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1j5w3dw</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -44,11 +44,6 @@
       <bpmn:outgoing>SequenceFlow_1tzl3oz</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="Task_105k8zh" name="Servicedesk done" camunda:formKey="sdOnboard">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="TestGetNum">${phoneNumber}</camunda:inputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1qw1r5p</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0ms4k1m</bpmn:outgoing>
     </bpmn:userTask>
@@ -112,15 +107,15 @@
     <bpmn:sequenceFlow id="SequenceFlow_118a5k8" sourceRef="BoundaryEvent_3" targetRef="Task_1c1grsz" />
     <bpmn:sequenceFlow id="SequenceFlow_0fve2b8" sourceRef="BoundaryEvent_2" targetRef="Task_1kpi2ii" />
     <bpmn:sequenceFlow id="SequenceFlow_0sr9use" sourceRef="BoundaryEvent_4" targetRef="Task_07ntwk4" />
-    <bpmn:serviceTask id="Task_1c1grsz" name="Email reminder" camunda:type="external" camunda:topic="Emailreminder">
+    <bpmn:serviceTask id="Task_1c1grsz" name="Admin Reminder" camunda:type="external" camunda:topic="AdminReminder">
       <bpmn:incoming>SequenceFlow_118a5k8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0e2rf0p</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_1kpi2ii" name="Email reminder" camunda:type="external" camunda:topic="EmailReminder">
+    <bpmn:serviceTask id="Task_1kpi2ii" name="HRReminder" camunda:type="external" camunda:topic="HRReminder">
       <bpmn:incoming>SequenceFlow_0fve2b8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0rgbmqb</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_07ntwk4" name="Email reminder" camunda:type="external" camunda:topic="EmailReminder">
+    <bpmn:serviceTask id="Task_07ntwk4" name="Email reminder" camunda:type="external" camunda:topic="SDReminder2">
       <bpmn:incoming>SequenceFlow_0sr9use</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ky7i8z</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -304,8 +299,8 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0fve2b8_di" bpmnElement="SequenceFlow_0fve2b8">
         <di:waypoint x="853" y="462" />
-        <di:waypoint x="853" y="515" />
-        <di:waypoint x="941" y="515" />
+        <di:waypoint x="853" y="523" />
+        <di:waypoint x="952" y="523" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0sr9use_di" bpmnElement="SequenceFlow_0sr9use">
         <di:waypoint x="853" y="748" />
@@ -316,7 +311,7 @@
         <dc:Bounds x="941" y="185" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_0ocwh8r_di" bpmnElement="Task_1kpi2ii">
-        <dc:Bounds x="941" y="475" width="100" height="80" />
+        <dc:Bounds x="952" y="483" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_06s51nk_di" bpmnElement="Task_07ntwk4">
         <dc:Bounds x="941" y="750" width="100" height="80" />
@@ -325,7 +320,9 @@
         <dc:Bounds x="973" y="595" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0rgbmqb_di" bpmnElement="SequenceFlow_0rgbmqb">
-        <di:waypoint x="991" y="555" />
+        <di:waypoint x="1002" y="563" />
+        <di:waypoint x="1002" y="579" />
+        <di:waypoint x="991" y="579" />
         <di:waypoint x="991" y="595" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1f37icy_di" bpmnElement="EndEvent_1f37icy">

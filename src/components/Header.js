@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter, matchPath } from 'react-router-dom'
 
-import PropTypes from "prop-types";
+import PropTypes, { bool } from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -98,7 +98,10 @@ class Header extends Component {
   render() {
     const { classes } = this.props;
     const { open } = this.state;
-
+    
+    if (matchPath(this.props.location.pathname, { path: '/email/:processDefinitionId/:taskId' }) || matchPath(this.props.location.pathname, { path: '/formSubmitted' })) {
+    return null
+    }    
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -169,4 +172,4 @@ Header.propTypes = {
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(Header);
+export default withStyles(styles, { withTheme: true })(withRouter(Header)); 

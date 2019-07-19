@@ -5,7 +5,7 @@ import Root from './containers/Root'
 import configureStore from './store/configureStore'
 import 'semantic-ui-css/semantic.min.css'
 import './css/index.css'
-
+import 'typeface-roboto';
 const store = configureStore()
 
 render(

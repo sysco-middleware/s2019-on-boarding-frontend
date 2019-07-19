@@ -7,7 +7,7 @@ const entities = (state = {}, action) => {
   const { type } = action
   if (type === ActionTypes.TASK_SUBMITTED_SUCCESS || type === ActionTypes.TASK_SUBMITTED_FAILURE) {
     return merge({}, state, {
-      redirect: '/tasklist'
+      redirect: '/tasklist',
     })
   } else {
     state = merge({}, state, {

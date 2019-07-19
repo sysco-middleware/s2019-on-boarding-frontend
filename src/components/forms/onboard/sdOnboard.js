@@ -5,6 +5,7 @@ import { Form, Button } from 'semantic-ui-react'
 import { InputField, CheckboxField} from 'react-semantic-redux-form'
 import * as Validation from '../../../constants/ValidationOptions'
 
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -14,7 +15,9 @@ let SimpleForm = props => {
   return (
   
     <Form onSubmit={handleSubmit}>
-        <legend>Accesses from Servicedesk</legend>
+        <Typography variant="h4" gutterBottom>
+        Grant access to Important systems: 
+      </Typography>
         <Field name='firstName' component={InputField} label='First Name' placeholder='First Name' disabled={Validation.required}/>
         <Field name='lastName' component={InputField} label='Last Name' placeholder="Last Name" disabled={true}/>
         <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail" disabled={true}/>
