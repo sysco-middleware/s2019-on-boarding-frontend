@@ -26,6 +26,7 @@ class PDF extends Component {
         <Page size="A4" style={styles.page}>
           <View style={styles.section}>
             <Text>{fNameValue}</Text>
+            <Text>Text text</Text>
           </View>
           <View style={styles.section}>
             <Text>{lNameValue}</Text>
