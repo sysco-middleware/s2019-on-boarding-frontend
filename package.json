@@ -14,6 +14,7 @@
     "camunda-external-task-client-js": "^1.1.1",
     "humps": "^2.0.0",
     "install": "^0.13.0",
+    "jspdf-react": "^1.0.11",
     "lodash": "^4.17.14",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.2.1",

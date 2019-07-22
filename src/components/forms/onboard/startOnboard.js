@@ -149,14 +149,25 @@ const SimpleForm = props => {
                 ]}
               />
             </Grid.Column>
-            </Grid.Row>
-
-
-              <Form.Field control={Button} primary type="submit">
+          </Grid.Row>
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Form.Field control={Button} primary fluid type="submit">
                 Register
               </Form.Field>
-              <Form.Field control={Button} primary type='button' onClick={reset}>Reset Fields</Form.Field>
-
+            </Grid.Column>
+            <Grid.Column>
+              <Form.Field
+                control={Button}
+                negative
+                fluid
+                type="button"
+                onClick={reset}
+              >
+                Reset Fields
+              </Form.Field>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
       </Form>
     </Container>

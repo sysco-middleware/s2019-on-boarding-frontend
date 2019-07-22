@@ -1,15 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm, formValueSelector } from "redux-form";
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-  PDFDownloadLink
-} from "@react-pdf/renderer";
 
+import jsPDF from "jspdf";
 import { Form, Grid, Button } from "semantic-ui-react";
 import {
   InputField,
@@ -17,19 +10,22 @@ import {
   CheckboxField
 } from "react-semantic-redux-form";
 import "react-datepicker/dist/react-datepicker.css";
-import PDF from "../../../middleware/PDF";
 import Typography from "@material-ui/core/Typography";
-
-const styles = StyleSheet.create({
-  page: { backgroundColor: "" },
-  section: { color: "black", textAlign: "left", margin: 30 }
-});
 
 let SimpleForm = props => {
   const { handleSubmit, firstNameValue, lastNameValue } = props;
 
+  function handleClick(e) {
+    e.preventDefault();
+    console.log("Knappen er trykket på: " + firstNameValue, lastNameValue);
+    var doc = new jsPDF();
+    doc.text(`${firstNameValue}`, 10, 10);
+    doc.save("CheckAccessForm.pdf");
+  } 
+
   return (
     <React.Fragment>
+      <h1>{firstNameValue} {lastNameValue}</h1>
       <Form onSubmit={handleSubmit}>
         <Typography variant="h4" gutterBottom>
           Confirm the right access has been given:
@@ -203,16 +199,9 @@ let SimpleForm = props => {
           </Grid.Row>
           <Grid.Row columns={2}>
             <Grid.Column>
-              <PDFDownloadLink
-                document={
-                  <PDF lnameValue={lastNameValue} fnameValue={firstNameValue} />
-                }
-                fileName="CheckAccess.pdf"
-              >
-                {({ loading }) =>
-                  loading ? "Loading document..." : "Download The Form!"
-                }
-              </PDFDownloadLink>
+            <Form.Field control={Button} positive fluid onClick={ handleClick }>
+              Download PDF
+            </Form.Field>
             </Grid.Column><Grid.Column>
             <Form.Field control={Button} primary fluid type="submit">
               Complete
