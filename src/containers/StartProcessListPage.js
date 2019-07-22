@@ -19,7 +19,6 @@ class StartProcessListPage extends Component {
   }
 
   render() {
-    console.log(this.props)
     const { processDefinition, processDefinitionXML } = this.props
 
     if (!processDefinition) {
