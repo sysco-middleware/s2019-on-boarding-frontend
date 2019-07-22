@@ -78,7 +78,7 @@ const SimpleForm = props => {
             </Grid.Column>
             <Grid.Column>
               <Field
-                name="personaNumber"
+                name="personalNumber"
                 component={InputField}
                 type="number"
                 label="Personal Number"
