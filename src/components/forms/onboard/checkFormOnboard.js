@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Field, reduxForm, formValueSelector } from "redux-form";
 import { SelectField } from "react-semantic-redux-form";
 import jsPDF from "jspdf";
-import 'jspdf-autotable';
+import "jspdf-autotable";
 import { Form, Grid, Button } from "semantic-ui-react";
 import {
   InputField,
@@ -12,6 +12,7 @@ import {
 } from "react-semantic-redux-form";
 import "react-datepicker/dist/react-datepicker.css";
 import Typography from "@material-ui/core/Typography";
+import PDF from "../../../middleware/PDF";
 
 const depOpt = [
   { key: "middleware", value: "Middleware", text: "Middleware" },
@@ -22,46 +23,11 @@ const depOpt = [
 ];
 
 let SimpleForm = props => {
-  const {
-    handleSubmit,
-    firstNameValue,
-    lastNameValue,
-    personalEmailValue,
-    phoneNumberValue,
-    bankAcountValue,
-    positionValue,
-    registredADValue,
-    equipmentValue,
-    startDateValue,
-    nearestBossValue,
-    vismaExpenseValue,
-    vismaSalaryValue,
-    vismaSeveraValue,
-    registredSeveraValue, 
-    departmentValue
-  } = props;
+  const { handleSubmit } = props;
 
   function handleClick(e) {
     e.preventDefault();
-    var doc = new jsPDF();
-    doc.setFontSize(18);
-    doc.setTextColor(40);
-    doc.setFontStyle("normal");
-    var resAD = 'not registred';
-    if (registredADValue === true) {
-      resAD = 'registred';
-    }
-    var resSevera ='not registred';
-    if (registredSeveraValue === true) {
-      resSevera = 'registred';
-    }
-    doc.autoTable({
-      head: [['Descpiption','Comment']],
-      body: [['First Name',`${firstNameValue}`],['Last Name', `${lastNameValue}`],['Personal Email',`${personalEmailValue}`],['Phone Number', `${phoneNumberValue}`], ['Bank Acount',` ${bankAcountValue}`], ['Nearest Boss', `${nearestBossValue}`],['Position Description', `${positionValue}`], ['Start Date', `${startDateValue}`], ['Equipment', `${equipmentValue}`], ['Visma Severa', `${vismaSeveraValue}`], ['Visma Expense', `${vismaExpenseValue}`], ['Visma Salary', `${vismaSalaryValue}`], ['AD', resAD], ['Severa Systems', resSevera] ]
-    });
-
-  
-    doc.save("CheckAccessForm.pdf");
+    PDF(props);
   }
 
   return (
@@ -217,7 +183,6 @@ let SimpleForm = props => {
               />
             </Grid.Column>
           </Grid.Row>
-
           <Grid.Row columns={2}>
             <Grid.Column>
               <Field
@@ -236,6 +201,15 @@ let SimpleForm = props => {
                 disabled={true}
               />
             </Grid.Column>
+            <Grid.Column>
+              <Field
+                name="comment"
+                component={InputField}
+                label="Comments"
+                placeholder="Comments"
+
+              />
+            </Grid.Column>{" "}
           </Grid.Row>
           <Grid.Row columns={2}>
             <Grid.Column>
@@ -278,6 +252,7 @@ SimpleForm = connect(state => {
   const vismaSalaryValue = selector(state, "vismaSalary");
   const registredSeveraValue = selector(state, "registred");
   const departmentValue = selector(state, "Department");
+  const commentValue = selector(state, "comment");
 
   return {
     initialValues: state.entities.taskVariables
@@ -298,7 +273,8 @@ SimpleForm = connect(state => {
     vismaExpenseValue,
     vismaSalaryValue,
     registredSeveraValue,
-    departmentValue
+    departmentValue,
+    commentValue
   };
 })(SimpleForm);
 
