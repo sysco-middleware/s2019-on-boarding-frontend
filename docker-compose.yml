@@ -36,16 +36,16 @@ services:
   #  volumes:
   #    - .:/app
 
-  worker:
-    container_name: worker 
-    image: node:10 
-    user: node 
-    working_dir: "/app" 
-    ports:
-    - 6000:6000 
-    volumes:
-    - ./:/app 
-    command: "node src/middleware/externalTestWorker.js" 
+  #worker:
+  #  container_name: worker 
+  #  image: node:10 
+  #  user: node 
+  #  working_dir: "/app" 
+  #  ports:
+  #  - 6000:6000 
+  #  volumes:
+  #  - ./:/app 
+  #  command: "node src/middleware/externalTestWorker.js" 
 
 
 
