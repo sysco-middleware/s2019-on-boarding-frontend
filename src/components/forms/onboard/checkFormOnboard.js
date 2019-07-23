@@ -23,7 +23,7 @@ const depOpt = [
 ];
 
 let SimpleForm = props => {
-  const { handleSubmit } = props;
+  const { handleSubmit, firstNameValue, lastNameValue } = props;
 
   function handleClick(e) {
     e.preventDefault();

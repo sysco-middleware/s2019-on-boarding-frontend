@@ -3,7 +3,6 @@ const { Client, logger } = require("camunda-external-task-client-js");
 const config = { baseUrl: "http://localhost:8080/engine-rest", use: logger };
 const fetch = require("node-fetch");
 const client = new Client(config);
-
 //  Nodemailer
 const nodemailer = require("nodemailer");
 //  PDF
@@ -128,7 +127,7 @@ function welcomeWorker(taskName) {
       var options = { height: "1100px", width: "793px" };
 
       var compiled = ejs.compile(
-        fs.readFileSync("src/html/welcome.html", "utf8")
+        fs.readFileSync("../html/welcome.html", "utf8")
       );
       var html = compiled({
         syscoEmail: syscoEmail,
@@ -136,7 +135,7 @@ function welcomeWorker(taskName) {
       });
       pdf
         .create(html, options)
-        .toFile(`src/html/Informasjon.pdf`, function(err, res) {
+        .toFile(`../html/Informasjon.pdf`, function(err, res) {
           if (err) return console.log(err);
           console.log(res);
         });
@@ -151,7 +150,7 @@ function welcomeWorker(taskName) {
         attachments: [
           {
             filename: `Informasjon ${fullName}.pdf`,
-            path: `src/html/Informasjon.pdf` // Streaming the file
+            path: `../html/Informasjon.pdf` // Streaming the file
           }
         ]
       };
