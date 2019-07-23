@@ -59,7 +59,6 @@ const SimpleForm = props => {
                 placeholder="Personal E-Mail"
                 validate={[
                   Validation.required,
-                  Validation.minLength2,
                   Validation.email
                 ]}
               />

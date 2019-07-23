@@ -12,22 +12,26 @@ const ejs = require("ejs");
 const pdf = require("html-pdf");
 
 //  Assigned task
-subscribe("SD1Rec", "magnus.ihle@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til servicedesk spør om epost // ivlellina@gmail.com
-subscribe("SD2Rec", "magnus.ihle@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til servicedesk spør om epost // ivlellina@gmail.com
-subscribe("HRRec", "magnus.ihle@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til HR spør om epost // ivlellina@gmail.com
-subscribe("AdminRec", "magnus.ihle@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til Admin/Finans spør om epost // ivlellina@gmail.com
-subscribe("AccessRec", "magnus.ihle@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
+subscribe("SD1Rec", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til servicedesk spør om epost // ivlellina@gmail.com
+subscribe("SD2Rec", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til servicedesk spør om epost // ivlellina@gmail.com
+subscribe("HRRec", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til HR spør om epost // ivlellina@gmail.com
+subscribe("AdminRec", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til Admin/Finans spør om epost // ivlellina@gmail.com
+subscribe("AccessRec", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
+subscribe("hrPredrive", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
+subscribe("Wiki", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
 
 //  Reminders
-subscribe("SDReminder1", "magnus.ihle@gmail.com", "Camunda Reminder", `<h1>You have not finished your assigned task in Camunda.</h1><br> `); // Skal til servicedesk spør om epost // ivlellina@gmail.com
-subscribe("SDReminder2", "magnus.ihle@gmail.com", "Camunda Reminder", `<h1>You have not finished your assigned task in Camunda.</h1><br> `); // Skal til servicedesk spør om epost // ivlellina@gmail.com
-subscribe("HRReminder", "magnus.ihle@gmail.com", "Camunda Reminder", `<h1>You have not finished your assigned task in Camunda.</h1><br> `); // Skal til HR spør om epost // ivlellina@gmail.com
-subscribe("AdminReminder", "magnus.ihle@gmail.com", "Camunda Reminder", `<h1>You have not finished your assigned task in Camunda.</h1><br> `); // Skal til Admin/ Finans spør om epost // ivlellina@gmail.com
-subscribe("AccessReminder", "magnus.ihle@gmail.com", "Camunda Reminder", "<h1>You have not finished your assigned task in Camunda.</h1>"); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
+subscribe("SDReminder1", "ivlellina@gmail.com", "Camunda Reminder", `<h1>You have not finished your assigned task in Camunda.</h1><br> `); // Skal til servicedesk spør om epost // ivlellina@gmail.com
+subscribe("SDReminder2", "ivlellina@gmail.com", "Camunda Reminder", `<h1>You have not finished your assigned task in Camunda.</h1><br> `); // Skal til servicedesk spør om epost // ivlellina@gmail.com
+subscribe("HRReminder", "ivlellina@gmail.com", "Camunda Reminder", `<h1>You have not finished your assigned task in Camunda.</h1><br> `); // Skal til HR spør om epost // ivlellina@gmail.com
+subscribe("AdminReminder", "ivlellina@gmail.com", "Camunda Reminder", `<h1>You have not finished your assigned task in Camunda.</h1><br> `); // Skal til Admin/ Finans spør om epost // ivlellina@gmail.com
+subscribe("AccessReminder", "ivlellina@gmail.com", "Camunda Reminder", "<h1>You have not finished your assigned task in Camunda.</h1>"); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
+subscribe("wikiReminder", "ivlellina@gmail.com", "Camunda Reminder", "<h1>You have not finished your assigned task in Camunda.</h1>"); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
+subscribe("predriveReminder", "ivlellina@gmail.com", "Camunda Reminder", "<h1>You have not finished your assigned task in Camunda.</h1>"); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
 
 //  Check up form (i en egen func fordi vi trenger to stk fetch req)
-checkUp("CheckUpRec", "magnus.ihle@gmail.com", "Oppfølgingsskjema"); // Skal til aktuell konsulent (henter epost fra form) // ivlellina@gmail.com
-checkUp("CheckUpReminder", "magnus.ihle@gmail.com", "Påminnelse oppfølgingsskjema"); // Skal til aktuell konsulent (henter epost fra form) // ivlellina@gmail.com
+checkUp("CheckUpRec", "ivlellina@gmail.com", "Oppfølgingsskjema"); // Skal til aktuell konsulent (henter epost fra form) // ivlellina@gmail.com
+checkUp("CheckUpReminder", "ivlellina@gmail.com", "Påminnelse oppfølgingsskjema"); // Skal til aktuell konsulent (henter epost fra form) // ivlellina@gmail.com
 
 //  Velkomstbrev
 welcomeWorker("WelcomeEmail");
@@ -96,6 +100,7 @@ function welcomeWorker(taskName) {
     var processId = task.processInstanceId;
     var personalEmail;
     var syscoEmail;
+    var wikiUser;
     var fullName;
 
     fetch(
@@ -106,6 +111,7 @@ function welcomeWorker(taskName) {
       .then(response => response.json())
       .then(data => {
         syscoEmail = data.syscoEmail.value;
+        wikiUser = data.wiki.value;
         personalEmail = data.personalEmail.value;
         fullName = data.firstName.value + " " + data.lastName.value;
         logLink();
@@ -128,15 +134,15 @@ function welcomeWorker(taskName) {
       var options = { height: "1100px", width: "793px" };
 
       var compiled = ejs.compile(
-        fs.readFileSync("src/html/welcome.html", "utf8")
+        fs.readFileSync("../html/welcome.html", "utf8")
       );
       var html = compiled({
         syscoEmail: syscoEmail,
-        wikiLogin: "Må ha felt for wiki login"
+        wikiLogin: wikiUser
       });
       pdf
         .create(html, options)
-        .toFile(`src/html/Informasjon.pdf`, function(err, res) {
+        .toFile(`../html/Informasjon.pdf`, function(err, res) {
           if (err) return console.log(err);
           console.log(res);
         });
@@ -151,7 +157,7 @@ function welcomeWorker(taskName) {
         attachments: [
           {
             filename: `Informasjon ${fullName}.pdf`,
-            path: `src/html/Informasjon.pdf` // Streaming the file
+            path: `../html/Informasjon.pdf` // Streaming the file
           }
         ]
       };
@@ -177,7 +183,6 @@ function checkUp(taskName, reciever, subject) {
 
     var processId = task.processInstanceId;
     var secondLink;
-    //var syscoEmail;
     var fullName;
 
     fetch(
