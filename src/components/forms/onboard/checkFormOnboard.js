@@ -34,7 +34,7 @@ let SimpleForm = props => {
     <React.Fragment>
       <Form onSubmit={handleSubmit}>
         <Typography variant="h4" gutterBottom>
-          Confirm the right access has been given:
+          Confirm that {firstNameValue} {lastNameValue} has recieved access!
         </Typography>
         <Grid>
           <Grid.Row columns={2}>
@@ -152,6 +152,7 @@ let SimpleForm = props => {
                 component={CheckboxField}
                 label="Registred in AD"
                 disabled={true}
+                toggle
               />
             </Grid.Column>{" "}
             <Grid.Column>
@@ -160,6 +161,7 @@ let SimpleForm = props => {
                 component={CheckboxField}
                 label="Registred in Office365"
                 disabled={true}
+                toggle
               />
             </Grid.Column>
           </Grid.Row>
@@ -199,6 +201,7 @@ let SimpleForm = props => {
                 component={CheckboxField}
                 label="Registred in Severa systems"
                 disabled={true}
+                toggle
               />
             </Grid.Column>
             <Grid.Column>
