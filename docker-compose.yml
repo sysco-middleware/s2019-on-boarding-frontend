@@ -1,7 +1,7 @@
 version: '3'
 
 services: 
-  camunda-mysql:
+  camunda:
       image: camunda/camunda-bpm-platform:${DISTRO:-latest}
       environment:
           - DB_DRIVER=com.mysql.jdbc.Driver
@@ -29,7 +29,7 @@ services:
   #    dockerfile: Dockerfile
   #  environment:
   #    - NODE_ENV=production
-  #    - WAIT_FOR=camunda-mysql
+  #    - WAIT_FOR=camunda
   #  command: yarn
   #  ports:
   #    - 3000:3000
@@ -45,7 +45,8 @@ services:
   #  - 6000:6000 
   #  volumes:
   #  - ./:/app 
-  #  command: "node src/middleware/externalTestWorker.js" 
+  #  command: "npm install"
+  #  command: "node src/middleware/camundaWorkers.js" 
 
 
 

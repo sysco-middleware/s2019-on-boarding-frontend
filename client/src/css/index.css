@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family:'Roboto', sans-serif;
+}
+.header {
+  margin-bottom: 6em;
+}
+
+.margin-top-sm {
+  margin-top: 6em;
+}
+
+.ui.disabled.input {
+  opacity: 1;
+}
+
+.ui.checkbox {
+  padding: 2em;
+}
+
+.ui.toggle.checkbox label {
+  font-weight: 700;
+  font-size: .92857143em;
+}
+
+
+
