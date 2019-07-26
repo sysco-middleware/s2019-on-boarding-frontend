@@ -17,7 +17,7 @@ subscribe("SD2Rec", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You
 subscribe("HRRec", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til HR spør om epost // ivlellina@gmail.com
 subscribe("AdminRec", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til Admin/Finans spør om epost // ivlellina@gmail.com
 subscribe("AccessRec", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
-subscribe("hrPredrive", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
+subscribe("hrPipedrive", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
 subscribe("Wiki", "ivlellina@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
 
 //  Reminders
@@ -27,7 +27,7 @@ subscribe("HRReminder", "ivlellina@gmail.com", "Camunda Reminder", `<h1>You have
 subscribe("AdminReminder", "ivlellina@gmail.com", "Camunda Reminder", `<h1>You have not finished your assigned task in Camunda.</h1><br> `); // Skal til Admin/ Finans spør om epost // ivlellina@gmail.com
 subscribe("AccessReminder", "ivlellina@gmail.com", "Camunda Reminder", "<h1>You have not finished your assigned task in Camunda.</h1>"); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
 subscribe("wikiReminder", "ivlellina@gmail.com", "Camunda Reminder", "<h1>You have not finished your assigned task in Camunda.</h1>"); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
-subscribe("predriveReminder", "ivlellina@gmail.com", "Camunda Reminder", "<h1>You have not finished your assigned task in Camunda.</h1>"); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
+subscribe("pipedriveReminder", "ivlellina@gmail.com", "Camunda Reminder", "<h1>You have not finished your assigned task in Camunda.</h1>"); // Skal til Sjef ... ? spør om epost // ivlellina@gmail.com
 
 //  Check up form (i en egen func fordi vi trenger to stk fetch req)
 checkUp("CheckUpRec", "ivlellina@gmail.com", "Oppfølgingsskjema"); // Skal til aktuell konsulent (henter epost fra form) // ivlellina@gmail.com
