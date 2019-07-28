@@ -1,10 +1,13 @@
-FROM node:8.15-alpine
+FROM node:12.7.0
 
-RUN mkdir /app
-WORKDIR /app
-COPY /src /app/src
-COPY ["package.json", "package-lock.json*", "./"]
+WORKDIR /usr/app
 
-RUN npm install --production --silent && mv node_modules ../
+COPY package*.json ./
+
+RUN npm install 
+
+COPY . .
 
 EXPOSE 3000
+
+CMD ["npm", "start"]

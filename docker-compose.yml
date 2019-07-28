@@ -1,28 +1,57 @@
-version: '3'
+version: "3"
 
-services: 
+services:
   camunda:
-      image: camunda/camunda-bpm-platform:${DISTRO:-latest}
-      environment:
-          - DB_DRIVER=com.mysql.jdbc.Driver
-          - DB_URL=jdbc:mysql://mysql:3306/process-engine
-          - DB_USERNAME=camunda
-          - DB_PASSWORD=camunda
-          - WAIT_FOR=mysql:3306
-      links:
-          - mysql
-      ports:
-          - "8080:8080"
-      restart: unless-stopped
-  
+    image: camunda/camunda-bpm-platform:${DISTRO:-latest}
+    environment:
+      - DB_DRIVER=com.mysql.jdbc.Driver
+      - DB_URL=jdbc:mysql://mysql:3306/process-engine
+      - DB_USERNAME=camunda
+      - DB_PASSWORD=camunda
+      - WAIT_FOR=mysql:3306
+    links:
+      - mysql
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
   mysql:
     image: mysql:5.7
     environment:
-        - MYSQL_ROOT_PASSWORD=camunda
-        - MYSQL_USER=camunda
-        - MYSQL_PASSWORD=camunda
-        - MYSQL_DATABASE=process-engine
+      - MYSQL_ROOT_PASSWORD=camunda
+      - MYSQL_USER=camunda
+      - MYSQL_PASSWORD=camunda
+      - MYSQL_DATABASE=process-engine
 
+  worker:
+    build:
+      context: ./worker/
+    command: npm start
+    volumes:
+      - ./worker/:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - camunda
+      - mysql
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+
+  client:
+    build:
+      context: ./client/
+    command: npm start
+    volumes:
+      - ./client/:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - worker
+      - camunda
+      - mysql
+    ports:
+      - "3000:3000"
   #react:
   #  build:
   #    context: .
@@ -35,20 +64,14 @@ services:
   #    - 3000:3000
   #  volumes:
   #    - .:/app
-
   #worker:
-  #  container_name: worker 
-  #  image: node:10 
-  #  user: node 
-  #  working_dir: "/app" 
+  #  container_name: worker
+  #  image: node:10
+  #  user: node
+  #  working_dir: "/app"
   #  ports:
-  #  - 6000:6000 
+  #  - 6000:6000
   #  volumes:
-  #  - ./:/app 
+  #  - ./:/app
   #  command: "npm install"
-  #  command: "node src/middleware/camundaWorkers.js" 
-
-
-
-
-  
+  #  command: "node src/middleware/camundaWorkers.js"

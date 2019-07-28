@@ -65,7 +65,7 @@ function subscribe(taskName, reciever, subject, html) {
     });
 
     function logLink() {
-      var tasklink = "http://camunda:3000/email/" + secondLink;
+      var tasklink = "http://localhost:3000/email/" + secondLink;
 
       let mailOptions = {
         from: '"Camunda Web" <admin@sysco.no>',
@@ -221,7 +221,7 @@ function checkUp(taskName, reciever, subject) {
     });
 
     function logLink() {
-      var tasklink = "http://camunda:3000/email/" + secondLink;
+      var tasklink = "http://localhost:3000/email/" + secondLink;
 
       let mailOptions = {
         from: '"Camunda Web" <admin@sysco.no>',
