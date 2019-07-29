@@ -13,6 +13,7 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 import Typography from "@material-ui/core/Typography";
 import PDF from "../../../middleware/PDF";
+import * as Validation from "../../../constants/ValidationOptions";
 
 
 let SimpleForm = props => {
@@ -217,6 +218,7 @@ let SimpleForm = props => {
                 component={InputField}
                 label="Comments"
                 placeholder="Comments"
+                validate={Validation.required}
 
               />
             </Grid.Column>{" "}

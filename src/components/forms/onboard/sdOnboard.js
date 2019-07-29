@@ -75,6 +75,7 @@ let SimpleForm = props => {
                 component={CheckboxField}
                 toggle
                 label="Registred in Office365"
+                validate={Validation.required}
               />
             </Form.Group>
           </Grid.Column>
