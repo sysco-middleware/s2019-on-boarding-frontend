@@ -1,40 +1,60 @@
-import React, { Component } from "react";
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-} from "@react-pdf/renderer";
+import jsPDF from "jspdf";
 
-
-const styles = StyleSheet.create({
-  page: { backgroundColor: "" },
-  section: { color: "black", textAlign: "left", margin: 30 }
-});
-
-class PDF extends Component {
-  constructor(props) {
-    super(props)
+const MyDoc = props => {
+  const {
+    firstNameValue,
+    lastNameValue,
+    personalEmailValue,
+    phoneNumberValue,
+    bankAcountValue,
+    positionValue,
+    registredADValue,
+    equipmentValue,
+    startDateValue,
+    nearestBossValue,
+    vismaExpenseValue,
+    vismaSalaryValue,
+    vismaSeveraValue,
+    registredSeveraValue,
+    commentValue,
+    departmentValue
+  } = props;
+  var doc = new jsPDF();
+  doc.setFontSize(18);
+  doc.setTextColor(40);
+  doc.setFontStyle("normal");
+  var resAD = "not registred";
+  if (registredADValue === true) {
+    resAD = "registred";
+  }
+  var resSevera = "not registred";
+  if (registredSeveraValue === true) {
+    resSevera = "registred";
   }
 
-  render() {
-    const { fNameValue, lNameValue} = this.props;
-    console.log('the first name value in the PDF component',{fNameValue});
-    return (
-      <Document>
-        <Page size="A4" style={styles.page}>
-          <View style={styles.section}>
-            <Text>{fNameValue}</Text>
-            <Text>Text text</Text>
-          </View>
-          <View style={styles.section}>
-            <Text>{lNameValue}</Text>
-          </View>
-        </Page>
-      </Document>
-    );
-  }
-}
+  doc.autoTable({
+    head: [["Descpiption", "Content"]],
+    body: [
+      ["First Name", `${firstNameValue}`],
+      ["Last Name", `${lastNameValue}`],
+      ["Personal Email", `${personalEmailValue}`],
+      ["Phone Number", `${phoneNumberValue}`],
+      ["Bank Acount", ` ${bankAcountValue}`],
+      ["Nearest Boss", `${nearestBossValue}`],
+      ["Department", `${departmentValue}`],
+      ["Position Description", `${positionValue}`],
+      ["Start Date", `${startDateValue}`],
+      ["Equipment", `${equipmentValue}`],
+      ["Visma Severa", `${vismaSeveraValue}`],
+      ["Visma Expense", `${vismaExpenseValue}`],
+      ["Visma Salary", `${vismaSalaryValue}`],
+      ["AD", resAD],
+      ["Severa Systems", resSevera],
+      ["Comments", `${commentValue}`]
+    ]
+  });
 
-export default PDF;
+  doc.save("CheckAccessForm.pdf");
+};
+
+export default MyDoc;

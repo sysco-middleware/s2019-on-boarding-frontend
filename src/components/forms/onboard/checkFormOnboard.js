@@ -1,33 +1,37 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm, formValueSelector } from "redux-form";
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-  PDFDownloadLink
-} from "@react-pdf/renderer";
 
+import "jspdf-autotable";
 import { Form, Grid, Button } from "semantic-ui-react";
 import {
   InputField,
   TextAreaField,
-  CheckboxField
+  CheckboxField,
+  SelectField
 } from "react-semantic-redux-form";
 import "react-datepicker/dist/react-datepicker.css";
-import PDF from "../../../middleware/PDF";
 import Typography from "@material-ui/core/Typography";
+import PDF from "../../../middleware/PDF";
+import * as Validation from "../../../constants/ValidationOptions";
 
-const styles = StyleSheet.create({
-  page: { backgroundColor: "" },
-  section: { color: "black", textAlign: "left", margin: 30 }
-});
 
 let SimpleForm = props => {
-  const { handleSubmit, firstNameValue, lastNameValue } = props;
+  const { handleSubmit } = props;
 
+  function handleClick(e) {
+    e.preventDefault();
+    PDF(props);
+  }
+
+  const depOpt = [
+    { key: "middleware", value: "Middleware", text: "Middleware" },
+    { key: "frontend", value: "Frontend", text: "Frontend" },
+    { key: "developer", value: "Developer", text: "Full Stack" },
+    { key: "administration", value: "Administration", text: "Administation" },
+    { key: "economics", value: "Aconomics", text: "Economics" }
+  ];
+  
   return (
     <React.Fragment>
       <Form onSubmit={handleSubmit}>
@@ -81,7 +85,7 @@ let SimpleForm = props => {
           <Grid.Row columns={2}>
             <Grid.Column>
               <Field
-                name="personaNumber"
+                name="personalNumber"
                 component={InputField}
                 type="number"
                 label="Personal Number"
@@ -112,6 +116,15 @@ let SimpleForm = props => {
                 disabled={true}
               />
             </Grid.Column>{" "}
+            <Grid.Column>
+              <legend>Department</legend>
+              <Field
+                name="Department"
+                component={SelectField}
+                options={depOpt}
+                disabled = {true}
+              />
+            </Grid.Column> 
             <Grid.Column>
               <Field
                 name="position"
@@ -181,7 +194,6 @@ let SimpleForm = props => {
               />
             </Grid.Column>
           </Grid.Row>
-
           <Grid.Row columns={2}>
             <Grid.Column>
               <Field
@@ -200,23 +212,27 @@ let SimpleForm = props => {
                 disabled={true}
               />
             </Grid.Column>
+            <Grid.Column>
+              <Field
+                name="comment"
+                component={InputField}
+                label="Comments"
+                placeholder="Comments"
+                validate={Validation.required}
+
+              />
+            </Grid.Column>{" "}
           </Grid.Row>
           <Grid.Row columns={2}>
             <Grid.Column>
-              <PDFDownloadLink
-                document={
-                  <PDF lnameValue={lastNameValue} fnameValue={firstNameValue} />
-                }
-                fileName="CheckAccess.pdf"
-              >
-                {({ loading }) =>
-                  loading ? "Loading document..." : "Download The Form!"
-                }
-              </PDFDownloadLink>
-            </Grid.Column><Grid.Column>
-            <Form.Field control={Button} primary fluid type="submit">
-              Complete
-            </Form.Field>
+              <Form.Field control={Button} positive fluid onClick={handleClick}>
+                Download PDF
+              </Form.Field>
+            </Grid.Column>
+            <Grid.Column>
+              <Form.Field control={Button} primary fluid type="submit">
+                Complete
+              </Form.Field>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -234,12 +250,43 @@ const selector = formValueSelector("simpleForm");
 SimpleForm = connect(state => {
   const firstNameValue = selector(state, "firstName");
   const lastNameValue = selector(state, "lastName");
+  const personalNumberValue = selector(state, "personalNumber");
+  const bankAcountValue = selector(state, "bankAcount");
+  const personalEmailValue = selector(state, "personalEmail");
+  const positionValue = selector(state, "position");
+  const registredADValue = selector(state, "registredAD");
+  const startDateValue = selector(state, "startDate");
+  const nearestBossValue = selector(state, "boss");
+  const equipmentValue = selector(state, "equipment");
+  const phoneNumberValue = selector(state, "phoneNumber");
+  const vismaSeveraValue = selector(state, "vismaSevera");
+  const vismaExpenseValue = selector(state, "vismaExpense");
+  const vismaSalaryValue = selector(state, "vismaSalary");
+  const registredSeveraValue = selector(state, "registred");
+  const departmentValue = selector(state, "Department");
+  const commentValue = selector(state, "comment");
+
   return {
     initialValues: state.entities.taskVariables
       ? state.entities.taskVariables.variables
       : {},
     firstNameValue,
-    lastNameValue
+    lastNameValue,
+    personalEmailValue,
+    bankAcountValue,
+    personalNumberValue,
+    positionValue,
+    registredADValue,
+    startDateValue,
+    nearestBossValue,
+    equipmentValue,
+    phoneNumberValue,
+    vismaSeveraValue,
+    vismaExpenseValue,
+    vismaSalaryValue,
+    registredSeveraValue,
+    departmentValue,
+    commentValue
   };
 })(SimpleForm);
 

@@ -20,6 +20,7 @@ const SimpleForm = props => {
     { key: "administration", value: "Administration", text: "Administation" },
     { key: "economics", value: "Aconomics", text: "Economics" }
   ];
+
   return (
     <Container fixed>
       <Form onSubmit={handleSubmit}>
@@ -32,7 +33,7 @@ const SimpleForm = props => {
                 label="First Name"
                 placeholder="First Name"
                 validate={[
-                  Validation.required,
+                  Validation.requiredName,
                   Validation.maxLength15,
                   Validation.minLength2
                 ]}
@@ -45,7 +46,7 @@ const SimpleForm = props => {
                 label="Last Name"
                 placeholder="Last Name"
                 validate={[
-                  Validation.required,
+                  Validation.requiredName,
                   Validation.maxLength15,
                   Validation.minLength2
                 ]}
@@ -57,11 +58,7 @@ const SimpleForm = props => {
                 component={InputField}
                 label="Personal E-Mail"
                 placeholder="Personal E-Mail"
-                validate={[
-                  Validation.required,
-                  Validation.minLength2,
-                  Validation.email
-                ]}
+                validate={[Validation.required, Validation.email]}
               />
             </Grid.Column>
           </Grid.Row>
@@ -70,30 +67,27 @@ const SimpleForm = props => {
               <Field
                 name="phoneNumber"
                 component={InputField}
-                type="number"
                 label="Phone Number"
                 placeholder="Phone Number"
-                validate={[Validation.required]}
+                validate={[Validation.required, Validation.Number]}
               />
             </Grid.Column>
             <Grid.Column>
               <Field
-                name="personaNumber"
+                name="personalNumber"
                 component={InputField}
-                type="number"
                 label="Personal Number"
                 placeholder="Personal Number"
-                validate={[Validation.required]}
+                validate={[Validation.required, Validation.Number]}
               />
             </Grid.Column>
             <Grid.Column>
               <Field
                 name="bankAcount"
                 component={InputField}
-                type="number"
                 label="Bank Acount"
                 placeholder="Bank Acount"
-                validate={[Validation.required]}
+                validate={[Validation.required, Validation.Number]}
               />
             </Grid.Column>
           </Grid.Row>
@@ -105,6 +99,7 @@ const SimpleForm = props => {
                 type="date"
                 label="Start Date"
                 placeholder="Start Date"
+                validate={Validation.required}
               />
             </Grid.Column>
             <Grid.Column>
@@ -144,19 +139,31 @@ const SimpleForm = props => {
                 placeholder="Nearest boss"
                 validate={[
                   Validation.required,
+                  Validation.requiredName,
                   Validation.minLength2,
                   Validation.maxLength15
                 ]}
               />
             </Grid.Column>
-            </Grid.Row>
-
-
-              <Form.Field control={Button} primary type="submit">
+          </Grid.Row>
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Form.Field control={Button} primary fluid type="submit">
                 Register
               </Form.Field>
-              <Form.Field control={Button} primary type='button' onClick={reset}>Reset Fields</Form.Field>
-
+            </Grid.Column>
+            <Grid.Column>
+              <Form.Field
+                control={Button}
+                negative
+                fluid
+                type="button"
+                onClick={reset}
+              >
+                Reset Fields
+              </Form.Field>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
       </Form>
     </Container>

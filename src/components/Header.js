@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, withRouter, matchPath } from 'react-router-dom'
 
-import PropTypes, { bool } from "prop-types";
+import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
