@@ -16,7 +16,8 @@ const MyDoc = props => {
     vismaSalaryValue,
     vismaSeveraValue,
     registredSeveraValue,
-    commentValue
+    commentValue,
+    departmentValue
   } = props;
   var doc = new jsPDF();
   doc.setFontSize(18);
@@ -40,6 +41,7 @@ const MyDoc = props => {
       ["Phone Number", `${phoneNumberValue}`],
       ["Bank Acount", ` ${bankAcountValue}`],
       ["Nearest Boss", `${nearestBossValue}`],
+      ["Department", `${departmentValue}`],
       ["Position Description", `${positionValue}`],
       ["Start Date", `${startDateValue}`],
       ["Equipment", `${equipmentValue}`],

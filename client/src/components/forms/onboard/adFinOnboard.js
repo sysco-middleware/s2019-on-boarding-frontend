@@ -61,7 +61,7 @@ let SimpleForm = props => {
               component={InputField}
               label="Visma Severa"
               placeholder="Visma Severa Username"
-              validate={[Validation.requiredUser]}
+              validate={[Validation.required]}
             />
           </Grid.Column>
           <Grid.Column>
@@ -70,7 +70,7 @@ let SimpleForm = props => {
               component={InputField}
               label="Visma Expense"
               placeholder="Visma Expense Username"
-              validate={[Validation.requiredUser]}
+              validate={[Validation.required]}
             />
           </Grid.Column>
           <Grid.Column>
@@ -79,7 +79,7 @@ let SimpleForm = props => {
               component={InputField}
               label="Visma Salary"
               placeholder="Visma Salary Username"
-              validate={[Validation.requiredUser]}
+              validate={[Validation.required]}
             />
           </Grid.Column>
         </Grid.Row>

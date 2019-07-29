@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { Form, Button, Grid } from "semantic-ui-react";
-import { InputField, TextAreaField } from "react-semantic-redux-form";
+import { InputField } from "react-semantic-redux-form";
 import "react-datepicker/dist/react-datepicker.css";
 import * as Validation from "../../../constants/ValidationOptions";
 import Container from "@material-ui/core/Container";
@@ -94,20 +94,26 @@ const SimpleForm = props => {
           placeholder=" "
           validate={[Validation.required]}
         />
-
-        <Form.Field
-          control={Button}
-          negative
-          fluid
-          type="button"
-          onClick={reset}
-        >
-          Reset Fields
-        </Form.Field>
-
-        <Form.Field control={Button} primary fluid type="submit">
-          Complete
-        </Form.Field>
+        <Grid>
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Form.Field control={Button} primary fluid type="submit">
+                Complete
+              </Form.Field>
+            </Grid.Column>
+            <Grid.Column>
+              <Form.Field
+                control={Button}
+                negative
+                fluid
+                type="button"
+                onClick={reset}
+              >
+                Reset Fields
+              </Form.Field>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Form>
     </Container>
   );

@@ -1,26 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm, formValueSelector } from "redux-form";
-import { SelectField } from "react-semantic-redux-form";
-import jsPDF from "jspdf";
+
 import "jspdf-autotable";
 import { Form, Grid, Button } from "semantic-ui-react";
 import {
   InputField,
   TextAreaField,
-  CheckboxField
+  CheckboxField,
+  SelectField
 } from "react-semantic-redux-form";
 import "react-datepicker/dist/react-datepicker.css";
 import Typography from "@material-ui/core/Typography";
 import PDF from "../../../middleware/PDF";
+import * as Validation from "../../../constants/ValidationOptions";
 
-const depOpt = [
-  { key: "middleware", value: "Middleware", text: "Middleware" },
-  { key: "frontend", value: "Frontend", text: "Frontend" },
-  { key: "developer", value: "Developer", text: "Full Stack" },
-  { key: "administration", value: "Administration", text: "Administation" },
-  { key: "economics", value: "Aconomics", text: "Economics" }
-];
 
 let SimpleForm = props => {
   const { handleSubmit, firstNameValue, lastNameValue } = props;
@@ -30,11 +24,19 @@ let SimpleForm = props => {
     PDF(props);
   }
 
+  const depOpt = [
+    { key: "middleware", value: "Middleware", text: "Middleware" },
+    { key: "frontend", value: "Frontend", text: "Frontend" },
+    { key: "developer", value: "Developer", text: "Full Stack" },
+    { key: "administration", value: "Administration", text: "Administation" },
+    { key: "economics", value: "Aconomics", text: "Economics" }
+  ];
+  
   return (
     <React.Fragment>
       <Form onSubmit={handleSubmit}>
         <Typography variant="h4" gutterBottom>
-          Confirm that {firstNameValue} {lastNameValue} has recieved access!
+          Confirm the right access has been given:
         </Typography>
         <Grid>
           <Grid.Row columns={2}>
@@ -115,6 +117,15 @@ let SimpleForm = props => {
               />
             </Grid.Column>{" "}
             <Grid.Column>
+              <legend>Department</legend>
+              <Field
+                name="Department"
+                component={SelectField}
+                options={depOpt}
+                disabled = {true}
+              />
+            </Grid.Column> 
+            <Grid.Column>
               <Field
                 name="position"
                 component={InputField}
@@ -152,7 +163,6 @@ let SimpleForm = props => {
                 component={CheckboxField}
                 label="Registred in AD"
                 disabled={true}
-                toggle
               />
             </Grid.Column>{" "}
             <Grid.Column>
@@ -161,7 +171,6 @@ let SimpleForm = props => {
                 component={CheckboxField}
                 label="Registred in Office365"
                 disabled={true}
-                toggle
               />
             </Grid.Column>
           </Grid.Row>
@@ -201,7 +210,6 @@ let SimpleForm = props => {
                 component={CheckboxField}
                 label="Registred in Severa systems"
                 disabled={true}
-                toggle
               />
             </Grid.Column>
             <Grid.Column>
@@ -210,6 +218,7 @@ let SimpleForm = props => {
                 component={InputField}
                 label="Comments"
                 placeholder="Comments"
+                validate={Validation.required}
 
               />
             </Grid.Column>{" "}
