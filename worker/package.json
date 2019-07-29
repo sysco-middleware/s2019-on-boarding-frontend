@@ -1,0 +1,25 @@
+{
+  "name": "camunda-nodejs-worker",
+  "description": "External worker in node.js",
+  "author": "Magnus Ihle",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:8080",
+  "dependencies": {
+    "camunda-external-task-client-js": "^1.1.1",
+    "ejs": "^2.6.2",
+    "html-pdf": "^2.2.0",
+    "node-fetch": "^2.6.0",
+    "nodemailer": "^6.2.1",
+    "npm": "^6.10.0"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "@babel/register": "^7.4.4"
+  }
+}

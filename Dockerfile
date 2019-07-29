@@ -1,10 +1,28 @@
-FROM node:8.15-alpine
+# Setup and build the client
 
-RUN mkdir /app
-WORKDIR /app
-COPY /src /app/src
-COPY ["package.json", "package-lock.json*", "./"]
+FROM node:12.7.0-alpine as client
 
-RUN npm install --production --silent && mv node_modules ../
+WORKDIR /usr/app/client/
+COPY client/package*.json ./
+RUN npm install 
+COPY client/ ./
+RUN npm run build
 
-EXPOSE 3000
+
+# Setup the worker
+
+FROM node:12.7.0-alpine
+
+WORKDIR /usr/app/
+COPY --from=client /usr/app/client/build/ ./client/build/
+
+WORKDIR /usr/app/worker/
+COPY worker/package*.json ./
+RUN npm install 
+COPY worker/ ./
+
+ENV PORT 5000
+
+EXPOSE 5000
+
+CMD ["npm", "start"]
