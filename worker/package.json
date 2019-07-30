@@ -4,11 +4,12 @@
   "author": "Magnus Ihle",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
+  "proxy": "http://camunda:8080",
   "dependencies": {
     "camunda-external-task-client-js": "^1.1.1",
     "dotenv": "^8.0.0",
     "ejs": "^2.6.2",
+    "express": "^4.17.1",
     "html-pdf": "^2.2.0",
     "mysql": "^2.17.1",
     "node-fetch": "^2.6.0",

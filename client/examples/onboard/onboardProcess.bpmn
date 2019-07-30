@@ -35,7 +35,7 @@
       <bpmn:incoming>SequenceFlow_06yj7yn</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1klk78k</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_0hm7oc3" name="Email reminder" camunda:type="external" camunda:topic="SDReminder1">
+    <bpmn:serviceTask id="Task_0hm7oc3" name="Email reminder" camunda:type="external" camunda:topic="ToDB">
       <bpmn:incoming>SequenceFlow_13hd46r</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1j5w3dw</bpmn:outgoing>
     </bpmn:serviceTask>
