@@ -21,7 +21,7 @@
     <bpmn:boundaryEvent id="BoundaryEvent_5" name="Every 24h" cancelActivity="false" attachedToRef="checkFormOnboard">
       <bpmn:outgoing>SequenceFlow_06yj7yn</bpmn:outgoing>
       <bpmn:timerEventDefinition>
-        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1M</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:endEvent id="EndEvent_1q15wpb" name="End of process">
@@ -31,7 +31,7 @@
       <bpmn:incoming>SequenceFlow_1klk78k</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1klk78k" sourceRef="Task_1egt3k2" targetRef="EndEvent_180cmwe" />
-    <bpmn:serviceTask id="Task_1egt3k2" name="Email reminder" camunda:type="external" camunda:topic="AccessReminder">
+    <bpmn:serviceTask id="Task_1egt3k2" name="Email reminder" camunda:type="external" camunda:topic="ToDB">
       <bpmn:incoming>SequenceFlow_06yj7yn</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1klk78k</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -189,6 +189,7 @@
     <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_14gvn1s" name="Skal være 7 dager, men satt til minus y dager pga testing endre til:">
       <bpmn:incoming>SequenceFlow_0pkvuxe</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1opdvp3</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0szstoz</bpmn:outgoing>
       <bpmn:timerEventDefinition>
         <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${dateTime().parse(startDate).minusDays(7).toDate()}</bpmn:timeDate>
       </bpmn:timerEventDefinition>
@@ -285,6 +286,10 @@
       <bpmn:incoming>SequenceFlow_0ms4k1m</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1nu4q9p</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0szstoz" sourceRef="IntermediateThrowEvent_14gvn1s" targetRef="Task_12vve3g" />
+    <bpmn:serviceTask id="Task_12vve3g" name="Copy info to DB" camunda:type="external" camunda:topic="ToDB">
+      <bpmn:incoming>SequenceFlow_0szstoz</bpmn:incoming>
+    </bpmn:serviceTask>
     <bpmn:textAnnotation id="TextAnnotation_0uq2g5i">
       <bpmn:text>Evt om vi skal lagre skjema noe spesielt sted her ...?</bpmn:text>
     </bpmn:textAnnotation>
@@ -337,9 +342,9 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1q15wpb_di" bpmnElement="EndEvent_1q15wpb">
-        <dc:Bounds x="2477" y="496" width="36" height="36" />
+        <dc:Bounds x="2675" y="496" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2458" y="539" width="74" height="14" />
+          <dc:Bounds x="2656" y="539" width="74" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_180cmwe_di" bpmnElement="EndEvent_180cmwe">
@@ -538,7 +543,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1opdvp3_di" bpmnElement="SequenceFlow_1opdvp3">
         <di:waypoint x="2201" y="514" />
-        <di:waypoint x="2279" y="514" />
+        <di:waypoint x="2473" y="514" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="IntermediateCatchEvent_08byn2q_di" bpmnElement="IntermediateThrowEvent_14gvn1s">
         <dc:Bounds x="2165" y="496" width="36" height="36" />
@@ -547,35 +552,31 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0g2xu9a_di" bpmnElement="SequenceFlow_0g2xu9a">
-        <di:waypoint x="2379" y="514" />
-        <di:waypoint x="2477" y="514" />
+        <di:waypoint x="2573" y="514" />
+        <di:waypoint x="2675" y="514" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="UserTask_0h63mnh_di" bpmnElement="cheackUpForm">
-        <dc:Bounds x="2279" y="474" width="100" height="80" />
+        <dc:Bounds x="2473" y="474" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BoundaryEvent_1mc9wm9_di" bpmnElement="BoundaryEvent_1v3xdvw">
-        <dc:Bounds x="2261" y="456" width="36" height="36" />
+        <dc:Bounds x="2455" y="456" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BoundaryEvent_1f6q2fz_di" bpmnElement="BoundaryEvent_1atc5v1">
-        <dc:Bounds x="2261" y="536" width="36" height="36" />
+        <dc:Bounds x="2455" y="536" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_04xm0ud_di" bpmnElement="SequenceFlow_04xm0ud">
-        <di:waypoint x="2279" y="456" />
-        <di:waypoint x="2279" y="436" />
-        <di:waypoint x="2346" y="436" />
-        <di:waypoint x="2346" y="416" />
+        <di:waypoint x="2473" y="456" />
+        <di:waypoint x="2473" y="416" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1hlhdl0_di" bpmnElement="Task_06hvat3">
-        <dc:Bounds x="2296" y="336" width="100" height="80" />
+        <dc:Bounds x="2423" y="336" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_00m17xv_di" bpmnElement="SequenceFlow_00m17xv">
-        <di:waypoint x="2279" y="572" />
-        <di:waypoint x="2279" y="597" />
-        <di:waypoint x="2346" y="597" />
-        <di:waypoint x="2346" y="621" />
+        <di:waypoint x="2473" y="572" />
+        <di:waypoint x="2473" y="611" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_0952df7_di" bpmnElement="Task_0rdjxz8">
-        <dc:Bounds x="2296" y="621" width="100" height="80" />
+        <dc:Bounds x="2423" y="611" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0pkvuxe_di" bpmnElement="SequenceFlow_0pkvuxe">
         <di:waypoint x="2105" y="514" />
@@ -670,6 +671,13 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_06kztex_di" bpmnElement="Task_0jls22n">
         <dc:Bounds x="637" y="474" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0szstoz_di" bpmnElement="SequenceFlow_0szstoz">
+        <di:waypoint x="2201" y="514" />
+        <di:waypoint x="2261" y="514" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_05arrug_di" bpmnElement="Task_12vve3g">
+        <dc:Bounds x="2261" y="474" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

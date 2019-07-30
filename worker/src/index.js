@@ -1,7 +1,11 @@
 //  Workers
 const emailWorkers = require('./workers/EmailWorkers.js');
 const cvPartnerWorker = require('./workers/CVPartnerWorker.js');
+const mysqlWorker = require('./workers/mysqlWorker.js');
 
+//  Move data to DB
+mysqlWorker.copyVars("ToDB");
+//  Add employe to CV Partner
 cvPartnerWorker.cvPartnerPostUser("CVPartner");
 //  Assigned task
 emailWorkers.taskReminderEmail("SD1Rec", "magnus.ihle@gmail.com", "Camunda New Task Recieved", `<h1>You have recieved a new task in Camunda</h1><br> `); // Skal til servicedesk spør om epost // magnus.ihle@gmail.com

@@ -17,11 +17,23 @@ services:
 
   mysql:
     image: mysql:5.7
+    ports:
+      - '8050:3306'
     environment:
       - MYSQL_ROOT_PASSWORD=camunda
       - MYSQL_USER=camunda
       - MYSQL_PASSWORD=camunda
       - MYSQL_DATABASE=process-engine
+
+  internal_DB: 
+    image: mysql:5.7
+    ports: 
+      - '8000:3306'
+    environment: 
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_DATABASE=internal
 
   worker:
     build:
