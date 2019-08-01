@@ -32,6 +32,7 @@ docker-compose up
 ```
 
 Docker compose runs: 
+    
     - Camunda BPM
     - React.js Client
     - Node.js worker
