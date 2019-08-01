@@ -27,7 +27,7 @@ module.exports = {
       });
       var collection = dbo.collection("employes");
       collection.createIndex(
-        { firstName: 1, lastName: 1 },
+        { firstName: 1, lastName: 1 }, { unique: true },
         function(err, res) {
           if (err) {
             console.error("Error creating index: " + err);

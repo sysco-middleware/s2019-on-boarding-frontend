@@ -27,7 +27,7 @@ class EmployeTable extends Component {
   }
 
   componentDidMount() {
-    fetch('http://worker:5000/api/v1/getEmployes')
+    fetch('/api/v1/getEmployes')
       .then(response => response.json())
       .then(data => {
         console.log(data);
