@@ -1,17 +1,47 @@
-import React from "react";
-import { Field, reduxForm } from "redux-form";
+import React, {useState} from "react";
+import { Field, reduxForm, formValueSelector } from "redux-form";
 import { Form, Button, Grid } from "semantic-ui-react";
 import {
   InputField,
   TextAreaField,
   SelectField
 } from "react-semantic-redux-form";
+import { connect } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import * as Validation from "../../../constants/ValidationOptions";
 import Container from "@material-ui/core/Container";
+import submit from "../../../constants/SubmitValidation";
+import { Message } from 'semantic-ui-react'
 
-const SimpleForm = props => {
-  const { handleSubmit, reset } = props;
+
+let SimpleForm = props => {
+  const { handleSubmit, reset, firstName, lastName, error } = props;
+
+    const [isFalse, setIsFalse] = useState(false);
+  function handleClick(e) {
+    e.preventDefault();
+
+    let data = {
+      firstName: firstName,
+      lastName: lastName
+    };
+
+    fetch("/api/v1/checkEmployes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(resp => {
+    console.log(resp);
+      if (resp !== true) {
+        console.log("ok");
+        handleSubmit();
+      } else {
+        setIsFalse(true);
+      }
+    });
+  }
 
   const depOpt = [
     { key: "middleware", value: "Middleware", text: "Middleware" },
@@ -146,22 +176,33 @@ const SimpleForm = props => {
               />
             </Grid.Column>
           </Grid.Row>
+          <Grid.Row columns={1}>
+            <Grid.Column />
+          </Grid.Row>
+          <Grid.Row columns={1}>
+            <Grid.Column>
+            { isFalse 
+            ? <Message negative header='The employe you entered has alredy been registered...' content='Please check that you have entered the correct FIRST and LAST name.'/>
+            : null
+            }
+            </Grid.Column>
+            </Grid.Row>
           <Grid.Row columns={2}>
             <Grid.Column>
-              <Form.Field control={Button} primary fluid type="submit">
-                Register
+              <Form.Field control={Button} positive fluid onClick={handleClick}>
+                Validate and Start process
               </Form.Field>
             </Grid.Column>
             <Grid.Column>
-              <Form.Field
-                control={Button}
-                negative
-                fluid
-                type="button"
-                onClick={reset}
-              >
-                Reset Fields
-              </Form.Field>
+            <Form.Field
+              control={Button}
+              negative
+              fluid
+              type="button"
+              onClick={reset}
+            >
+              Reset Fields
+            </Form.Field>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -170,6 +211,18 @@ const SimpleForm = props => {
   );
 };
 
-export default reduxForm({
-  form: "simple" // a unique identifier for this form
+SimpleForm = reduxForm({
+  form: "simple", // a unique identifier for this form
+  //onSubmit: submit // submit function must be passed to onSubmit
 })(SimpleForm);
+
+const selector = formValueSelector("simple"); // <-- same as form name
+SimpleForm = connect(state => {
+  const { firstName, lastName } = selector(state, "firstName", "lastName");
+  return {
+    firstName,
+    lastName
+  };
+})(SimpleForm);
+
+export default SimpleForm;

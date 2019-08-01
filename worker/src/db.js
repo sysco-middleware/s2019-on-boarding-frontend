@@ -66,5 +66,20 @@ module.exports = {
         callback(result);
       });
     });
+  }, 
+  mongoCheckForDup: function(tableName, value1, value2, callback) {
+    MongoClient.connect(url, function(err, db) {
+      if(err) throw err;
+      var dbo = db.db("internal");
+      var collection = dbo.collection(tableName);
+
+      collection.find({firstName: value1, lastName: value2}).toArray(function(err, result) {
+        if (err) throw err;
+        db.close();
+        if(result.length <= 0) {
+          callback(false);  
+        } else {callback(true)}; // True if the user already exists.
+      });
+    });
   }
 };

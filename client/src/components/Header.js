@@ -159,6 +159,12 @@ class Header extends Component {
                 </ListItemIcon>
                 <ListItemText primary="Oppgaveliste" />
               </ListItem>
+              <ListItem button component={Link} {...{ to: "/employeTable" }}>
+                <ListItemIcon>
+                  <UpdateIcon />
+                </ListItemIcon>
+                <ListItemText primary="Tidligere kjørte prosesser" />
+              </ListItem>
             </List>
           </Drawer>
         </ClickAwayListener>

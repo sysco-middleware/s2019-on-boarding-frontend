@@ -6,6 +6,7 @@
   "private": true,
   "proxy": "http://camunda:8080",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "camunda-external-task-client-js": "^1.1.1",
     "dotenv": "^8.0.0",
     "ejs": "^2.6.2",

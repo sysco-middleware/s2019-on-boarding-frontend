@@ -1,19 +1,28 @@
 import React, { Component } from "react";
 
-//import MaterialTable from "material-table";
+import MaterialTable from "material-table";
 import { withStyles } from "@material-ui/core/styles";
-//import { RestService } from "../../shared/services/RestService";
 import { Paper } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-//import ProjectTable from "./ProjectTable";
-//import DictionaryTable from "./DictionaryTable";
-//import TableCompanyDialog from "./TableCompanyDialog";
-//import { showCompanyDialog, hideCompanyDialog } from '../../actions/Project/put';
-//import { connect } from "react-redux";
+import Container from '@material-ui/core/Container';
+import { AddBox, ArrowUpward } from "@material-ui/icons";
+
+import Search from '@material-ui/icons/Search'
+import ViewColumn from '@material-ui/icons/ViewColumn'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Add from '@material-ui/icons/Add'
+import Check from '@material-ui/icons/Check'
+import FilterList from '@material-ui/icons/FilterList'
+import Remove from '@material-ui/icons/Remove'
 
 const styles = theme => ({
   root: {
-    width: "100%"
+    width: "90%",
+    margin: "0 auto"
   }
 });
 
@@ -21,7 +30,7 @@ class EmployeTable extends Component {
   constructor() {
     super();
     this.state = {
-      companies: [],
+      employes: [],
       open: false
     };
   }
@@ -30,119 +39,68 @@ class EmployeTable extends Component {
     fetch('/api/v1/getEmployes')
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        //this.setState({ companies: data });
+        this.setState({ employes: data.employes });
       });
-    console.log("Connected");
   }
 
-  render() {
-    return <div />;
-  }
-}
-export default EmployeTable;
 
-/* getData = () => {
-    if (this.state.companies.length > 0) {
-      const companies = this.state.companies;
-      const companyArray = [];
-      let company;
-      for (var i = 0; i < companies.length; i++) {
-        company = {
-          id: companies[i].id,
-          name: companies[i].name,
-          orgnr: companies[i].organization_number,
-          projects: companies[i].projects,
-          projectCount: companies[i].projects.length,
-          dictionary: companies[i].dictionary
+ getData = () => {
+    if (this.state.employes.length > 0) {
+      const employes = this.state.employes;
+      const employeArray = [];
+      let employe;
+      for (var i = 0; i < employes.length; i++) {
+        employe = {
+          firstName: employes[i].firstName,
+          lastName: employes[i].lastName,
+          department: employes[i].department,
+          phoneNumber: employes[i].phoneNumber,
+          boss: employes[i].boss,
+          position: employes[i].position,
+          personalEmail: employes[i].personalEmail,
+          startDate: employes[i].startDate,
         };
-        if (
-          companies[i].hasOwnProperty("industry") &&
-          companies[i].industry != null
-        ) {
-          let companyIndustry = {
-            industryDescription: companies[i].industry.description,
-            industryCode: companies[i].industry.id
-          };
-          company = Object.assign(company, companyIndustry);
-        }
-        if (companies[i].hasOwnProperty("email")) {
-          let companyEmail = {
-            email: companies[i].email
-          };
-          company = Object.assign(company, companyEmail);
-        }
-        companyArray.push(company);
+        employeArray.push(employe);
       }
-      return companyArray;
+      return employeArray;
     } else {
       return [];
     }
   };
-
-  renderDictionaries = rowData => {
-    if (rowData.dictionary.length > 0) {
-      return rowData.dictionary.map((dictionaryItem, index) => {
-        let dict = JSON.parse(dictionaryItem.semantic);
-        const dictionary = Object.keys(dict).map((dictItem, index) => ({
-          key: dictItem,
-          value: dict[dictItem],
-          id: dictionaryItem.id
-        }));
-        return (
-          <DictionaryTable
-            dictionary={dictionary}
-            id={dictionaryItem.id}
-            key={index}
-          />
-        );
-      });
-    }
-  };
-  toggleDialog = () =>{
-    this.props.showCompanyDialog();
-  }
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-      <TableCompanyDialog open={this.state.open}/>
         <MaterialTable
+          icons={{ 
+            Check: Check,
+            DetailPanel: ChevronRight,
+            Export: SaveAlt,
+            Filter: FilterList,
+            FirstPage: FirstPage,
+            LastPage: LastPage,
+            NextPage: ChevronRight,
+            PreviousPage: ChevronLeft,
+            Search: Search,
+            ThirdStateCheck: Remove,
+          }}
           columns={[
-            { title: "Firmanavn", field: "name" },
-            { title: "Epost", field: "email" },
-            { title: "Organisasjonsnummer", field: "orgnr", type: "numeric" },
-            {
-              title: "Antall Prosjekter",
-              field: "projectCount",
-              type: "numeric"
-            },
-            { title: "Industri", field: "industryDescription" },
-            { title: "Industri Kode", field: "industryCode", type: "numeric" }
+            { title: "Fornavn", field: "firstName" },
+            { title: "Etternavn", field: "lastName" },
+            { title: "Avdeling", field: "department" },
+            { title: "Telefonnummer", field: "phoneNumber", type: "numeric"},
+            { title: "Sjef", field: "boss" },
+            { title: "Stilling", field: "position"}, 
+            { title: "Personlig e-post", field: "personalEmail"}, 
+            { title: "Start Dato", field: "startDate", type: "date"}
           ]}
           data={this.getData()}
-          title="Kontakter"
-          actions={[
-            {
-              icon: "add_box",
-              tooltip: "Legg til ny kontakt",
-              isFreeAction: true,
-              onClick: event => {this.toggleDialog()}
-            }
-          ]}
+          title="Ansatte"
           detailPanel={rowData => {
             return (
               <div style={{ padding: 20 }}>
                 <Grid container spacing={24}>
-                  <Grid item xs={8}>
-                    <ProjectTable
-                      projects={rowData.projects}
-                      companyName={rowData.name}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    {this.renderDictionaries(rowData)}
-                  </Grid>
+                  <h1>HEI</h1>
                 </Grid>
               </div>
             );
@@ -174,7 +132,7 @@ export default EmployeTable;
               actions: "Handlinger" // Actions
             },
             body: {
-              emptyDataSourceMessage: "Ingen firma å vise", // No records to display
+              emptyDataSourceMessage: "Ingen ansatte å vise", // No records to display
               filterRow: {
                 filterTooltip: "Filter" // Filter
               }
@@ -186,6 +144,4 @@ export default EmployeTable;
   }
 }
 
-export default connect(null, {showCompanyDialog, hideCompanyDialog})(withStyles(styles)(EmployeTable))
-
-*/
+export default withStyles(styles)(EmployeTable);

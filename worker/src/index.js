@@ -1,5 +1,5 @@
 //  Config
-const { mongoCreateCollection, mongoCreateDB, mongoFetchTable } = require("./db.js");
+const { mongoCreateCollection, mongoCreateDB, mongoFetchTable, mongoCheckForDup } = require("./db.js");
 //  Workers
 const emailWorkers = require('./workers/EmailWorkers.js');
 const cvPartnerWorker = require('./workers/CVPartnerWorker.js');
@@ -12,6 +12,7 @@ const express = require('express');
 mongoCreateDB();
 mongoCreateCollection();
 const app = express();
+
 app.get('/api/v1/getEmployes', (req, res, next) => {
     mongoFetchTable("employes", function(result) {
         res.status(200).send({
@@ -19,6 +20,15 @@ app.get('/api/v1/getEmployes', (req, res, next) => {
         });
     });
 }); 
+app.use(express.json());
+
+app.post('/api/v1/checkEmployes', (req, res) => {
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    mongoCheckForDup("employes", firstName, lastName, function(result) {
+        res.status(200).send(result);
+    });
+});
 
 const PORT = 5000;
 
