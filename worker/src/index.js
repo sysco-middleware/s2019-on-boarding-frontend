@@ -1,25 +1,23 @@
 //  Config
-const { dbConnect, dbCreateTable, dbFetchEmployes } = require("./db.js");
+const { mongoCreateCollection, mongoCreateDB, mongoFetchTable } = require("./db.js");
 //  Workers
-//const emailWorkers = require('./workers/EmailWorkers.js');
-//const cvPartnerWorker = require('./workers/CVPartnerWorker.js');
+const emailWorkers = require('./workers/EmailWorkers.js');
+const cvPartnerWorker = require('./workers/CVPartnerWorker.js');
 const mysqlWorker = require('./workers/mysqlWorker.js');
 //  Testing Node js as a backend
 const express = require('express');
 
 
 //  Move data to DB
-dbConnect();
-dbCreateTable();
-
+mongoCreateDB();
+mongoCreateCollection();
 const app = express();
-app.get('/api/v1/getEmployes', (req, res) => {
-    console.log(dbFetchEmployes());
-    res.status(200).send({
-        success: true,
-        message: 'Employes successfuly fetched.',
-        employes: dbFetchEmployes()
-    })
+app.get('/api/v1/getEmployes', (req, res, next) => {
+    mongoFetchTable("employes", function(result) {
+        res.status(200).send({
+            employes: result
+        });
+    });
 }); 
 
 const PORT = 5000;
@@ -29,7 +27,7 @@ app.listen(PORT, () => {
 });
 mysqlWorker.copyVars("ToDB");
 
-/*
+
 //  Add employe to CV Partner
 cvPartnerWorker.cvPartnerPostUser("CVPartner");
 //  Assigned task
@@ -57,4 +55,3 @@ emailWorkers.welcomeEmail("WelcomeEmail");
 emailWorkers.checkUpEmail("CheckUpRec", "magnus.ihle@gmail.com", "Oppfølgingsskjema"); // Skal til aktuell konsulent (henter epost fra form) // magnus.ihle@gmail.com
 emailWorkers.checkUpEmail("CheckUpReminder", "magnus.ihle@gmail.com", "Påminnelse oppfølgingsskjema"); // Skal til aktuell konsulent (henter epost fra form) // magnus.ihle@gmail.com
 
-*/

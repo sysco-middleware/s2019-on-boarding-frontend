@@ -14,7 +14,20 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
-
+    
+  client:
+      build:
+        context: ./client/
+      command: npm start
+      volumes:
+        - ./client/:/usr/app
+        - /usr/app/node_modules
+      depends_on:
+        - worker
+        - camunda
+        - mysql
+      ports:
+        - "3000:3000"
   mysql:
     image: mysql:5.7
     ports:
@@ -25,15 +38,10 @@ services:
       - MYSQL_PASSWORD=camunda
       - MYSQL_DATABASE=process-engine
 
-  internal_DB: 
-    image: mysql:5.7
-    ports: 
-      - '8000:3306'
-    environment: 
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=test
-      - MYSQL_PASSWORD=test
-      - MYSQL_DATABASE=internal
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
 
   worker:
     build:
@@ -48,22 +56,15 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - CHOKIDAR_USEPOLLING=true
-
-  client:
-    build:
-      context: ./client/
-    command: npm start
-    volumes:
-      - ./client/:/usr/app
-      - /usr/app/node_modules
-    depends_on:
-      - worker
-      - camunda
-      - mysql
-    ports:
-      - "3000:3000"
+      - DATABASE_HOST=db
+      - MYSQL_PORT=8000
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_DATABASE=internal
+    restart: on-failure 
   #react:
   #  build:
   #    context: .

@@ -1,69 +1,70 @@
-const dotenv = require("dotenv");
-var mysql = require("mysql");
-
-var connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: "root",
-    password: "root",
-    database: "internal",
-    port: 8000
-  });
+const { mongourl } = require("./config.js");
+var MongoClient = require("mongodb").MongoClient;
+var url = mongourl;
 
 module.exports = {
-  dbConnect: function() {
-
-    connection.connect(function(err) {
-      if (err) {
-        console.error("Error connecting: " + err.stack);
-        return;
-      }
-      console.log("Connected as id " + connection.threadId);
+  mongoCreateDB: function() {
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      console.log("Database created!");
+      db.close();
     });
   },
-
-  dbCreateTable: function() {
-    var sql =
-      "CREATE TABLE employes (full_name VARCHAR(100) NOT NULL PRIMARY KEY, department VARCHAR(50), phoneNumber VARCHAR(10), boss VARCHAR(50), position VARCHAR(50), personalEmail VARCHAR(80), start_date VARCHAR(10))";
-    connection.query(sql, function(err, result) {
+  mongoCreateCollection: function() {
+    MongoClient.connect(url, function(err, db) {
       if (err) {
-        console.error("Error creating table: " + err);
+        console.error("Conuld not connect to DB: " + err);
         return;
       }
-      console.log("Table Created!");
+      console.log("Connected to db!");
+      var dbo = db.db("internal");
+      dbo.createCollection("employes", function(err, res) {
+        if (err) {
+          console.error("Could not create collection: " + err);
+          return;
+        }
+        console.log("Collection created!");
+      });
+      var collection = dbo.collection("employes");
+      collection.createIndex(
+        { firstName: 1, lastName: 1 },
+        function(err, res) {
+          if (err) {
+            console.error("Error creating index: " + err);
+            return;
+          }
+          console.log("Index successfully created. " + res);
+        }
+      );
+      db.close();
     });
   },
-
-  dbAddEmploye: function(
-    fullName,
-    department,
-    phoneNumber,
-    boss,
-    position,
-    personalEmail,
-    startDate
-  ) {
-    var sql =
-      `INSERT INTO employes (full_name, department, phoneNumber, boss, position, personalEmail, start_date) VALUES ('${fullName}', '${department}', '${phoneNumber}', '${boss}', '${position}', '${personalEmail}', '${startDate}')`;
-
-    connection.query(sql, function(err, result) {
-      if (err) {
-        console.error("Error inserting row: " + err);
-        return;
-      }
-      console.log("1 row inserted!");
+  mongoInsertEmp: function(tableName, row) {
+    MongoClient.connect(url, function(err, db){
+      if(err) throw err;
+      var dbo = db.db("internal");
+      var collection = dbo.collection(tableName);
+      collection.insertOne(row, function(err, rest){
+        if (err){
+          console.error("Error while inserting row: " + err);
+        }
+        console.log("1 row inserted. ");
+        db.close();
+      });
     });
-  },
+  }, 
+  mongoFetchTable: function(tableName, callback) {
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("internal");
+      var collection = dbo.collection(tableName);
 
-  dbFetchEmployes: function() {
-    var sql = 
-    `SELECT * FROM employes`;
-    connection.query(sql, function(err, result){
-      if(err) {
-        console.error("Error fetching employes: " + err);
-        return;
-      }
-      console.log("Successfully fetched employes.");
-      return result;
-    })
+      collection.find({}).toArray(function(err, result) {
+        if (err) throw err;
+        //console.log(JSON.stringify(result));
+        db.close(); 
+        callback(result);
+      });
+    });
   }
 };
