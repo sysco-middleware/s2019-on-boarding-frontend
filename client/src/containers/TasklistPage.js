@@ -19,6 +19,15 @@ import { loadTasks } from '../actions'
 import Taskform from '../components/Taskform'
 import sortBy from 'lodash/sortBy'
 
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2)
+    return parts
+      .pop()
+      .split(";")
+      .shift();
+}
 class TasklistPage extends Component {
   componentWillMount() {
     this.props.loadTasks();
@@ -49,6 +58,8 @@ class TasklistPage extends Component {
     }
 
     if (!task) {
+      let cookien = getCookie("LOGIN");
+      console.log(cookien);
       return (<Typography variant="h5" gutterBottom>
       Laster Oppgaver ... 
     </Typography>)

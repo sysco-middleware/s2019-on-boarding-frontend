@@ -1,10 +1,14 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
-import { Container, Header } from 'semantic-ui-react'
-import BPMNDiagram from '../components/BPMNDiagram'
-import List from '../components/List'
-import { loadProcessDefinitionsWithXML } from '../actions'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter, Link } from "react-router-dom";
+import { Container, Header } from "semantic-ui-react";
+import BPMNDiagram from "../components/BPMNDiagram";
+import List from "../components/List";
+import { loadProcessDefinitionsWithXML } from "../actions";
+import Typography from '@material-ui/core/Typography';
+
+//  Components
+import DeployProcess from '../components/DeployProcess';
 
 class StartProcessListPage extends Component {
   componentWillMount() {
@@ -12,47 +16,66 @@ class StartProcessListPage extends Component {
   }
 
   renderProcess(process) {
-    return <li key={process.id}>
-      <Link to={`/startProcess/key/${process.key}`}>{process.name} - Version {process.version}</Link>
-      <BPMNDiagram xml={process.xml}></BPMNDiagram>
-    </li>
+    return (
+      <li key={process.id}>
+        <Link to={`/startProcess/key/${process.key}`}>
+          {process.name} - Version {process.version}
+        </Link>
+        <BPMNDiagram xml={process.xml} />
+      </li>
+    );
   }
 
   render() {
-    const { processDefinition, processDefinitionXML } = this.props
+    const { processDefinition, processDefinitionXML } = this.props;
 
     if (!processDefinition) {
       return (
-        <div><p>Laster prosess definisjoner ... </p></div>
-      )
+        <div>
+          <p>Laster prosess definisjoner ... </p>
+        </div>
+      );
     } else {
-      Object.keys(processDefinition).forEach((id) => {
+      Object.keys(processDefinition).forEach(id => {
         if (processDefinitionXML && processDefinitionXML[id]) {
-          processDefinition[id].xml = processDefinitionXML[id].bpmn20Xml
+          processDefinition[id].xml = processDefinitionXML[id].bpmn20Xml;
         }
-      })
+      });
 
       return (
         <Container text>
-          <Header as='h2'>Hvilken prosess vil du starte?</Header>
-          <List renderItem={this.renderProcess}
+          <Typography variant="h4" gutterBottom>
+            Sysco Onboard
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            Dette er camunda tasklist laget i react. For å starte en ny prosess
+            i camunda kan du velge filen i filvelgeren under.{" "}
+          </Typography>
+          <DeployProcess />
+          <Header as="h2">Hvilken prosess vil du starte?</Header>
+          <List
+            renderItem={this.renderProcess}
             items={processDefinition}
             loadingLabel={`Laster prosess definisjoner ... `}
-            />
+          />
         </Container>
-      )
+      );
     }
   }
-
 }
 const mapStateToProps = (state, ownProps) => {
-  const params = ownProps.match.params
+  const params = ownProps.match.params;
   return {
     ...params,
     ...state.entities
-  }
-}
+  };
+};
 
-export default withRouter(connect(mapStateToProps, {
-  loadProcessDefinitionsWithXML
-})(StartProcessListPage))
+export default withRouter(
+  connect(
+    mapStateToProps,
+    {
+      loadProcessDefinitionsWithXML
+    }
+  )(StartProcessListPage)
+);
