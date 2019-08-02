@@ -5,10 +5,20 @@ import { Container, Header } from "semantic-ui-react";
 import BPMNDiagram from "../components/BPMNDiagram";
 import List from "../components/List";
 import { loadProcessDefinitionsWithXML } from "../actions";
-import Typography from '@material-ui/core/Typography';
-
+import Typography from "@material-ui/core/Typography";
 //  Components
-import DeployProcess from '../components/DeployProcess';
+import DeployProcess from "../components/DeployProcess";
+import { Redirect } from "react-router-dom";
+
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length === 2)
+    return parts
+      .pop()
+      .split(";")
+      .shift();
+}
 
 class StartProcessListPage extends Component {
   componentWillMount() {
@@ -28,31 +38,33 @@ class StartProcessListPage extends Component {
 
   render() {
     const { processDefinition, processDefinitionXML } = this.props;
-
-    if (!processDefinition) {
-      return (
-        <div>
-          <p>Laster prosess definisjoner ... </p>
-        </div>
-      );
-    } else {
-      Object.keys(processDefinition).forEach(id => {
-        if (processDefinitionXML && processDefinitionXML[id]) {
-          processDefinition[id].xml = processDefinitionXML[id].bpmn20Xml;
-        }
-      });
-
+    let checkLogin = getCookie("LOGIN");
+    
+    if (checkLogin) {
+      if (!processDefinition) {
+        return (
+          <div>
+            <p>Laster prosess definisjoner ... </p>
+          </div>
+        );
+      } else {
+        Object.keys(processDefinition).forEach(id => {
+          if (processDefinitionXML && processDefinitionXML[id]) {
+            processDefinition[id].xml = processDefinitionXML[id].bpmn20Xml;
+          }
+        });
+      }
       return (
         <Container text>
           <Typography variant="h4" gutterBottom>
             Sysco Onboard
           </Typography>
           <Typography variant="h6" gutterBottom>
-            Dette er camunda tasklist laget i react. For å starte en ny prosess
-            i camunda kan du velge filen i filvelgeren under.{" "}
+            For å starte en ny prosess i camunda kan du velge filen i
+            filvelgeren under.{" "}
           </Typography>
           <DeployProcess />
-          <Header as="h2">Hvilken prosess vil du starte?</Header>
+          <Header as="h2">Eller velg en av prosessene her</Header>
           <List
             renderItem={this.renderProcess}
             items={processDefinition}
@@ -60,6 +72,8 @@ class StartProcessListPage extends Component {
           />
         </Container>
       );
+    } else {
+     return <Redirect to="/" />;
     }
   }
 }
