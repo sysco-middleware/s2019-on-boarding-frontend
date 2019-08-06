@@ -18,13 +18,7 @@ import Add from '@material-ui/icons/Add'
 import Check from '@material-ui/icons/Check'
 import FilterList from '@material-ui/icons/FilterList'
 import Remove from '@material-ui/icons/Remove'
-
-const styles = theme => ({
-  root: {
-    width: "90%",
-    margin: "0 auto"
-  }
-});
+import styles from '../css/styles'
 
 class EmployeTable extends Component {
   constructor() {
