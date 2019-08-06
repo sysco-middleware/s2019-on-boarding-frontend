@@ -35,8 +35,8 @@ const MyDoc = props => {
   doc.autoTable({
     head: [["Descpiption", "Content"]],
     body: [
-      ["First Name", `${firstNameValue}`],
-      ["Last Name", `${lastNameValue}`],
+      ["Fornavn", `${firstNameValue}`],
+      ["Etternavn", `${lastNameValue}`],
       ["Personal Email", `${personalEmailValue}`],
       ["Phone Number", `${phoneNumberValue}`],
       ["Bank Acount", ` ${bankAcountValue}`],

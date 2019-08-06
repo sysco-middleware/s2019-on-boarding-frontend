@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, formValueSelector } from "redux-form";
 import { Form, Button, Grid } from "semantic-ui-react";
 import { InputField, CheckboxField } from "react-semantic-redux-form";
 import * as Validation from "../../../constants/ValidationOptions";
@@ -8,8 +8,62 @@ import * as Validation from "../../../constants/ValidationOptions";
 import Typography from "@material-ui/core/Typography";
 
 let SimpleForm = props => {
-  const { handleSubmit, reset } = props;
-
+  const { handleSubmit, reset, role } = props;
+  let roleForm
+  if(role === "Middleware & Integration"){
+    roleForm = 
+    <Grid.Row columns={1}>
+    <Grid.Column>
+      <Form.Group>
+        <Field
+          name="slackMiddle"
+          component={CheckboxField}
+          toggle
+          label="Slack : Send bestilling til hung.huynh@sysco.no"
+        />
+      </Form.Group>
+    </Grid.Column>
+  </Grid.Row>;
+  } else if(role === "Developer"){
+    roleForm = 
+    <Grid.Row columns={2}>
+    <Grid.Column>
+      <Form.Group>
+        <Field
+          name="slackDev"
+          component={CheckboxField}
+          toggle
+          label="Slack : Send bestilling til Christian.veigner@sysco.no"
+        />
+      </Form.Group>
+    </Grid.Column>
+    <Grid.Column>
+      <Form.Group>
+        <Field
+          name="bitbucketDev"
+          component={CheckboxField}
+          toggle
+          label="Bitbucket: Send bestilling til Christian.veigner@sysco.no"
+          validate={Validation.required}
+        />
+      </Form.Group>
+    </Grid.Column>
+  </Grid.Row>;
+  } else if(role === "Finans"){
+    roleForm = 
+    <Grid.Row columns={1}>
+    <Grid.Column>
+      <Form.Group>
+        <Field
+          name="skl"
+          component={CheckboxField}
+          toggle
+          label="Opprettes som bruker hos SKL"
+        />
+      </Form.Group>
+    </Grid.Column>
+  </Grid.Row>;
+  }
   return (
     <Form onSubmit={handleSubmit}>
       <Typography variant="h4" gutterBottom>
@@ -21,8 +75,8 @@ let SimpleForm = props => {
             <Field
               name="firstName"
               component={InputField}
-              label="First Name"
-              placeholder="First Name"
+              label="Fornavn"
+              placeholder="Fornavn"
               disabled={true}
             />
           </Grid.Column>
@@ -30,8 +84,8 @@ let SimpleForm = props => {
             <Field
               name="lastName"
               component={InputField}
-              label="Last Name"
-              placeholder="Last Name"
+              label="Etternavn"
+              placeholder="Etternavn"
               disabled={true}
             />
           </Grid.Column>
@@ -41,8 +95,8 @@ let SimpleForm = props => {
             <Field
               name="personalEmail"
               component={InputField}
-              label="Personal E-Mail"
-              placeholder="Personal E-Mail"
+              label="Personlig E-post"
+              placeholder="Personlig E-post"
               disabled={true}
             />
           </Grid.Column>
@@ -50,9 +104,8 @@ let SimpleForm = props => {
             <Field
               name="equipment"
               component={InputField}
-              label="Equipment"
-              placeholder="Equipment"
-              id="hei"
+              label="Utstyr"
+              placeholder="Utstyr"
               disabled={true}
             />
           </Grid.Column>
@@ -64,7 +117,7 @@ let SimpleForm = props => {
                 name="registredAD"
                 component={CheckboxField}
                 toggle
-                label="Registred in AD"
+                label="Bruker registrert i AD"
               />
             </Form.Group>
           </Grid.Column>
@@ -74,7 +127,7 @@ let SimpleForm = props => {
                 name="registredOffice365"
                 component={CheckboxField}
                 toggle
-                label="Registred in Office365"
+                label="Bruker registrert i Office365"
                 validate={Validation.required}
               />
             </Form.Group>
@@ -85,12 +138,58 @@ let SimpleForm = props => {
             <Field
               name="syscoEmail"
               component={InputField}
-              label="Sysco E-Mail"
-              placeholder="Sysco E-Mail"
+              label="Sysco E-post"
+              placeholder="Sysco E-post"
               validate={[Validation.required, Validation.emailSysco]}
             />
           </Grid.Column>
         </Grid.Row>
+        <Grid.Row columns={2}>
+          <Grid.Column>
+            <Form.Group>
+              <Field
+                name="phonero"
+                component={CheckboxField}
+                validate={Validation.required}
+                toggle
+                label="Bruker er opprettet som kontakt på mb.phonero.no"
+              />
+            </Form.Group>
+          </Grid.Column>
+          <Grid.Column>
+            <Form.Group>
+              <Field
+                name="phoneUpdate"
+                component={CheckboxField}
+                toggle
+                label="Mobilnummer må oppdateres på Workplace og AD"
+                validate={Validation.required}
+              />
+            </Form.Group>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={2}>
+          <Grid.Column>
+            <Form.Group>
+              <Field
+                name="wikiAccess"
+                component={CheckboxField}
+                validate={Validation.required}
+                toggle
+                label="Bruker er blitt opprettet i Wiki"
+              />
+            </Form.Group>
+          </Grid.Column>
+          <Grid.Column>
+              <Field
+                name="department"
+                component={InputField}
+                validate={[Validation.required]}
+                disabled={true}
+              />
+          </Grid.Column>
+        </Grid.Row>
+        {roleForm}
         <Grid.Row columns={2}>
           <Grid.Column>
             <Form.Field control={Button} primary fluid type="submit">
@@ -118,9 +217,15 @@ SimpleForm = reduxForm({
   form: "simpleForm",
   enableReinitialize: true
 })(SimpleForm);
-SimpleForm = connect(state => ({
+
+const selector = formValueSelector("simpleForm");
+SimpleForm = connect(state => {
+  const role = selector(state, "department")
+  return{
   initialValues: state.entities.taskVariables
     ? state.entities.taskVariables.variables
-    : {}
-}))(SimpleForm);
+    : {},
+    role
+  };
+})(SimpleForm);
 export default SimpleForm;

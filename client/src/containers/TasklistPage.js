@@ -18,16 +18,8 @@ import Container from "@material-ui/core/Container";
 import { loadTasks } from "../actions";
 import Taskform from "../components/Taskform";
 import sortBy from "lodash/sortBy";
+import { getCookie } from '../constants/cookie';
 
-function getCookie(name) {
-  var value = "; " + document.cookie;
-  var parts = value.split("; " + name + "=");
-  if (parts.length === 2)
-    return parts
-      .pop()
-      .split(";")
-      .shift();
-}
 class TasklistPage extends Component {
   componentWillMount() {
     this.props.loadTasks();
@@ -89,7 +81,7 @@ class TasklistPage extends Component {
         );
       }
     }else{
-      return <Redirect to="/" />;
+      return <Redirect to="/login" />;
     }
   }
 }

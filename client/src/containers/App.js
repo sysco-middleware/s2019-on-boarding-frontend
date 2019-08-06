@@ -4,13 +4,13 @@ import { connect } from 'react-redux'
 
 //  Material UI
 import Container from '@material-ui/core/Container';
-import Login from './Login'
+import StartProcessPage from './StartProcessListPage';
 
 
 const App = ({actions, children}) => (
   <div>
     <Container fixed>
-     <Login />
+     <StartProcessPage />
     </Container>
   </div>
 )

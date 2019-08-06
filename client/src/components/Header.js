@@ -28,6 +28,12 @@ class Header extends Component {
     open: false
   };
 
+  deleteCookie = () => {
+    let name = "LOGIN";
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    this.props.history.push('/');
+  }
+
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -40,7 +46,7 @@ class Header extends Component {
     const { classes } = this.props;
     const { open } = this.state;
     
-    if (matchPath(this.props.location.pathname, { path: '/email/:processDefinitionId/:taskId' }) || matchPath(this.props.location.pathname, { path: '/formSubmitted' })) {
+    if (matchPath(this.props.location.pathname, { path: '/email/:processDefinitionId/:taskId' }) || matchPath(this.props.location.pathname, { path: '/formSubmitted' }) || matchPath(this.props.location.pathname, { path: '/login' })) {
     return null
     }    
     return (
@@ -86,12 +92,6 @@ class Header extends Component {
                 <ListItemIcon>
                   <CloudUploadIcon />
                 </ListItemIcon>
-                <ListItemText primary="Hjem" />
-              </ListItem>
-              <ListItem button component={Link} {...{ to: "/startProcess/list" }}>
-                <ListItemIcon>
-                  <DashboardIcon />
-                </ListItemIcon>
                 <ListItemText primary="Start en ny prosess" />
               </ListItem>
               <ListItem button component={Link} {...{ to: "/tasklist" }}>
@@ -105,6 +105,12 @@ class Header extends Component {
                   <UpdateIcon />
                 </ListItemIcon>
                 <ListItemText primary="Tidligere kjørte prosesser" />
+              </ListItem>
+              <ListItem button onClick={this.deleteCookie}>
+                <ListItemIcon>
+                  <UpdateIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logg ut" />
               </ListItem>
             </List>
           </Drawer>

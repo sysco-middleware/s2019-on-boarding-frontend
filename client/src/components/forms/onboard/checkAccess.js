@@ -10,13 +10,13 @@ let SimpleForm = props => {
   return (
     <Form onSubmit={handleSubmit}>
       <legend>HR department</legend>
-      <Field name='firstName' component={InputField} label='First Name' placeholder='First Name'disabled={true}/>
-      <Field name='lastName' component={InputField} label='Last Name' placeholder="Last Name" disabled={true}/>
-      <Field name='personalEmail' component={InputField} label='Personal E-Mail' placeholder="Personal E-Mail" disabled={true}/>
+      <Field name='firstName' component={InputField} label='Fornavn' placeholder='Fornavn'disabled={true}/>
+      <Field name='lastName' component={InputField} label='Etternavn' placeholder="Etternavn" disabled={true}/>
+      <Field name='personalEmail' component={InputField} label='Personlig E-post' placeholder="Personlig E-post" disabled={true}/>
       <Field name='workplace' component={InputField} label='Workplace and orgnisation structure' placeholder="Workplace and orgnisation structure" validate={[ Validation.required]}/>
-      <Field name='equipment' component={InputField} label='Equipment' placeholder='Equipment' disabled ={true}/>
+      <Field name='Utstyr' component={InputField} label='utstyr' placeholder='utstyr' disabled ={true}/>
       <Form.Group>
-          <Field name='equipmnetOrdered' component={CheckboxField} label='Equipment is ordered' />
+          <Field name='equipmnetOrdered' component={CheckboxField} label='utstyr is ordered' />
       </Form.Group>
       <Form.Field control={Button} primary type='submit'>Complete</Form.Field>
       <Form.Field control={Button} primary type='button' onClick={reset}>Reset Fields</Form.Field>

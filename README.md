@@ -100,8 +100,8 @@ const SimpleForm = props => {
   const { handleSubmit } = props
   return (
     <Form onSubmit={handleSubmit}>
-        <Field name='firstName' component={InputField} label='First Name' placeholder='First Name'/>
-        <Field name='lastName' component={InputField} label='Last Name' placeholder='Last Name'/>
+        <Field name='firstName' component={InputField} label='Fornavn' placeholder='Fornavn'/>
+        <Field name='lastName' component={InputField} label='Etternavn' placeholder='Etternavn'/>
         <Form.Field control={Button} primary type='submit'>Register</Form.Field>
     </Form>
   )

@@ -9,16 +9,7 @@ import Typography from "@material-ui/core/Typography";
 //  Components
 import DeployProcess from "../components/DeployProcess";
 import { Redirect } from "react-router-dom";
-
-function getCookie(name) {
-  var value = "; " + document.cookie;
-  var parts = value.split("; " + name + "=");
-  if (parts.length === 2)
-    return parts
-      .pop()
-      .split(";")
-      .shift();
-}
+import { getCookie } from '../constants/cookie';
 
 class StartProcessListPage extends Component {
   componentWillMount() {
@@ -73,7 +64,7 @@ class StartProcessListPage extends Component {
         </Container>
       );
     } else {
-     return <Redirect to="/" />;
+     return <Redirect to="/login" />;
     }
   }
 }

@@ -19,8 +19,8 @@ let SimpleForm = props => {
             <Field
               name="firstName"
               component={InputField}
-              label="First Name"
-              placeholder="First Name"
+              label="Fornavn"
+              placeholder="Fornavn"
               disabled={true}
             />
           </Grid.Column>
@@ -28,8 +28,8 @@ let SimpleForm = props => {
             <Field
               name="lastName"
               component={InputField}
-              label="Last Name"
-              placeholder="Last Name"
+              label="Etternavn"
+              placeholder="Etternavn"
               disabled={true}
             />
           </Grid.Column>
@@ -39,8 +39,8 @@ let SimpleForm = props => {
             <Field
               name="personalEmail"
               component={InputField}
-              label="Personal E-Mail"
-              placeholder="Personal E-Mail"
+              label="Personlig E-post"
+              placeholder="Personlig E-post"
               disabled={true}
             />
           </Grid.Column>
@@ -48,8 +48,8 @@ let SimpleForm = props => {
             <Field
               name="equipment"
               component={InputField}
-              label="Equipment"
-              placeholder="Equipment"
+              label="Utstyr"
+              placeholder="Utstyr"
               disabled={true}
             />
           </Grid.Column>
@@ -71,7 +71,7 @@ let SimpleForm = props => {
                 name="equipmnetOrdered"
                 component={CheckboxField}
                 toggle
-                label="Equipment is ordered"
+                label="Utstyr er bestilt is ordered"
               />
             </Form.Group>
           </Grid.Column>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 import MaterialTable from "material-table";
 import { withStyles } from "@material-ui/core/styles";
@@ -18,7 +19,8 @@ import Add from '@material-ui/icons/Add'
 import Check from '@material-ui/icons/Check'
 import FilterList from '@material-ui/icons/FilterList'
 import Remove from '@material-ui/icons/Remove'
-import styles from '../css/styles'
+import styles from '../css/styles';
+import { getCookie } from '../constants/cookie';
 
 class EmployeTable extends Component {
   constructor() {
@@ -63,6 +65,8 @@ class EmployeTable extends Component {
   };
   render() {
     const { classes } = this.props;
+    let checkLogin = getCookie("LOGIN");
+    if (checkLogin) {
     return (
       <div className={classes.root}>
         <MaterialTable
@@ -135,6 +139,9 @@ class EmployeTable extends Component {
         />
       </div>
     );
+  } else {
+    return <Redirect to="/login" />;
+    }
   }
 }
 

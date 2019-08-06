@@ -17,16 +17,16 @@ let SimpleForm = props => {
           <Field
             name="firstName"
             component={InputField}
-            label="First Name"
-            placeholder="First Name"
+            label="Fornavn"
+            placeholder="Fornavn"
             disabled={true}
           />
     
           <Field
             name="lastName"
             component={InputField}
-            label="Last Name"
-            placeholder="Last Name"
+            label="Etternavn"
+            placeholder="Etternavn"
             disabled={true}
 
           />
@@ -34,8 +34,8 @@ let SimpleForm = props => {
           <Field
             name="personalEmail"
             component={InputField}
-            label="Personal E-Mail"
-            placeholder="Personal E-Mail"
+            label="Personlig E-post"
+            placeholder="Personlig E-post"
             disabled={true}
 
           />
@@ -88,10 +88,10 @@ let SimpleForm = props => {
           />
      
           <Field
-            name="equipment"
+            name="Utstyr"
             component={TextAreaField}
-            label="Equipment"
-            placeholder="Equipment"
+            label="Utstyr"
+            placeholder="Utstyr"
             disabled={true}
 
           />

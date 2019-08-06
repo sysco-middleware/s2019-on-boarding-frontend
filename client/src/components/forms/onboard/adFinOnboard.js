@@ -19,8 +19,8 @@ let SimpleForm = props => {
             <Field
               name="firstName"
               component={InputField}
-              label="First Name"
-              placeholder="First Name"
+              label="Fornavn"
+              placeholder="Fornavn"
               disabled={true}
               validate={[
                 Validation.required,
@@ -33,8 +33,8 @@ let SimpleForm = props => {
             <Field
               name="lastName"
               component={InputField}
-              label="Last Name"
-              placeholder="Last Name"
+              label="Etternavn"
+              placeholder="Etternavn"
               disabled={true}
               validate={[
                 Validation.required,
@@ -47,8 +47,8 @@ let SimpleForm = props => {
             <Field
               name="personalEmail"
               component={InputField}
-              label="Personal E-Mail"
-              placeholder="Personal E-Mail"
+              label="Personlig E-post"
+              placeholder="Personlig E-post"
               disabled={true}
               validate={[Validation.required, Validation.email]}
             />

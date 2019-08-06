@@ -7,9 +7,10 @@ import StartProcessPage from './StartProcessPage'
 import StartProcessListPage from './StartProcessListPage'
 import TasklistPage from './TasklistPage'
 import Header from '../components/Header'
-import TaskFromEmail from './TaskFromEmail';
-import FormSubmitted from './../components/FormSubmitted';
-import EmployeTable from './../components/EmployeTable';
+import TaskFromEmail from './TaskFromEmail'
+import FormSubmitted from './../components/FormSubmitted'
+import EmployeTable from './../components/EmployeTable'
+import Login from './Login'
 
 const Root = ({ store }) => (
   <Provider store={store}>
@@ -21,6 +22,7 @@ const Root = ({ store }) => (
       <Route path="/tasklist" component={TasklistPage} exact/>
       <Route path="/tasklist/:processDefinitionId/:taskId" component={TasklistPage}/>
       <Route path="/email/:processDefinitionId/:taskId" component={TaskFromEmail} />
+      <Route path="/login" component={Login} />
       
       <Route path="/formSubmitted" component={FormSubmitted} />
       <Route path="/employeTable" component={EmployeTable} />

@@ -28,7 +28,7 @@ let SimpleForm = props => {
     { key: "middleware", value: "Middleware", text: "Middleware" },
     { key: "frontend", value: "Frontend", text: "Frontend" },
     { key: "developer", value: "Developer", text: "Full Stack" },
-    { key: "administration", value: "Administration", text: "Administation" },
+    { key: "finance", value: "finance", text: "Administation" },
     { key: "economics", value: "Aconomics", text: "Economics" }
   ];
   
@@ -44,8 +44,8 @@ let SimpleForm = props => {
               <Field
                 name="firstName"
                 component={InputField}
-                label="First Name"
-                placeholder="First Name"
+                label="Fornavn"
+                placeholder="Fornavn"
                 disabled={true}
               />
             </Grid.Column>{" "}
@@ -53,8 +53,8 @@ let SimpleForm = props => {
               <Field
                 name="lastName"
                 component={InputField}
-                label="Last Name"
-                placeholder="Last Name"
+                label="Etternavn"
+                placeholder="Etternavn"
                 disabled={true}
               />
             </Grid.Column>
@@ -65,8 +65,8 @@ let SimpleForm = props => {
               <Field
                 name="personalEmail"
                 component={InputField}
-                label="Personal E-Mail"
-                placeholder="Personal E-Mail"
+                label="Personlig E-post"
+                placeholder="Personlig E-post"
                 disabled={true}
               />
             </Grid.Column>{" "}
@@ -140,8 +140,8 @@ let SimpleForm = props => {
               <Field
                 name="equipment"
                 component={TextAreaField}
-                label="Equipment"
-                placeholder="Equipment"
+                label="Utstyr"
+                placeholder="Utstyr"
                 disabled={true}
               />
             </Grid.Column>{" "}
@@ -161,7 +161,7 @@ let SimpleForm = props => {
               <Field
                 name="registredAD"
                 component={CheckboxField}
-                label="Registred in AD"
+                label="Bruker registrert i AD"
                 disabled={true}
               />
             </Grid.Column>{" "}
@@ -169,7 +169,7 @@ let SimpleForm = props => {
               <Field
                 name="registredOffice365"
                 component={CheckboxField}
-                label="Registred in Office365"
+                label="Bruker registrert i Office365"
                 disabled={true}
               />
             </Grid.Column>

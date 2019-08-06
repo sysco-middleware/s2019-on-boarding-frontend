@@ -4,7 +4,8 @@ import { Form, Button, Grid } from "semantic-ui-react";
 import {
   InputField,
   TextAreaField,
-  SelectField
+  SelectField,
+  CheckboxField
 } from "react-semantic-redux-form";
 import { connect } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
@@ -33,7 +34,7 @@ let SimpleForm = props => {
     console.log(resp);
       if (resp !== true) {
         console.log("ok");
-        //handleSubmit();
+        handleSubmit();
       } else {
         setIsFalse(true);
       }
@@ -41,11 +42,10 @@ let SimpleForm = props => {
   }
 
   const depOpt = [
-    { key: "middleware", value: "Middleware", text: "Middleware" },
+    { key: "middleware", value: "Middleware & Integration", text: "Middleware & Integration" },
     { key: "frontend", value: "Frontend", text: "Frontend" },
-    { key: "developer", value: "Developer", text: "Full Stack" },
-    { key: "administration", value: "Administration", text: "Administation" },
-    { key: "economics", value: "Aconomics", text: "Economics" }
+    { key: "developer", value: "Developer", text: "Developer" },
+    { key: "finance", value: "Finans", text: "Finans" },
   ];
 
   return (
@@ -57,8 +57,8 @@ let SimpleForm = props => {
               <Field
                 name="firstName"
                 component={InputField}
-                label="First Name"
-                placeholder="First Name"
+                label="Fornavn"
+                placeholder="Fornavn"
                 validate={[
                   Validation.requiredName,
                   Validation.maxLength15,
@@ -70,8 +70,8 @@ let SimpleForm = props => {
               <Field
                 name="lastName"
                 component={InputField}
-                label="Last Name"
-                placeholder="Last Name"
+                label="Etternavn"
+                placeholder="Etternavn"
                 validate={[
                   Validation.requiredName,
                   Validation.maxLength15,
@@ -83,8 +83,8 @@ let SimpleForm = props => {
               <Field
                 name="personalEmail"
                 component={InputField}
-                label="Personal E-Mail"
-                placeholder="Personal E-Mail"
+                label="Personlig E-post"
+                placeholder="Personlig E-post"
                 validate={[Validation.required, Validation.email]}
               />
             </Grid.Column>
@@ -132,7 +132,7 @@ let SimpleForm = props => {
             <Grid.Column>
               <legend>Department</legend>
               <Field
-                name="Department"
+                name="department"
                 component={SelectField}
                 options={depOpt}
                 validate={[Validation.required]}
@@ -172,6 +172,17 @@ let SimpleForm = props => {
                 ]}
               />
             </Grid.Column>
+            <Grid.Column>
+            <Form.Group>
+              <Field
+                name="adAdmin"
+                component={CheckboxField}
+                validate={Validation.required}
+                toggle
+                label="Nyansatt skal ha admin rettigheter i AD"
+              />
+            </Form.Group>
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={1}>
             <Grid.Column />
@@ -179,7 +190,7 @@ let SimpleForm = props => {
           <Grid.Row columns={1}>
             <Grid.Column>
             { isFalse 
-            ? <Message negative header='The employe you entered has alredy been registered...' content='Please check that you have entered the correct FIRST and LAST name.'/>
+            ? <Message negative header='The employe you entered has alredy been registered...' content='Please check that you have entered the correct FIRST and Etternavn.'/>
             : null
             }
             </Grid.Column>

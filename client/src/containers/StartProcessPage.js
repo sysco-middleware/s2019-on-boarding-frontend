@@ -3,17 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
 import GenericForm from "../components/GenericForm";
 import { loadProcessDefinitions, loadFormKey } from "../actions";
-
-
-function getCookie(name) {
-  var value = "; " + document.cookie;
-  var parts = value.split("; " + name + "=");
-  if (parts.length === 2)
-    return parts
-      .pop()
-      .split(";")
-      .shift();
-}
+import { getCookie } from '../constants/cookie';
 
 class StartProcessPage extends Component {
   componentWillMount() {
@@ -42,7 +32,7 @@ class StartProcessPage extends Component {
         );
       }
     }else{
-      return <Redirect to="/" />;
+      return <Redirect to="/login" />;
     }
   }
 }
