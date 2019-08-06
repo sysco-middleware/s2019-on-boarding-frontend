@@ -9,7 +9,7 @@ import TasklistPage from './TasklistPage'
 import Header from '../components/Header'
 import TaskFromEmail from './TaskFromEmail';
 import FormSubmitted from './../components/FormSubmitted';
-
+import EmployeTable from './../components/EmployeTable';
 
 const Root = ({ store }) => (
   <Provider store={store}>
@@ -23,6 +23,7 @@ const Root = ({ store }) => (
       <Route path="/email/:processDefinitionId/:taskId" component={TaskFromEmail} />
       
       <Route path="/formSubmitted" component={FormSubmitted} />
+      <Route path="/employeTable" component={EmployeTable} />
     </div>
   </Provider>
 )

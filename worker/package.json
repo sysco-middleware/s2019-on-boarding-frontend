@@ -4,24 +4,28 @@
   "author": "Magnus Ihle",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
+  "proxy": "http://camunda:8080",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "camunda-external-task-client-js": "^1.1.1",
     "dotenv": "^8.0.0",
     "ejs": "^2.6.2",
+    "express": "^4.17.1",
     "html-pdf": "^2.2.0",
+    "mongodb": "^3.3.0-beta2",
     "mysql": "^2.17.1",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.2.1",
     "npm": "^6.10.0"
   },
   "scripts": {
-    "start": "node src/index.js",
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
-    "@babel/register": "^7.4.4"
+    "@babel/register": "^7.4.4",
+    "nodemon": "^1.19.1"
   }
 }
