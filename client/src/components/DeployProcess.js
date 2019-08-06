@@ -3,16 +3,12 @@ import { deployProcess } from '../actions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import FileReaderInput from 'react-file-reader-input'
+import styles from '../css/styles'
 
 //  Material UI
 import { withStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 
-const styles = theme => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-});
 
 class DeployProcess extends Component {
   handleChange = (e, results) => {

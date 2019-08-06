@@ -11,8 +11,6 @@ The application runs on docker.
 ## Installation 
 
 ```bash
-mkdir Sysco Onboard
-
    // Clone using ssh:
 git clone git@github.com:sysco-middleware/s2019-on-boarding-frontend.git
 
@@ -34,22 +32,13 @@ docker-compose up
 ```
 
 Docker compose runs: 
+    
     - Camunda BPM
-    - MySQL database for Camunda
+    - React.js Client
     - Node.js worker
-
-###### Running React.js
-
-In the development stage of the project the frontend runs locally. 
- 
-To start the application Node.js is required,  [Download Node.js](https://nodejs.org/en/download/)
-
-From the project root: 
-
-```bash
-npm install
-npm start
-```
+    
+    - MySQL database for Camunda
+    - MongoDB database for Internal information
 
 ##  Running the application
 
@@ -141,17 +130,16 @@ This is a small overwiev of tasks, finished and tasks to-do.
 - [X] Set up email worker with smtp connector for email reminders
 - [X] Dynamic date timer event in camunda modeler 
 - [X] Write README.md
-
+- [X] When entering form from email only display single form and not everything else
+- [X] Generating PDF from Redux Form values
+- [X] Create a table from MySQL data for completed processes (MongoDB)
+- [X] Modify the forms to the end users requirements
 
 ###### To-do
 
-- [ ] When entering form from email only display single form and not everything else
-- [ ] Generating PDF from Redux Form values
 - [ ] Integrating with motivati through Rest API
-- [ ] Create a table from MySQL data for completed processes
 - [ ] Create a change role, and offboarding process (Handling stored data)
 - [ ] Create frontend tests 
-- [ ] Modify the forms to the end users requirements
 
 
 ###### Services to test
