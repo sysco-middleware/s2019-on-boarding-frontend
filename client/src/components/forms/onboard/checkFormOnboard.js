@@ -17,7 +17,7 @@ import * as Validation from "../../../constants/ValidationOptions";
 
 
 let SimpleForm = props => {
-  const { handleSubmit, firstNameValue, lastNameValue } = props;
+  const { handleSubmit } = props;
 
   function handleClick(e) {
     e.preventDefault();
