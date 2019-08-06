@@ -7,5 +7,6 @@ module.exports = {
     cvPartnerURL: process.env.CV_PARTNER_URL,
     camundaURL: process.env.CAMUNDA_URL,
     camundaTestURL: process.env.CAMUNDA_TEST_URL,
-    mongourl: process.env.MONGO
+    mongourl: process.env.MONGO,
+    apiUrl: '/api/v1/'
 }

@@ -10,7 +10,9 @@ import { connect } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import * as Validation from "../../../constants/ValidationOptions";
 import Container from "@material-ui/core/Container";
-import { Message } from 'semantic-ui-react'
+import { Message } from 'semantic-ui-react';
+import { Restservice } from "../../../shared/restservice";
+
 
 
 let SimpleForm = props => {
@@ -25,17 +27,13 @@ let SimpleForm = props => {
       lastName: lastName
     };
 
-    fetch("/api/v1/checkEmployes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    })
+    Restservice.postName("checkEmployes" ,data)
     .then(response => response.json())
     .then(resp => {
     console.log(resp);
       if (resp !== true) {
         console.log("ok");
-        handleSubmit();
+        //handleSubmit();
       } else {
         setIsFalse(true);
       }
