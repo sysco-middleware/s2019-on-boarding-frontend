@@ -7,12 +7,26 @@ const cvPartnerWorker = require('./workers/CVPartnerWorker.js');
 const mysqlWorker = require('./workers/mysqlWorker.js');
 //  Testing Node js as a backend
 const express = require('express');
+const app = express();
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const jwt = require('./_helpers/jwt');
+const errorHandler = require('./_helpers/error-handler');
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
+
+app.use(jwt());
+
+app.use('/admin', require('./admin/admin.controller'));
+app.use('/employe', require('./employe/employe.controller'));
+
+app.use(errorHandler);
 
 //  Move data to DB
-mongoCreateDB();
-mongoCreateCollection();
-const app = express();
+//mongoCreateDB();
+//mongoCreateCollection();
 
 app.get( apiUrl + 'getEmployes', (req, res, next) => {
     mongoFetchTable("employes", function(result) {

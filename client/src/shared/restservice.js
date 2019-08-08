@@ -12,4 +12,19 @@ export class Restservice {
             body: JSON.stringify(data)
         });
     }
+
+    static login(userName, password) {
+        const requestOptions = {
+            method: "POST",
+            headers: HEADERS,
+            body: JSON.stringify({ userName, password })
+        };
+
+        return fetch('/admin/authenticate', requestOptions)
+        .then(handleResponse)
+        .then(admin => {
+            localStorage.setItem('admin', JSON.stringify(admin));
+            return admin
+        });
+    }
 }

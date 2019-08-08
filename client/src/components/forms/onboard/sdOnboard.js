@@ -16,7 +16,7 @@ let SimpleForm = props => {
     <Grid.Column>
       <Form.Group>
         <Field
-          name="slackMiddle"
+          name="slack"
           component={CheckboxField}
           toggle
           label="Slack : Send bestilling til hung.huynh@sysco.no"
@@ -30,7 +30,7 @@ let SimpleForm = props => {
     <Grid.Column>
       <Form.Group>
         <Field
-          name="slackDev"
+          name="slack"
           component={CheckboxField}
           toggle
           label="Slack : Send bestilling til Christian.veigner@sysco.no"

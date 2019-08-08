@@ -13,6 +13,7 @@
     "camunda-external-task-client-js": "^1.1.1",
     "ejs": "^2.6.2",
     "fs": "0.0.1-security",
+    "history": "^4.9.0",
     "html-pdf": "^2.2.0",
     "http-proxy-middleware": "^0.19.1",
     "humps": "^2.0.0",
