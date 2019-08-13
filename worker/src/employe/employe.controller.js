@@ -6,7 +6,7 @@ router.post('/register', register);
 router.get('/', getAll);
 router.get('/current', getCurrent);
 router.get('/:id', getById);
-router.put('/:id', update);
+router.put('/', update);
 router.delete('/:id', _delete);
 
 module.exports = router;
@@ -36,7 +36,8 @@ function getById(req, res, next) {
 }
 
 function update(req, res, next) {
-    adminService.update(req.params.id, req.body)
+    adminService.update(req.body)
+        //.then(admin => admin ? res.json(admin) : res.sendStatus(404))
         .then(() => res.json({}))
         .catch(err => next(err));
 }

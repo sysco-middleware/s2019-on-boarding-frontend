@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { Field, reduxForm, formValueSelector } from "redux-form";
 import { Form, Button, Grid } from "semantic-ui-react";
 import {
@@ -7,39 +7,15 @@ import {
   SelectField,
   CheckboxField
 } from "react-semantic-redux-form";
-import { connect } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import * as Validation from "../../../constants/ValidationOptions";
 import Container from "@material-ui/core/Container";
 import { Message } from 'semantic-ui-react';
-import { Restservice } from "../../../shared/restservice";
-
 
 
 let SimpleForm = props => {
-  const { handleSubmit, reset, firstName, lastName, error } = props;
+  const { handleSubmit, duplicate, reset} = props;
 
-    const [isFalse, setIsFalse] = useState(false);
-  function handleClick(e) {
-    e.preventDefault();
-
-    let data = {
-      firstName: firstName,
-      lastName: lastName
-    };
-
-    Restservice.postName("checkEmployes" ,data)
-    .then(response => response.json())
-    .then(resp => {
-    console.log(resp);
-      if (resp !== true) {
-        console.log("ok");
-        handleSubmit();
-      } else {
-        setIsFalse(true);
-      }
-    });
-  }
 
   const depOpt = [
     { key: "middleware", value: "Middleware & Integration", text: "Middleware & Integration" },
@@ -110,7 +86,7 @@ let SimpleForm = props => {
             </Grid.Column>
             <Grid.Column>
               <Field
-                name="bankAcount"
+                name="bankAccNumber"
                 component={InputField}
                 label="Bank Acount"
                 placeholder="Bank Acount"
@@ -140,7 +116,7 @@ let SimpleForm = props => {
             </Grid.Column>
             <Grid.Column>
               <Field
-                name="position"
+                name="positionDesc"
                 component={InputField}
                 label="Position Description"
                 placeholder="Position Description"
@@ -160,7 +136,7 @@ let SimpleForm = props => {
             </Grid.Column>
             <Grid.Column>
               <Field
-                name="boss"
+                name="nearestBoss"
                 component={InputField}
                 label="Nearest Boss"
                 placeholder="Nearest boss"
@@ -177,7 +153,6 @@ let SimpleForm = props => {
               <Field
                 name="adAdmin"
                 component={CheckboxField}
-                validate={Validation.required}
                 toggle
                 label="Nyansatt skal ha admin rettigheter i AD"
               />
@@ -189,7 +164,7 @@ let SimpleForm = props => {
           </Grid.Row>
           <Grid.Row columns={1}>
             <Grid.Column>
-            { isFalse 
+            { duplicate 
             ? <Message negative header='The employe you entered has alredy been registered...' content='Please check that you have entered the correct FIRST and Etternavn.'/>
             : null
             }
@@ -197,7 +172,7 @@ let SimpleForm = props => {
             </Grid.Row>
           <Grid.Row columns={2}>
             <Grid.Column>
-              <Form.Field control={Button} positive fluid onClick={handleClick}>
+              <Form.Field control={Button} positive fluid onClick={handleSubmit}>
                 Validate and Start process
               </Form.Field>
             </Grid.Column>
@@ -219,18 +194,6 @@ let SimpleForm = props => {
   );
 };
 
-SimpleForm = reduxForm({
-  form: "simple", // a unique identifier for this form
-  //onSubmit: submit // submit function must be passed to onSubmit
+export default reduxForm({
+  form: "simple" // a unique identifier for this form
 })(SimpleForm);
-
-const selector = formValueSelector("simple"); // <-- same as form name
-SimpleForm = connect(state => {
-  const { firstName, lastName } = selector(state, "firstName", "lastName");
-  return {
-    firstName,
-    lastName
-  };
-})(SimpleForm);
-
-export default SimpleForm;

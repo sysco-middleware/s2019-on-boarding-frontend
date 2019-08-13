@@ -106,7 +106,7 @@ class Header extends Component {
                 </ListItemIcon>
                 <ListItemText primary="Tidligere kjørte prosesser" />
               </ListItem>
-              <ListItem button onClick={this.deleteCookie}>
+              <ListItem button component={Link} {...{ to: "/login" }}>
                 <ListItemIcon>
                   <UpdateIcon />
                 </ListItemIcon>

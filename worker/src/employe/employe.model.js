@@ -13,7 +13,8 @@ const schema = new Schema({
     positionDesc: { type: String, required: true },
     equipment: { type: String, required: true },
     nearestBoss: { type: String, required: true },
-    accessGiven: [],
+    syscoEmail: {type: String},
+    accessGiven: {},
     createdDate: { type: Date, default: Date.now }
 });
 

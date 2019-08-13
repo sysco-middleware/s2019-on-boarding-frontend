@@ -9,7 +9,6 @@ import Typography from "@material-ui/core/Typography";
 //  Components
 import DeployProcess from "../components/DeployProcess";
 import { Redirect } from "react-router-dom";
-import { getCookie } from '../constants/cookie';
 
 class StartProcessListPage extends Component {
   componentWillMount() {
@@ -29,9 +28,6 @@ class StartProcessListPage extends Component {
 
   render() {
     const { processDefinition, processDefinitionXML } = this.props;
-    let checkLogin = getCookie("LOGIN");
-    
-    if (checkLogin) {
       if (!processDefinition) {
         return (
           <div>
@@ -63,9 +59,6 @@ class StartProcessListPage extends Component {
           />
         </Container>
       );
-    } else {
-     return <Redirect to="/login" />;
-    }
   }
 }
 const mapStateToProps = (state, ownProps) => {

@@ -18,7 +18,6 @@ import Container from "@material-ui/core/Container";
 import { loadTasks } from "../actions";
 import Taskform from "../components/Taskform";
 import sortBy from "lodash/sortBy";
-import { getCookie } from '../constants/cookie';
 
 class TasklistPage extends Component {
   componentWillMount() {
@@ -44,8 +43,6 @@ class TasklistPage extends Component {
   render() {
     let { task } = this.props;
     let taskForm = "";
-    let cookien = getCookie("LOGIN");
-    if (cookien) {
       if (this.props.processDefinitionId) {
         taskForm = <Taskform />;
       } else {
@@ -80,9 +77,6 @@ class TasklistPage extends Component {
           </Container>
         );
       }
-    }else{
-      return <Redirect to="/login" />;
-    }
   }
 }
 

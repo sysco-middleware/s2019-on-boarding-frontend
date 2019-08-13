@@ -2,6 +2,8 @@ import * as ActionTypes from '../constants/ActionTypes'
 import merge from 'lodash/merge'
 import { combineReducers } from 'redux'
 import { reducer as reduxFormReducer } from 'redux-form'
+import { authenticate } from './admin-reducer';
+import { employes, registration } from './employe-reducer';
 
 const entities = (state = {}, action) => {
   const { type } = action
@@ -32,7 +34,10 @@ const entities = (state = {}, action) => {
 
 const rootReducer = combineReducers({
   form: reduxFormReducer,
-  entities
+  entities,
+  authenticate,
+  employes,
+  registration
 })
 
 export default rootReducer

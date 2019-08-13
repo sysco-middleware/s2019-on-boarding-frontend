@@ -13,7 +13,7 @@ export function authenticate(state = initialstate, action){
         case AT.LOGIN_SUCCESS:
             return {
                 loggedIn: true,
-                user: action.user
+                admin: action.admin
             };
         case AT.LOGIN_FAILURE:
             return {};

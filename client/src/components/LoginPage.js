@@ -1,10 +1,8 @@
 import React from "react";
-import Cookies from "universal-cookie";
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import styles from "../css/styles";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
-import { login } from "../actions/node-rest/user-service"
 
 import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
@@ -15,23 +13,19 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { getCookie } from "../constants/cookie";
-import { adminActions } from "../actions/node-rest/user-service";
+import { adminActions } from "../actions/node-rest/admin-service";
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userName: "", password: "", submitted: false };
+
+    this.props.logout();
+    this.state = { username: "", password: "", submitted: false };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.adminActions.login(this.props.login);
   }
 
   handleChange(event) {
@@ -43,31 +37,15 @@ class LoginPage extends React.Component {
     event.preventDefault();
 
     this.setState({ submitted: true });
-    const { userName, password } = this.state;
-    if (userName && password) {
-      this.props.login(userName, password);
+    const { username, password } = this.state;
+    if (username && password) {
+      this.props.login(username, password);
     }
-
-    /**
-     if (testPasswords === 0 && testUserNames === 0) {
-      cookies.set("LOGIN", true, { path: "/" });
-      this.props.history.push('/');
-    } else {
-      let name = "LOGIN";
-      document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    }
-     */
   }
 
   render() {
-    const { classes } = this.props;
-    const { userName, password } = this.state;
-/*
-    let checkLogin = getCookie("LOGIN");
-    if (checkLogin) {
-      return <Redirect to="/" />;
-    } else {
-      */
+    const { classes, loggingIn } = this.props;
+    const { username, password } = this.state;
       return (
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -89,10 +67,10 @@ class LoginPage extends React.Component {
                 required
                 fullWidth
                 label="Email Address"
-                name="userName"
+                name="username"
                 autoComplete="email"
                 autoFocus
-                value={userName}
+                value={username}
                 onChange={this.handleChange}
               />
               <TextField
@@ -120,6 +98,9 @@ class LoginPage extends React.Component {
               >
                 Sign In
               </Button>
+              {loggingIn &&
+                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              }
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
@@ -138,14 +119,14 @@ class LoginPage extends React.Component {
       );
     }
   }
-const mapStateToProps = (state, ownProps) => {
-  const params = ownProps.match.params;
-  return {
-    ...params,
-    ...state.entities
-  };
+const mapStateToProps = (state) => {
+  const { loggingIn } = state.authenticate;
+  return { loggingIn };
 };
 
-export default withStyles(styles)(withRouter(connect(mapStateToProps, {
-  adminActions
-})(LoginPage)))
+const actionCreators = {
+  login: adminActions.login,
+  logout: adminActions.logout
+}
+
+export default withStyles(styles)(withRouter(connect(mapStateToProps, actionCreators)(LoginPage)));

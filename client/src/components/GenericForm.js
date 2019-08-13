@@ -1,63 +1,109 @@
-import React, { Component } from 'react'
-import * as FormTypes from './forms'
-import { completeTask, startProcessInstance, loadTaskVariables } from '../actions'
-import { connect } from 'react-redux'
+import React, { Component } from "react";
+import * as FormTypes from "./forms";
+import {
+  completeTask,
+  startProcessInstance,
+  loadTaskVariables
+} from "../actions";
+import { connect } from "react-redux";
+import { employeActions } from "../actions/node-rest/employe-service";
 
 class GenericForm extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (!this.state || !this.state.loading) {
-      this.loadExistingVariables()
+      this.loadExistingVariables();
     }
   }
 
   render() {
     const { formKey, processDefinitionKey, taskId } = this.props;
-    const Form = FormTypes[processDefinitionKey][formKey]
+    const Form = FormTypes[processDefinitionKey][formKey];
     if (taskId == null) {
       return (
         <div className="generic-form">
-          <Form onSubmit={(values, dispatch) => this.handleStartInstance(values, dispatch)} />
+          <Form
+            onSubmit={(values, dispatch) =>
+              this.handleStartInstance(values, dispatch)
+            }
+          />
         </div>
-      )
+      );
     } else {
       return (
         <div className="generic-form">
-          <Form onSubmit={(values, dispatch) => this.handleComplete(values, dispatch)} />
+          <Form
+            onSubmit={(values, dispatch) =>
+              this.handleComplete(values, dispatch)
+            }
+          />
         </div>
-      )
+      );
     }
   }
 
   loadExistingVariables() {
-    let { form, dispatch, taskId } = this.props
+    let { form, dispatch, taskId } = this.props;
     if (form) {
       this.setState({ loading: true });
-      dispatch(loadTaskVariables(taskId, form.registeredFields))
+      dispatch(loadTaskVariables(taskId, form.registeredFields));
     }
-
   }
 
   handleComplete(values, dispatch) {
-    values = this.getBody(values)
-    return dispatch(completeTask(this.props.taskId, values))
+    let camVar = this.getBody(values);
+    let monVar = this.completeBody(values);
+    return dispatch(employeActions.update(monVar))
+    //return dispatch(completeTask(this.props.taskId, camVar));
   }
 
   handleStartInstance(values, dispatch) {
-    values = this.getBody(values)
-    return dispatch(startProcessInstance(this.props.processDefinitionKey, values))
+    let camVar = this.getBody(values);
+    let monVar = this.monooseBody(values);
+    console.log(values);
+    console.log(camVar);
+    console.log(monVar);
+    return dispatch(employeActions.register(monVar), startProcessInstance(this.props.processDefinitionKey, camVar))
   }
 
   getBody(values) {
-    let variables = {}
-    Object.keys(values).forEach((item) => {
-      variables[item] = {'value': values[item]}
+    let variables = {};
+    Object.keys(values).forEach(item => {
+      variables[item] = { value: values[item] };
     });
     return {
-      'variables': variables
-    }
+      variables: variables
+    };
   }
+
+  monooseBody(values) {
+    let variables = {};
+    Object.keys(values).forEach(item => {
+      console.log(values[item]);
+      if(item !== "adAdmin") {
+        variables[item] = values[item];
+      } else {
+        variables["accessGiven"] = { [item]: values[item] }
+      }
+    });
+    return variables
+  }
+
+  completeBody(values) {
+    let accessGiven = {}
+    let variables = { accessGiven };
+
+    Object.keys(values).forEach(item => {
+      console.log(item)
+      console.log(values[item]);
+      if(item !== "firstName" && item !== "lastName" && item !== "department" && item !== "equipment" && item !== "personalEmail" && item !== "syscoEmail") {
+        accessGiven[item] = values[item];
+      } else {
+        variables[item] = values[item];
+      }
+    });
+    return variables;
+  }
+
 }
 
-export default connect(
-  state => ({})
-)(GenericForm)
+export default connect(state => ({}))(GenericForm);

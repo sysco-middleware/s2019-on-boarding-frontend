@@ -1,15 +1,17 @@
-import { Restservice } from '../../shared/restservice';
+import { restservice } from '../../shared/restservice';
 import * as AT from '../../constants/ActionTypes';
+import { history } from '../../shared/history';
 
 export const adminActions = {
-    login
+    login,
+    logout
 };
 
-function login(userName, password) {
+function login(username, password) {
     return dispatch => {
-        dispatch(request({userName}));
+        dispatch(request({username}));
 
-        Restservice.login(userName, password)
+        restservice.login(username, password)
         .then(
             admin => {
                 dispatch(success(admin));
@@ -24,4 +26,9 @@ function login(userName, password) {
     function request(admin) {return {type: AT.LOGIN_REQUEST, admin}}
     function success(admin) {return {type: AT.LOGIN_SUCCESS, admin}}
     function failure(error) {return {type: AT.LOGIN_FAILURE, error}}
+}
+
+function logout() {
+    restservice.logout();
+    return { type: AT.LOGOUT };
 }

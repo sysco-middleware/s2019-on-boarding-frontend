@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
 import GenericForm from "../components/GenericForm";
 import { loadProcessDefinitions, loadFormKey } from "../actions";
-import { getCookie } from '../constants/cookie';
 
 class StartProcessPage extends Component {
   componentWillMount() {
@@ -12,8 +11,6 @@ class StartProcessPage extends Component {
 
   render() {
     const { process, formKey, processInstanceStarted } = this.props;
-    let checkLogin = getCookie("LOGIN");
-    if (checkLogin) {
       if (!formKey && !processInstanceStarted) {
         return <div>Loading Process Start Form</div>;
       } else if (processInstanceStarted) {
@@ -31,9 +28,6 @@ class StartProcessPage extends Component {
           </div>
         );
       }
-    }else{
-      return <Redirect to="/login" />;
-    }
   }
 }
 const mapStateToProps = (state, ownProps) => {

@@ -8,6 +8,7 @@ import styles from '../css/styles'
 //  Material UI
 import { withStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
+import { history } from '../shared/history';
 
 
 class DeployProcess extends Component {
@@ -20,6 +21,7 @@ class DeployProcess extends Component {
 
   uploadFile(filename, file) {
     this.props.deployProcess(filename, file)
+    history.push('/');
   }
 
   render() {

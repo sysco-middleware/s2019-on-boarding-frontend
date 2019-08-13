@@ -1,6 +1,3 @@
-const { secret } = require('../config');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const db = require('../_helpers/db');
 const Employe = db.Employe;
 
@@ -30,15 +27,14 @@ async function create(employeParam) {
     await employe.save();
 }
 
-async function update(id, employeParam) {
-    const employe = await Employe.findById(id);
-
+async function update(employeParam) {
+    const id = await Employe.find({firstName: employeParam.firstName, lastName: employeParam.lastName });
+    if(id.length > 1 || id.length <= 0){
+        throw 'Employe "' + employeParam.firstName + " " + employeParam.lastName + '" does not exist';
+    }
+    const employe = await Employe.findById(id[0].id);
     // validate
     if (!employe) throw 'User not found';
-    if ((employe.firstName !== employeParam.firstName && await Employe.findOne({ firstName: employeParam.firstName })) || (employe.lastName !== employeParam.lastName && await Employe.findOne({ lastName: employeParam.lastName }))) {
-        throw 'Employe "' + employeParam.firstName + " " + employeParam.lastName + '" is already registered for onboarding';
-    }
-
     // copy employeParam properties to user
     Object.assign(employe, employeParam);
 

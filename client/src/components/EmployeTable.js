@@ -5,72 +5,43 @@ import MaterialTable from "material-table";
 import { withStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import Container from '@material-ui/core/Container';
+import Container from "@material-ui/core/Container";
 import { AddBox, ArrowUpward } from "@material-ui/icons";
+import { withRouter } from "react-router-dom";
 
-import Search from '@material-ui/icons/Search'
-import ViewColumn from '@material-ui/icons/ViewColumn'
-import SaveAlt from '@material-ui/icons/SaveAlt'
-import ChevronLeft from '@material-ui/icons/ChevronLeft'
-import ChevronRight from '@material-ui/icons/ChevronRight'
-import FirstPage from '@material-ui/icons/FirstPage'
-import LastPage from '@material-ui/icons/LastPage'
-import Add from '@material-ui/icons/Add'
-import Check from '@material-ui/icons/Check'
-import FilterList from '@material-ui/icons/FilterList'
-import Remove from '@material-ui/icons/Remove'
-import styles from '../css/styles';
-import { getCookie } from '../constants/cookie';
+import Search from "@material-ui/icons/Search";
+import ViewColumn from "@material-ui/icons/ViewColumn";
+import SaveAlt from "@material-ui/icons/SaveAlt";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+import FirstPage from "@material-ui/icons/FirstPage";
+import LastPage from "@material-ui/icons/LastPage";
+import Add from "@material-ui/icons/Add";
+import Check from "@material-ui/icons/Check";
+import FilterList from "@material-ui/icons/FilterList";
+import Remove from "@material-ui/icons/Remove";
+import styles from "../css/styles";
+import { connect } from "react-redux";
+import { employeActions } from "../actions/node-rest/employe-service";
+import { adminActions } from "../actions/node-rest/admin-service";
 
 class EmployeTable extends Component {
   constructor() {
     super();
     this.state = {
-      employes: [],
       open: false
     };
   }
 
   componentDidMount() {
-    fetch('/api/v1/getEmployes')
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ employes: data.employes });
-      });
+    this.props.getEmployes();
   }
-
-
- getData = () => {
-    if (this.state.employes.length > 0) {
-      const employes = this.state.employes;
-      const employeArray = [];
-      let employe;
-      for (var i = 0; i < employes.length; i++) {
-        employe = {
-          firstName: employes[i].firstName,
-          lastName: employes[i].lastName,
-          department: employes[i].department,
-          phoneNumber: employes[i].phoneNumber,
-          boss: employes[i].boss,
-          position: employes[i].position,
-          personalEmail: employes[i].personalEmail,
-          startDate: employes[i].startDate,
-        };
-        employeArray.push(employe);
-      }
-      return employeArray;
-    } else {
-      return [];
-    }
-  };
   render() {
-    const { classes } = this.props;
-    let checkLogin = getCookie("LOGIN");
-    if (checkLogin) {
+    const { classes, employes } = this.props;
     return (
       <div className={classes.root}>
         <MaterialTable
-          icons={{ 
+          icons={{
             Check: Check,
             DetailPanel: ChevronRight,
             Export: SaveAlt,
@@ -80,27 +51,62 @@ class EmployeTable extends Component {
             NextPage: ChevronRight,
             PreviousPage: ChevronLeft,
             Search: Search,
-            ThirdStateCheck: Remove,
+            ThirdStateCheck: Remove
           }}
           columns={[
             { title: "Fornavn", field: "firstName" },
             { title: "Etternavn", field: "lastName" },
             { title: "Avdeling", field: "department" },
-            { title: "Telefonnummer", field: "phoneNumber", type: "numeric"},
-            { title: "Sjef", field: "boss" },
-            { title: "Stilling", field: "position"}, 
-            { title: "Personlig e-post", field: "personalEmail"}, 
-            { title: "Start Dato", field: "startDate", type: "date"}
+            { title: "Personlig e-post", field: "personalEmail" },
+            { title: "Telefonnummer", field: "phoneNumber", type: "numeric" },
+            { title: "Nærmeste sjef", field: "nearestBoss" },
+            { title: "Avdeling", field: "department" },
+            { title: "Stilling", field: "position" },
+            { title: "Start Dato", field: "startDate", type: "date" }
           ]}
-          data={this.getData()}
+          data={employes.items}
           title="Ansatte"
           detailPanel={rowData => {
             return (
-              <div style={{ padding: 20 }}>
-                <Grid container spacing={24}>
-                  <h1>HEI</h1>
-                </Grid>
-              </div>
+              <MaterialTable
+                icons={{
+                  Check: Check,
+                  DetailPanel: ChevronRight,
+                  Export: SaveAlt,
+                  Filter: FilterList,
+                  FirstPage: FirstPage,
+                  LastPage: LastPage,
+                  NextPage: ChevronRight,
+                  PreviousPage: ChevronLeft,
+                  Search: Search,
+                  ThirdStateCheck: Remove
+                }}
+                title="Multiple Detail Panels Preview"
+                columns={[
+                  { title: "Name", field: "name" },
+                  { title: "Surname", field: "surname" },
+                  { title: "Birth Year", field: "birthYear", type: "numeric" },
+                  {
+                    title: "Birth Place",
+                    field: "birthCity",
+                    lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
+                  }
+                ]}
+                data={[
+                  {
+                    name: "Mehmet",
+                    surname: "Baran",
+                    birthYear: 1987,
+                    birthCity: 63
+                  },
+                  {
+                    name: "Zerya Betül",
+                    surname: "Baran",
+                    birthYear: 2017,
+                    birthCity: 34
+                  }
+                ]}
+              />
             );
           }}
           onRowClick={(event, rowData, togglePanel) => togglePanel()}
@@ -139,10 +145,23 @@ class EmployeTable extends Component {
         />
       </div>
     );
-  } else {
-    return <Redirect to="/login" />;
-    }
   }
 }
 
-export default withStyles(styles)(EmployeTable);
+function mapStateToProps(state) {
+  const { employes } = state;
+  return { employes };
+}
+
+const actionCreators = {
+  getEmployes: employeActions.getAll
+};
+
+export default withStyles(styles)(
+  withRouter(
+    connect(
+      mapStateToProps,
+      actionCreators
+    )(EmployeTable)
+  )
+);
