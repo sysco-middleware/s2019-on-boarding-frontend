@@ -20,17 +20,32 @@ import Add from "@material-ui/icons/Add";
 import Check from "@material-ui/icons/Check";
 import FilterList from "@material-ui/icons/FilterList";
 import Remove from "@material-ui/icons/Remove";
-import styles from "../css/styles";
+import styles, { inlineStyle } from "../css/styles";
 import { connect } from "react-redux";
 import { employeActions } from "../actions/node-rest/employe-service";
-import { adminActions } from "../actions/node-rest/admin-service";
+import { Button, Header, Checkbox, Modal, Form } from 'semantic-ui-react'
+
 
 class EmployeTable extends Component {
   constructor() {
     super();
     this.state = {
-      open: false
+      open: false,
+      detailData: {}
     };
+  }
+
+  toggleDialog(rowData) {
+    if(rowData.accessGiven) {
+      this.setState({detailData: rowData.accessGiven})
+      this.setState({open: true})
+  } else {
+    alert("Denne personen har ikke fått noen tilganger.")
+  }
+  }
+
+  closeDialog() {
+    this.setState({open: false})
   }
 
   componentDidMount() {
@@ -40,6 +55,37 @@ class EmployeTable extends Component {
     const { classes, employes } = this.props;
     return (
       <div className={classes.root}>
+
+        <Modal size={"tiny"} style={inlineStyle.modal} open={this.state.open} onClose={(event) => this.closeDialog()}>
+          <Modal.Header>Select a Photo</Modal.Header>
+          <Modal.Content image>
+            <Modal.Description>
+            <Form>
+              {Object.keys(this.state.detailData).map(item => {
+                if(typeof(this.state.detailData[item]) === "boolean") {
+                  return (  
+                    <Form.Group>
+                  <Checkbox toggle label={"Tilgang til: " + item} onChange={this.toggle} checked={this.state.detailData[item]} /></Form.Group>
+                  )
+                } else return <p> Name: {item} Value: {this.state.detailData[item]}</p>
+              })}
+              </Form>
+            </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='black' onClick={this.close}>
+              Nope
+            </Button>
+            <Button
+              positive
+              icon='checkmark'
+              labelPosition='right'
+              content="Yep, that's me"
+              onClick={this.close}
+            />
+          </Modal.Actions>
+        </Modal>
+
         <MaterialTable
           icons={{
             Check: Check,
@@ -66,50 +112,7 @@ class EmployeTable extends Component {
           ]}
           data={employes.items}
           title="Ansatte"
-          detailPanel={rowData => {
-            return (
-              <MaterialTable
-                icons={{
-                  Check: Check,
-                  DetailPanel: ChevronRight,
-                  Export: SaveAlt,
-                  Filter: FilterList,
-                  FirstPage: FirstPage,
-                  LastPage: LastPage,
-                  NextPage: ChevronRight,
-                  PreviousPage: ChevronLeft,
-                  Search: Search,
-                  ThirdStateCheck: Remove
-                }}
-                title="Multiple Detail Panels Preview"
-                columns={[
-                  { title: "Name", field: "name" },
-                  { title: "Surname", field: "surname" },
-                  { title: "Birth Year", field: "birthYear", type: "numeric" },
-                  {
-                    title: "Birth Place",
-                    field: "birthCity",
-                    lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
-                  }
-                ]}
-                data={[
-                  {
-                    name: "Mehmet",
-                    surname: "Baran",
-                    birthYear: 1987,
-                    birthCity: 63
-                  },
-                  {
-                    name: "Zerya Betül",
-                    surname: "Baran",
-                    birthYear: 2017,
-                    birthCity: 34
-                  }
-                ]}
-              />
-            );
-          }}
-          onRowClick={(event, rowData, togglePanel) => togglePanel()}
+          onRowClick={(event, rowData) => this.toggleDialog(rowData)}
           localization={{
             pagination: {
               labelDisplayedRows: "{from}-{to} av {count}", // {from}-{to} of {count}

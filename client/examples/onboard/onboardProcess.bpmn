@@ -9,7 +9,7 @@
     <bpmn:boundaryEvent id="BoundaryEvent_1" name="Every 24h" cancelActivity="false" attachedToRef="Task_105k8zh">
       <bpmn:outgoing>SequenceFlow_13hd46r</bpmn:outgoing>
       <bpmn:timerEventDefinition>
-        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1M</bpmn:timeCycle>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT12H</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:userTask id="checkFormOnboard" name="Check access" camunda:formKey="checkFormOnboard">
@@ -21,7 +21,7 @@
     <bpmn:boundaryEvent id="BoundaryEvent_5" name="Every 24h" cancelActivity="false" attachedToRef="checkFormOnboard">
       <bpmn:outgoing>SequenceFlow_06yj7yn</bpmn:outgoing>
       <bpmn:timerEventDefinition>
-        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1M</bpmn:timeCycle>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT12H</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:endEvent id="EndEvent_1q15wpb" name="End of process">
@@ -31,11 +31,11 @@
       <bpmn:incoming>SequenceFlow_1klk78k</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1klk78k" sourceRef="Task_1egt3k2" targetRef="EndEvent_180cmwe" />
-    <bpmn:serviceTask id="Task_1egt3k2" name="Email reminder" camunda:type="external" camunda:topic="ToDB">
+    <bpmn:serviceTask id="Task_1egt3k2" name="Email reminder" camunda:type="external" camunda:topic="AccessRem">
       <bpmn:incoming>SequenceFlow_06yj7yn</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1klk78k</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_0hm7oc3" name="Email reminder" camunda:type="external" camunda:topic="ToDB">
+    <bpmn:serviceTask id="Task_0hm7oc3" name="Email reminder" camunda:type="external" camunda:topic="SDRem">
       <bpmn:incoming>SequenceFlow_13hd46r</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1j5w3dw</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -74,22 +74,22 @@
     <bpmn:boundaryEvent id="BoundaryEvent_3" cancelActivity="false" attachedToRef="AdFin">
       <bpmn:outgoing>SequenceFlow_118a5k8</bpmn:outgoing>
       <bpmn:timerEventDefinition>
-        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT12H</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:boundaryEvent id="BoundaryEvent_2" cancelActivity="false" attachedToRef="hrOnboard">
       <bpmn:outgoing>SequenceFlow_0fve2b8</bpmn:outgoing>
       <bpmn:timerEventDefinition>
-        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT12H</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="SequenceFlow_118a5k8" sourceRef="BoundaryEvent_3" targetRef="Task_1c1grsz" />
     <bpmn:sequenceFlow id="SequenceFlow_0fve2b8" sourceRef="BoundaryEvent_2" targetRef="Task_1kpi2ii" />
-    <bpmn:serviceTask id="Task_1c1grsz" name="Admin Reminder" camunda:type="external" camunda:topic="AdminReminder">
+    <bpmn:serviceTask id="Task_1c1grsz" name="Admin Reminder" camunda:type="external" camunda:topic="AdminRem">
       <bpmn:incoming>SequenceFlow_118a5k8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0e2rf0p</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_1kpi2ii" name="HRReminder" camunda:type="external" camunda:topic="HRReminder">
+    <bpmn:serviceTask id="Task_1kpi2ii" name="HRReminder" camunda:type="external" camunda:topic="HRRem">
       <bpmn:incoming>SequenceFlow_0fve2b8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0rgbmqb</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -120,7 +120,7 @@
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1ylwu5u" sourceRef="BoundaryEvent_1thz3fq" targetRef="Task_0mr7qmb" />
-    <bpmn:serviceTask id="Task_0mr7qmb" name="Task recieved" camunda:type="external" camunda:topic="SD1Rec">
+    <bpmn:serviceTask id="Task_0mr7qmb" name="Task recieved" camunda:type="external" camunda:topic="SDRec">
       <bpmn:incoming>SequenceFlow_1ylwu5u</bpmn:incoming>
     </bpmn:serviceTask>
     <bpmn:boundaryEvent id="BoundaryEvent_0jwilqv" cancelActivity="false" attachedToRef="AdFin">
@@ -157,7 +157,6 @@
     <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_14gvn1s" name="Skal være 7 dager, men satt til minus y dager pga testing endre til:">
       <bpmn:incoming>SequenceFlow_0pkvuxe</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1opdvp3</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0szstoz</bpmn:outgoing>
       <bpmn:timerEventDefinition>
         <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${dateTime().parse(startDate).minusDays(7).toDate()}</bpmn:timeDate>
       </bpmn:timerEventDefinition>
@@ -176,7 +175,7 @@
     <bpmn:boundaryEvent id="BoundaryEvent_1atc5v1" cancelActivity="false" attachedToRef="cheackUpForm">
       <bpmn:outgoing>SequenceFlow_00m17xv</bpmn:outgoing>
       <bpmn:timerEventDefinition>
-        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT24H</bpmn:timeCycle>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT12H</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="SequenceFlow_04xm0ud" sourceRef="BoundaryEvent_1v3xdvw" targetRef="Task_06hvat3" />
@@ -184,7 +183,7 @@
       <bpmn:incoming>SequenceFlow_04xm0ud</bpmn:incoming>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_00m17xv" sourceRef="BoundaryEvent_1atc5v1" targetRef="Task_0rdjxz8" />
-    <bpmn:serviceTask id="Task_0rdjxz8" name="Email reminder" camunda:type="external" camunda:topic="CheckUpReminder">
+    <bpmn:serviceTask id="Task_0rdjxz8" name="Email reminder" camunda:type="external" camunda:topic="CheckUpRem">
       <bpmn:incoming>SequenceFlow_00m17xv</bpmn:incoming>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_0pkvuxe" sourceRef="Task_1vg33rk" targetRef="IntermediateThrowEvent_14gvn1s" />
@@ -192,10 +191,6 @@
     <bpmn:serviceTask id="Task_0jls22n" name="Create user in CV partner" camunda:type="external" camunda:topic="CVPartner">
       <bpmn:incoming>SequenceFlow_0ms4k1m</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1nu4q9p</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_0szstoz" sourceRef="IntermediateThrowEvent_14gvn1s" targetRef="Task_12vve3g" />
-    <bpmn:serviceTask id="Task_12vve3g" name="Copy info to DB" camunda:type="external" camunda:topic="ToDB">
-      <bpmn:incoming>SequenceFlow_0szstoz</bpmn:incoming>
     </bpmn:serviceTask>
     <bpmn:textAnnotation id="TextAnnotation_0uq2g5i">
       <bpmn:text>Evt om vi skal lagre skjema noe spesielt sted her ...?</bpmn:text>
@@ -466,13 +461,6 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_06kztex_di" bpmnElement="Task_0jls22n">
         <dc:Bounds x="637" y="474" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0szstoz_di" bpmnElement="SequenceFlow_0szstoz">
-        <di:waypoint x="2201" y="514" />
-        <di:waypoint x="2261" y="514" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_05arrug_di" bpmnElement="Task_12vve3g">
-        <dc:Bounds x="2261" y="474" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

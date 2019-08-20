@@ -51,18 +51,25 @@ class GenericForm extends Component {
 
   handleComplete(values, dispatch) {
     let camVar = this.getBody(values);
-    let monVar = this.completeBody(values);
-    return dispatch(employeActions.update(monVar))
-    //return dispatch(completeTask(this.props.taskId, camVar));
+    let monVar = this.completeBody(values)
+    this.handleValidateComplete(monVar, dispatch)
+    return dispatch(completeTask(this.props.taskId, camVar))
+  }
+
+  handleValidateComplete(values, dispatch) {
+    console.log(values)
+    return dispatch(employeActions.update(values))
   }
 
   handleStartInstance(values, dispatch) {
-    let camVar = this.getBody(values);
+    let camVar = this.getBody(values)
     let monVar = this.monooseBody(values);
-    console.log(values);
-    console.log(camVar);
-    console.log(monVar);
-    return dispatch(employeActions.register(monVar), startProcessInstance(this.props.processDefinitionKey, camVar))
+    this.handleValidateStart(monVar, dispatch)
+    return dispatch(startProcessInstance(this.props.processDefinitionKey, camVar))
+  }
+
+  handleValidateStart(values, dispatch) {
+    return dispatch(employeActions.register(values))
   }
 
   getBody(values) {
@@ -90,17 +97,21 @@ class GenericForm extends Component {
 
   completeBody(values) {
     let accessGiven = {}
-    let variables = { accessGiven };
-
+    let variables = {
+      "accessGiven": accessGiven
+    };
+    console.log(values)
     Object.keys(values).forEach(item => {
       console.log(item)
       console.log(values[item]);
       if(item !== "firstName" && item !== "lastName" && item !== "department" && item !== "equipment" && item !== "personalEmail" && item !== "syscoEmail") {
-        accessGiven[item] = values[item];
+        accessGiven[item] = values[item]
       } else {
         variables[item] = values[item];
       }
     });
+    // Arrays together as one
+    console.log(variables)
     return variables;
   }
 

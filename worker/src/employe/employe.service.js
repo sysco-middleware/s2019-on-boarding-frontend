@@ -35,8 +35,14 @@ async function update(employeParam) {
     const employe = await Employe.findById(id[0].id);
     // validate
     if (!employe) throw 'User not found';
+    if (employeParam.accessGiven) {
+        Object.assign(employe.accessGiven, employeParam.accessGiven)
+    } else {
+        Object.assign(employe, employeParam)
+    } 
+
     // copy employeParam properties to user
-    Object.assign(employe, employeParam);
+    //Object.assign(employe, employeParam);
 
     await employe.save();
 }

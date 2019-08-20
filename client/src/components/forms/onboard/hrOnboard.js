@@ -38,7 +38,7 @@ class SimpleForm extends React.Component {
           <Grid.Row columns={2}>
             <Grid.Column>
               <Field
-                name="personalEmail"
+                name="syscoEmail"
                 component={InputField}
                 label="Personlig E-post"
                 placeholder="Personlig E-post"
@@ -61,7 +61,7 @@ class SimpleForm extends React.Component {
               <Field
                 name="workplace"
                 component={InputField}
-                label="Legg til i workplace"
+                label="Legg til i workplace og organisasjonsstruktur"
                 placeholder="Workplace and orgnisation structure"
                 validate={[Validation.required]}
               />
@@ -77,6 +77,29 @@ class SimpleForm extends React.Component {
               </Form.Group>
             </Grid.Column>
           </Grid.Row>
+
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Field
+                name="pipedrive"
+                component={InputField}
+                label="Legg til i Pipedrive - info sendes frode.wagen@sysco.no"
+                component={CheckboxField}
+                toggle
+              />
+            </Grid.Column>{""}
+            <Grid.Column>
+              <Form.Group>
+                <Field
+                  name="accessCard"
+                  component={CheckboxField}
+                  toggle
+                  label="Nøkkelkort/adgangskort bestilt"
+                />
+              </Form.Group>
+            </Grid.Column>
+          </Grid.Row>
+
           <Grid.Row columns={2}>
             <Grid.Column>
               <Form.Field control={Button} primary fluid type="submit">

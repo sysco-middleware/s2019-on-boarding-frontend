@@ -1,5 +1,13 @@
 const drawerWidth = 240;
 
+export const inlineStyle = {
+  modal : {
+    marginTop: '0px !important',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  }
+};
+
 const styles = theme => ({
     root: {
       width: "90%",
@@ -88,4 +96,5 @@ const styles = theme => ({
 });
 
 export default styles;
+
 

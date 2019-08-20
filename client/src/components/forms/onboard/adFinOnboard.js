@@ -87,7 +87,7 @@ let SimpleForm = props => {
           <Grid.Column>
             <Form.Group>
               <Field
-                name="registred"
+                name="vismaRegistred"
                 component={CheckboxField}
                 toggle
                 label="Registred in Severa systems"

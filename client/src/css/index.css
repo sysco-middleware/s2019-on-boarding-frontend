@@ -13,7 +13,6 @@ body {
 .margin-top-sm {
   margin-top: 6em;
 }
-
 .ui.disabled.input {
   opacity: 1;
 }
@@ -21,7 +20,9 @@ body {
 .ui.checkbox {
   padding: 2em;
 }
-
+.ui.page.modals.transition.visible {
+  display: flex !important;
+}
 .ui.toggle.checkbox label {
   font-weight: 700;
   font-size: .92857143em;

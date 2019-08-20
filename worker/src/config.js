@@ -9,6 +9,5 @@ module.exports = {
     camundaTestURL: process.env.CAMUNDA_TEST_URL,
     mongourl: process.env.MONGO,
     secret: process.env.SECRET,
-    apiUrl: '/api/v1/',
     connectionString: "mongodb://localhost/node-mongo-registration-login-api",
 }
